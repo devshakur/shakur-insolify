@@ -1,0 +1,148 @@
+"use client";
+
+import Image from "next/image";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+
+const links = [
+  { href: "#how-it-works", label: "How it works" },
+  { href: "#features", label: "Features" },
+  { href: "#support", label: "Support" },
+  { href: "#faq", label: "FAQ" },
+];
+
+function subscribeToTheme(onStoreChange: () => void) {
+  const observer = new MutationObserver(onStoreChange);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+  return () => observer.disconnect();
+}
+
+function getThemeSnapshot() {
+  return document.documentElement.classList.contains("dark");
+}
+
+function getServerThemeSnapshot() {
+  return false;
+}
+
+export function SiteNav() {
+  const navRef = useRef<HTMLElement>(null);
+  const [fixed, setFixed] = useState(false);
+  const [navHeight, setNavHeight] = useState(0);
+  const dark = useSyncExternalStore(
+    subscribeToTheme,
+    getThemeSnapshot,
+    getServerThemeSnapshot,
+  );
+
+  useEffect(() => {
+    const onScroll = () => setFixed(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+
+    const measure = () => setNavHeight(nav.offsetHeight);
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(nav);
+    return () => observer.disconnect();
+  }, []);
+
+  function toggleTheme() {
+    const next = !document.documentElement.classList.contains("dark");
+    document.documentElement.classList.toggle("dark", next);
+    localStorage.setItem("theme", next ? "dark" : "light");
+  }
+
+  return (
+    <header className="relative z-40 mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-3 px-4 pt-4 sm:px-6 lg:px-8 lg:pt-6">
+      <a href="#top" className="flex items-center">
+        <Image
+          src="/insolify-logo.png"
+          alt="Insolify"
+          width={423}
+          height={126}
+          priority
+          className="h-7 w-auto dark:brightness-0 dark:invert"
+        />
+      </a>
+
+      <div className="order-3 flex w-full flex-col items-center lg:order-2 lg:w-auto lg:flex-1">
+        {fixed ? <div aria-hidden style={{ height: navHeight }} /> : null}
+        <nav
+          ref={navRef}
+          aria-label="Primary"
+          className={`flex items-center justify-center gap-0.5 rounded-full bg-[#f2f2f4] px-1.5 py-1.5 sm:gap-1 sm:px-2 sm:py-2 dark:bg-[#2a2a30] ${
+            fixed
+              ? "fixed top-4 left-1/2 z-50 -translate-x-1/2 shadow-[0_10px_30px_rgba(20,16,40,0.12)]"
+              : "relative"
+          }`}
+        >
+          {links.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="rounded-full px-2.5 py-2 text-[13px] whitespace-nowrap text-[#6d6d6d] transition-colors hover:text-[#1a1a1a] sm:px-4 sm:text-sm dark:text-[#c8c8c8] dark:hover:text-white"
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      <div className="order-2 flex items-center gap-2 lg:order-3">
+        <button
+          type="button"
+          onClick={toggleTheme}
+          aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#ececf1] bg-white text-[#2b2b2b] transition-colors hover:bg-[#f6f6f6] dark:border-white/15 dark:bg-[#1c1c22] dark:text-white dark:hover:bg-[#2a2a30]"
+        >
+          {dark ? <SunIcon /> : <MoonIcon />}
+        </button>
+        <a
+          href="https://www.insolify.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex h-10 items-center rounded-full bg-[#7b61ff] px-4 text-sm font-semibold text-white transition-colors hover:bg-[#6a4ff0] sm:px-5"
+        >
+          Account
+        </a>
+      </div>
+    </header>
+  );
+}
+
+function MoonIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="M20 14.5A8.5 8.5 0 0 1 9.5 4 7 7 0 1 0 20 14.5Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function SunIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.8" />
+      <path
+        d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5 5l1.6 1.6M17.4 17.4 19 19M19 5l-1.6 1.6M6.6 17.4 5 19"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
