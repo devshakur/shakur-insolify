@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 const links = [
   { href: "#how-it-works", label: "How it works" },
@@ -9,21 +10,38 @@ const links = [
   { href: "#faq", label: "FAQ" },
 ];
 
+function subscribeToTheme(onStoreChange: () => void) {
+  const observer = new MutationObserver(onStoreChange);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+  return () => observer.disconnect();
+}
+
+function getThemeSnapshot() {
+  return document.documentElement.classList.contains("dark");
+}
+
+function getServerThemeSnapshot() {
+  return false;
+}
+
 export function SiteNav() {
   const navRef = useRef<HTMLElement>(null);
   const [fixed, setFixed] = useState(false);
   const [navHeight, setNavHeight] = useState(0);
-  const [dark, setDark] = useState(false);
+  const dark = useSyncExternalStore(
+    subscribeToTheme,
+    getThemeSnapshot,
+    getServerThemeSnapshot,
+  );
 
   useEffect(() => {
     const onScroll = () => setFixed(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    setDark(document.documentElement.classList.contains("dark"));
   }, []);
 
   useEffect(() => {
@@ -42,15 +60,17 @@ export function SiteNav() {
     const next = !document.documentElement.classList.contains("dark");
     document.documentElement.classList.toggle("dark", next);
     localStorage.setItem("theme", next ? "dark" : "light");
-    setDark(next);
   }
 
   return (
     <header className="relative z-40 mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-3 px-4 pt-4 sm:px-6 lg:px-8 lg:pt-6">
       <a href="#top" className="flex items-center">
-        <img
+        <Image
           src="/insolify-logo.png"
           alt="Insolify"
+          width={423}
+          height={126}
+          priority
           className="h-7 w-auto dark:brightness-0 dark:invert"
         />
       </a>
