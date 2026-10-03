@@ -3,11 +3,7 @@ import { Hero } from "@/components/hero";
 import { FeaturedProducts } from "@/features/products/featured-products";
 import { PowerfulFeatures } from "@/features/products/powerful-features";
 
-const howItWorks = {
-  id: "how-it-works",
-  title: "How it works",
-  body: "Open the Insolify app, create an instance for the service you use, and manage it from one place. Fincore, Safi, and Settle stay together so onboarding, analytics, and day-to-day operations are not split across tools.",
-};
+
 
 const sections: { id: string; title: string; body: ReactNode }[] = [
   {

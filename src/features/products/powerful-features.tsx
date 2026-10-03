@@ -23,7 +23,7 @@ export function PowerfulFeatures() {
   return (
     <MotionConfig reducedMotion="user">
       <section className="relative bg-white py-5 dark:bg-[#0B0C10]">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full px-4 sm:px-6 lg:px-8">
           <div className="mb-10 flex items-end justify-between gap-6">
             <div>
               <p className="text-sm text-[#6B7280] dark:text-[#9CA3AF]">Our products</p>
@@ -59,16 +59,4 @@ export function PowerfulFeatures() {
   );
 }
 
-function ArrowIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 12 12" fill="none" aria-hidden>
-      <path
-        d="M2 10 10 2M4 2h6v6"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
+

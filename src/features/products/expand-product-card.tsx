@@ -30,7 +30,7 @@ export function ExpandProductCard({ feature, expanded, onOpen }: ExpandProductCa
     <motion.article
       animate={isDesktop ? { flexGrow: expanded ? 1.85 : 0.72 } : { flexGrow: 0 }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className="relative h-[300px] w-full min-h-[300px] shrink-0 overflow-hidden rounded-[2rem] bg-[#E4EDC4] dark:bg-[#2C3120] lg:min-w-0 lg:w-auto lg:basis-0 lg:shrink"
+      className="relative h-72 w-full min-h-72 shrink-0 overflow-hidden rounded-4xl bg-[#E4EDC4] dark:bg-[#2C3120] lg:min-w-0 lg:w-auto lg:basis-0 lg:shrink"
     >
       <button
         type="button"

@@ -26,7 +26,7 @@ export function FeaturedProducts() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <section id="features" className="relative scroll-mt-28 overflow-hidden bg-[#F6F4EE] py-16 text-[#16181D] sm:py-20 dark:bg-[#0B0C10] dark:text-white">
+      <section id="features" className="relative scroll-mt-28 overflow-hidden bg-[#F6F4EE] py-8 text-[#16181D] dark:bg-[#0B0C10] dark:text-white">
         <div
           aria-hidden
           className="pointer-events-none absolute top-24 left-1/4 h-72 w-72 rounded-full bg-[#D4AF37]/15 blur-3xl"
@@ -35,7 +35,7 @@ export function FeaturedProducts() {
           <NetworkVisual />
         </div>
 
-        <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto w-full px-4 sm:px-6 lg:px-8">
           <h2 className="sr-only">Featured products</h2>
           <div
             role="tablist"
