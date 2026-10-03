@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Hero } from "@/components/hero";
 import { FeaturedProducts } from "@/features/products/featured-products";
+import { PowerfulFeatures } from "@/features/products/powerful-features";
 
 const howItWorks = {
   id: "how-it-works",
@@ -48,6 +49,7 @@ export default function Home() {
       <main>
         <Hero />
         <FeaturedProducts />
+        <PowerfulFeatures />
         {sections.map((section) => (
           <section
             key={section.id}

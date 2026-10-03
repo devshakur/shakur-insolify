@@ -27,5 +27,9 @@ export type Product = {
   primaryHref: string;
   secondaryLabel: string;
   secondaryHref: string;
+  cardTitle: string;
+  excerpt: string;
+  image: string;
+  imagePosition: string;
   preview: ProductPreview;
 };

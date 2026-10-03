@@ -35,7 +35,7 @@ export function FeaturedProducts() {
           <NetworkVisual />
         </div>
 
-        <div className="relative mx-auto w-full  px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="sr-only">Featured products</h2>
           <div
             role="tablist"
@@ -117,9 +117,9 @@ export function FeaturedProducts() {
               </motion.div>
             </AnimatePresence>
 
-            <div className="grid gap-4">
+            <div className="grid w-full items-start gap-4 self-start">
               {others.map((product) => (
-                <div key={product.id} className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                <div key={product.id} className="grid items-start gap-4 sm:grid-cols-2">
                   <div className="rounded-[28px] border border-[#E6E2D6] bg-white p-5 dark:border-[#2A2D35] dark:bg-[#16181D]/70">
                     <ProductCard product={product} onSelect={() => selectProduct(product.id)} />
                   </div>

@@ -13,6 +13,11 @@ export const products: Product[] = [
     primaryHref: site,
     secondaryLabel: "Watch Overview",
     secondaryHref: "#how-it-works",
+    cardTitle: "Safi AI for modern business",
+    excerpt:
+      "Automate support, meetings, and fraud checks with one assistant built for finance teams.",
+    image: "/image/insolify.webp",
+    imagePosition: "70% center",
     preview: {
       title: "AI for Modern Business",
       summary:
@@ -31,6 +36,11 @@ export const products: Product[] = [
     primaryHref: site,
     secondaryLabel: "View Demo",
     secondaryHref: "#how-it-works",
+    cardTitle: "Settle Africa for payments",
+    excerpt:
+      "Cross-border and local payments with low fees, fast settlement, and compliance built in.",
+    image: "/image/insolify.webp",
+    imagePosition: "center center",
     preview: {
       title: "Payments Built for Africa",
       summary:
@@ -49,6 +59,11 @@ export const products: Product[] = [
     primaryHref: "mailto:sales@insolify.com",
     secondaryLabel: "View Modules",
     secondaryHref: "#how-it-works",
+    cardTitle: "Fincore for digital banking",
+    excerpt:
+      "A modular core for accounts, lending, digital channels, and regulatory reporting.",
+    image: "/image/insolify.webp",
+    imagePosition: "20% center",
     preview: {
       title: "Modular, Scalable Core",
       summary:
