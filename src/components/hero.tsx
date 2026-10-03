@@ -19,7 +19,7 @@ export function Hero() {
 
       <div className="relative z-10 flex min-h-160 flex-col lg:min-h-190">
         <SiteNav />
-        <div className="mx-auto flex w-full max-w-7xl flex-1 items-start px-4 pt-6 pb-8 sm:px-6 lg:items-center lg:px-8 lg:pt-6 lg:pb-20">
+        <div className="mx-auto flex w-full max-w-8xl flex-1 items-start px-4 pt-6 pb-8 sm:px-6 lg:items-center lg:px-8 lg:pt-6 lg:pb-20">
           <div className="hero-copy max-w-2xl">
             <p className="text-sm font-medium tracking-wide text-[#7b61ff] sm:text-base">
               Core banking, AI &amp; payments infrastructure
