@@ -48,19 +48,15 @@ type Phase = "typing" | "loading" | "answer";
 export function SafiDemo() {
   const reduceMotion = useReducedMotion();
   const [index, setIndex] = useState(0);
-  const [phase, setPhase] = useState<Phase>(reduceMotion ? "answer" : "typing");
-  const [typed, setTyped] = useState(reduceMotion ? demos[0].prompt : "");
+  const [phase, setPhase] = useState<Phase>("typing");
+  const [typed, setTyped] = useState("");
   const demo = demos[index];
+  const shownPhase = reduceMotion ? "answer" : phase;
+  const shownTyped = reduceMotion ? demo.prompt : typed;
 
   useEffect(() => {
-    if (reduceMotion) {
-      setTyped(demo.prompt);
-      setPhase("answer");
-      return;
-    }
+    if (reduceMotion) return;
 
-    setTyped("");
-    setPhase("typing");
     let count = 0;
     let loadTimer = 0;
 
@@ -82,11 +78,6 @@ export function SafiDemo() {
 
   function show(nextIndex: number) {
     setIndex(nextIndex);
-    if (reduceMotion) {
-      setTyped(demos[nextIndex].prompt);
-      setPhase("answer");
-      return;
-    }
     setTyped("");
     setPhase("typing");
   }
@@ -109,11 +100,11 @@ export function SafiDemo() {
 
       <div className="min-h-72 px-4 py-4" aria-live="polite">
         <p className="ml-auto w-fit max-w-[85%] rounded-full bg-[#111] px-4 py-2.5 text-sm text-white dark:bg-white dark:text-[#1a1a1a]">
-          {typed}
-          {phase === "typing" ? <span className="demo-caret">|</span> : null}
+          {shownTyped}
+          {shownPhase === "typing" ? <span className="demo-caret">|</span> : null}
         </p>
 
-        {phase === "loading" ? (
+        {shownPhase === "loading" ? (
           <div className="mt-4 flex items-center gap-3 rounded-2xl border border-[#E6E2D6] bg-white px-4 py-3 text-sm text-[#6B7280] dark:border-white/10 dark:bg-[#2a2d33] dark:text-white/70">
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white">
               <DropletIcon />
@@ -127,7 +118,7 @@ export function SafiDemo() {
           </div>
         ) : null}
 
-        {phase === "answer" ? (
+        {shownPhase === "answer" ? (
           <div className="mt-4 rounded-2xl border border-[#E6E2D6] bg-white px-4 py-4 text-sm text-[#16181D] dark:border-white/10 dark:bg-[#2a2d33] dark:text-white">
             <p className="flex items-center gap-2 text-[#7C5CBF] dark:text-[#C4B5FD]">
               <MailIcon />
