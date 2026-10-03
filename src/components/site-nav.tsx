@@ -63,7 +63,7 @@ export function SiteNav() {
   }
 
   return (
-    <header className="relative z-40 mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-3 px-4 pt-4 sm:px-6 lg:px-8 lg:pt-6">
+    <header className="relative z-40 mx-auto flex w-full  flex-wrap items-center justify-between gap-x-4 gap-y-3 px-4 pt-4 sm:px-6 lg:px-8 lg:pt-6">
       <a href="#top" className="flex items-center">
         <Image
           src="/insolify-logo.png"

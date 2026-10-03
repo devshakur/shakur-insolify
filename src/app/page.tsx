@@ -1,17 +1,14 @@
 import type { ReactNode } from "react";
 import { Hero } from "@/components/hero";
+import { FeaturedProducts } from "@/features/products/featured-products";
+
+const howItWorks = {
+  id: "how-it-works",
+  title: "How it works",
+  body: "Open the Insolify app, create an instance for the service you use, and manage it from one place. Fincore, Safi, and Settle stay together so onboarding, analytics, and day-to-day operations are not split across tools.",
+};
 
 const sections: { id: string; title: string; body: ReactNode }[] = [
-  {
-    id: "how-it-works",
-    title: "How it works",
-    body: "Open the Insolify app, create an instance for the service you use, and manage it from one place. Fincore, Safi, and Settle stay together so onboarding, analytics, and day-to-day operations are not split across tools.",
-  },
-  {
-    id: "features",
-    title: "Features",
-    body: "Fincore is a core banking platform with deployable modules for microfinance banks, fintechs, and finance houses. Safi is an AI assistant for automation, insights, and customer support. Settle handles fast, flexible money transfers across Africa and beyond.",
-  },
   {
     id: "support",
     title: "Support",
@@ -48,8 +45,9 @@ const sections: { id: string; title: string; body: ReactNode }[] = [
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col bg-white text-[#2b2b2b] dark:bg-[#0c0c0f] dark:text-[#ededed]">
-      <main className="pb-[40vh]">
+      <main>
         <Hero />
+        <FeaturedProducts />
         {sections.map((section) => (
           <section
             key={section.id}
