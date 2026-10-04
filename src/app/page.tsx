@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Hero } from "@/components/hero";
 import { FeaturedProducts } from "@/features/products/featured-products";
 import { FincoreCapabilities } from "@/features/products/fincore-capabilities";
+import { ImpactStories } from "@/features/products/impact-stories";
 import { PowerfulFeatures } from "@/features/products/powerful-features";
 
 
@@ -48,6 +49,7 @@ export default function Home() {
         <FeaturedProducts />
         <FincoreCapabilities />
         <PowerfulFeatures />
+        <ImpactStories />
         {sections.map((section) => (
           <section
             key={section.id}

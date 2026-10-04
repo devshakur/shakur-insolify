@@ -37,7 +37,7 @@ export function FincoreCapabilities() {
     <MotionConfig reducedMotion="user">
       <section
         id="capabilities"
-        className="bg-white px-4 py-6 sm:px-6 lg:px-8 dark:bg-[#0c0c0f]"
+        className=" px-4 py-6 sm:px-6 lg:px-8 dark:bg-[#0c0c0f]"
       >
         <div className="mx-auto w-full rounded-4xl bg-[#E6EEE4] px-6 py-10 sm:rounded-[40px] sm:px-10 sm:py-12 lg:px-14 lg:py-16">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-12 lg:gap-16">
