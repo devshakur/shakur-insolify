@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Hero } from "@/components/hero";
 import { FeaturedProducts } from "@/features/products/featured-products";
+import { FincoreCapabilities } from "@/features/products/fincore-capabilities";
 import { PowerfulFeatures } from "@/features/products/powerful-features";
 
 
@@ -45,6 +46,7 @@ export default function Home() {
       <main>
         <Hero />
         <FeaturedProducts />
+        <FincoreCapabilities />
         <PowerfulFeatures />
         {sections.map((section) => (
           <section
