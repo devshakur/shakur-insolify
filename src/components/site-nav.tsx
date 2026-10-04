@@ -7,9 +7,9 @@ import { InsolifySidebar } from "@/components/insolify-sidebar";
 const links = [
   { href: "#how-it-works", label: "How it works" },
   { href: "#features", label: "Features" },
+  { href: "#faq", label: "About" },
   { href: "#support", label: "Pricing" },
   { href: "#verify", label: "TVerify" },
-  { href: "#faq", label: "About" },
   { href: "#contact", label: "Contact" },
 ];
 

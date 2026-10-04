@@ -18,7 +18,7 @@ export function TrustedBrands() {
   return (
     <section
       id="trusted-brands"
-      className="relative overflow-x-hidden bg-white px-4 py-10 sm:px-6 sm:py-24 lg:px-8 dark:bg-[#0c0c0f]"
+      className="relative overflow-x-clip bg-white px-4  sm:px-6  lg:px-8 dark:bg-[#0c0c0f]"
     >
       <div
         aria-hidden
