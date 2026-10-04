@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useSyncExternalStore, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 
 type InsolifySidebarPanelProps = {
@@ -11,14 +11,12 @@ type InsolifySidebarPanelProps = {
   children: ReactNode;
 };
 
-export function InsolifySidebarPanel({ open, onClose, children }: InsolifySidebarPanelProps) {
-  const [mounted, setMounted] = useState(false);
+function subscribeToClient() {
+  return () => {};
+}
 
-  useEffect(() => {
-    setTimeout(() => {
-      setMounted(true);
-    }, 0);
-  }, []);
+export function InsolifySidebarPanel({ open, onClose, children }: InsolifySidebarPanelProps) {
+  const mounted = useSyncExternalStore(subscribeToClient, () => true, () => false);
 
   useEffect(() => {
     if (!open) return;

@@ -30,9 +30,21 @@ function getServerThemeSnapshot() {
   return false;
 }
 
+function subscribeToScroll(onStoreChange: () => void) {
+  window.addEventListener("scroll", onStoreChange, { passive: true });
+  return () => window.removeEventListener("scroll", onStoreChange);
+}
+
+function getScrollFixedSnapshot() {
+  return window.scrollY > 24;
+}
+
+function getServerScrollFixedSnapshot() {
+  return false;
+}
+
 export function SiteNav() {
   const navRef = useRef<HTMLElement>(null);
-  const [fixed, setFixed] = useState(false);
   const [navHeight, setNavHeight] = useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const dark = useSyncExternalStore(
@@ -40,13 +52,11 @@ export function SiteNav() {
     getThemeSnapshot,
     getServerThemeSnapshot,
   );
-
-  useEffect(() => {
-    const onScroll = () => setFixed(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const fixed = useSyncExternalStore(
+    subscribeToScroll,
+    getScrollFixedSnapshot,
+    getServerScrollFixedSnapshot,
+  );
 
   useEffect(() => {
     const nav = navRef.current;
