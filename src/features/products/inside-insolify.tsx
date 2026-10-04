@@ -8,7 +8,7 @@ const site = "https://www.insolify.com/";
 
 const companyLinks = [
   { href: site, label: "About Insolify" },
-  { href: "#support", label: "Contact" },
+  { href: "/contact", label: "Contact" },
 ];
 
 const innovationLinks = [
@@ -18,7 +18,7 @@ const innovationLinks = [
 
 const peopleLinks = [
   { href: site, label: "Pricing" },
-  { href: site, label: "Track Payment" },
+  { href: "/tverify", label: "Track Payment" },
 ];
 
 export function InsideInsolify() {

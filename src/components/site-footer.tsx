@@ -18,14 +18,14 @@ const columns = [
     links: [
       { href: "/#faq", label: "About" },
       { href: "/pricing", label: "Pricing" },
-      { href: "/#contact", label: "Contact" },
+      { href: "/contact", label: "Contact" },
     ],
   },
   {
     title: "Tools",
     links: [
       { href: "https://www.insolify.com/", label: "Dashboard", external: true },
-      { href: "https://www.insolify.com/", label: "Track Payment", external: true },
+      { href: "/tverify", label: "Track Payment" },
       { href: "https://www.insolify.com/", label: "Status", external: true },
     ],
   },
@@ -60,7 +60,7 @@ export function SiteFooter() {
               Get started
             </Link>
             <Link
-              href="mailto:sales@insolify.com"
+              href="/contact"
               className="inline-flex h-11 items-center justify-center rounded-full border border-[#e5e7eb] bg-white px-6 text-sm font-medium text-[#111] transition-colors hover:bg-[#f8f8f8] dark:border-white/15 dark:bg-transparent dark:text-white dark:hover:bg-white/10"
             >
               Contact us
