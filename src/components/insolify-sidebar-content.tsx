@@ -1,18 +1,19 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { DropletIcon, LoopIcon, NodesIcon } from "@/features/products/icons";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { DropletIcon, LoopIcon, NodesIcon } from "@/features/products/icons";
 
 const products = [
-  { href: "/#features", label: "Safi AI", icon: "safi" },
-  { href: "/#capabilities", label: "Fincore", icon: "fincore" },
-  { href: "/#features", label: "Settle Africa", icon: "settle" },
+  { href: "/safi", label: "Safi AI", icon: "safi" },
+  { href: "/fincore", label: "Fincore", icon: "fincore" },
+  { href: "/settle", label: "Settle Africa", icon: "settle" },
 ] as const;
 
 const resources = [
-  { href: "https://www.insolify.com/", label: "Documentation", icon: "docs" },
-  { href: "https://www.insolify.com/", label: "Status", icon: "status" },
+  { href: "https://docs.insolify.com/", label: "Documentation", icon: "docs" },
+  { href: "/status", label: "Status", icon: "status" },
 ] as const;
 
 const pages = [
@@ -27,16 +28,19 @@ type InsolifySidebarContentProps = {
 };
 
 export function InsolifySidebarContent({ onNavigate }: InsolifySidebarContentProps) {
+  const pathname = usePathname();
+  const home = pathname === "/";
+
   return (
     <div className="flex min-h-full flex-col">
       <nav aria-label="Sidebar">
         <p className="text-[11px] font-medium tracking-[0.22em] text-[#9A9AA3] uppercase dark:text-white/35">
           Products
         </p>
-        <ul className="mt-4 flex flex-col gap-5">
+        <ul className="mt-4 flex flex-col gap-1.5">
           {products.map((item) => (
             <li key={item.label}>
-              <SidebarLink href={item.href} onNavigate={onNavigate}>
+              <SidebarLink href={item.href} pathname={pathname} onNavigate={onNavigate}>
                 <SidebarGlyph name={item.icon} />
                 {item.label}
               </SidebarLink>
@@ -47,10 +51,10 @@ export function InsolifySidebarContent({ onNavigate }: InsolifySidebarContentPro
         <p className="mt-10 text-[11px] font-medium tracking-[0.22em] text-[#9A9AA3] uppercase dark:text-white/35">
           Resources
         </p>
-        <ul className="mt-4 flex flex-col gap-5">
+        <ul className="mt-4 flex flex-col gap-1.5">
           {resources.map((item) => (
             <li key={item.label}>
-              <SidebarLink href={item.href} onNavigate={onNavigate} external>
+              <SidebarLink href={item.href} pathname={pathname} onNavigate={onNavigate} external={item.href.startsWith("http")}>
                 <SidebarGlyph name={item.icon} />
                 {item.label}
               </SidebarLink>
@@ -58,10 +62,10 @@ export function InsolifySidebarContent({ onNavigate }: InsolifySidebarContentPro
           ))}
         </ul>
 
-        <ul className="mt-10 flex flex-col gap-5 border-t border-black/8 pt-8 dark:border-white/10">
+        <ul className="mt-10 flex flex-col gap-1.5 border-t border-black/8 pt-8 dark:border-white/10">
           {pages.map((item) => (
             <li key={item.label}>
-              <SidebarLink href={item.href} onNavigate={onNavigate}>
+              <SidebarLink href={item.href} pathname={pathname} onNavigate={onNavigate}>
                 {item.label}
               </SidebarLink>
             </li>
@@ -83,7 +87,12 @@ export function InsolifySidebarContent({ onNavigate }: InsolifySidebarContentPro
           href="/"
           onClick={onNavigate}
           aria-label="Back to top"
-          className="inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-[#f2f2f4] dark:bg-white"
+          aria-current={home ? "page" : undefined}
+          className={`inline-flex size-12 shrink-0 items-center justify-center rounded-full transition ${
+            home
+              ? "bg-[#111] text-white ring-4 ring-[#f2f2f4] dark:bg-white dark:text-[#111] dark:ring-white/15"
+              : "bg-[#f2f2f4] dark:bg-white"
+          }`}
         >
           <DropletIcon />
         </Link>
@@ -92,24 +101,39 @@ export function InsolifySidebarContent({ onNavigate }: InsolifySidebarContentPro
   );
 }
 
+function isCurrentPage(href: string, pathname: string) {
+  if (href.startsWith("http")) return false;
+  const path = href.split("#")[0] || "/";
+  return path === pathname && !href.includes("#");
+}
+
 function SidebarLink({
   href,
+  pathname,
   children,
   onNavigate,
   external = false,
 }: {
   href: string;
+  pathname: string;
   children: ReactNode;
   onNavigate: () => void;
   external?: boolean;
 }) {
+  const active = isCurrentPage(href, pathname);
+
   return (
     <Link
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
       onClick={onNavigate}
-      className="inline-flex items-center gap-3 text-[17px] text-[#111] transition hover:text-black dark:text-white/92 dark:hover:text-white"
+      aria-current={active ? "page" : undefined}
+      className={`inline-flex w-full items-center gap-3 rounded-full px-4 py-3 text-[17px] transition ${
+        active
+          ? "bg-[#f2f2f4] font-medium text-[#111] dark:bg-[#1c1c22] dark:text-white"
+          : "text-[#111] hover:bg-[#f6f6f8] dark:text-white/92 dark:hover:bg-white/6 dark:hover:text-white"
+      }`}
     >
       {children}
     </Link>

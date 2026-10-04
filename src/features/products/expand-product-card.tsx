@@ -35,10 +35,12 @@ export function ExpandProductCard({ feature, expanded, onOpen }: ExpandProductCa
       <button
         type="button"
         onClick={onOpen}
-        className="flex h-full w-full min-w-0 items-stretch text-left"
         aria-expanded={expanded}
+        className={`grid h-full w-full min-w-0 items-stretch text-left transition-[grid-template-columns] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          expanded ? "grid-cols-[minmax(0,1fr)_minmax(10rem,0.95fr)]" : "grid-cols-[minmax(0,1fr)_0fr]"
+        }`}
       >
-        <div className="flex min-w-0 flex-1 flex-col p-6 sm:p-7">
+        <div className="flex min-w-0 flex-col p-6 sm:p-7">
           <h3 className="max-w-[11ch] text-[1.65rem] leading-[1.15] font-semibold tracking-tight text-[#1a1a1a] dark:text-[#f4f4f0]">
             {feature.title}
           </h3>
@@ -56,14 +58,16 @@ export function ExpandProductCard({ feature, expanded, onOpen }: ExpandProductCa
             </span>
           </span>
         </div>
-        <motion.div
-          initial={false}
-          animate={{ width: expanded ? "48%" : 0, opacity: expanded ? 1 : 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative h-full w-0 shrink-0 overflow-hidden"
-        >
-          <Image src={feature.image} alt="" fill className="object-cover" sizes="40vw" />
-        </motion.div>
+        <div className="relative min-h-0 min-w-0 overflow-hidden">
+          <Image
+            src={feature.image}
+            alt=""
+            fill
+            sizes="(min-width: 1024px) 30vw, 50vw"
+            className="object-cover"
+            priority={expanded}
+          />
+        </div>
       </button>
     </motion.article>
   );

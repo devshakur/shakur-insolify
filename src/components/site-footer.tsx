@@ -8,9 +8,9 @@ const columns = [
   {
     title: "Products",
     links: [
-      { href: "/#features", label: "Safi AI" },
-      { href: "/#capabilities", label: "Fincore" },
-      { href: "/#features", label: "Settle Africa" },
+      { href: "/safi", label: "Safi AI" },
+      { href: "/fincore", label: "Fincore" },
+      { href: "/settle", label: "Settle Africa" },
     ],
   },
   {
@@ -26,7 +26,7 @@ const columns = [
     links: [
       { href: "https://www.insolify.com/", label: "Dashboard", external: true },
       { href: "/tverify", label: "Track Payment" },
-      { href: "https://www.insolify.com/", label: "Status", external: true },
+      { href: "/status", label: "Status" },
     ],
   },
   {
