@@ -143,6 +143,61 @@ body {
   }
 }
 
+.trusted-orbit {
+  --orbit-duration: 36s;
+  --orbit-r: 9.25rem;
+}
+
+@media (min-width: 640px) {
+  .trusted-orbit {
+    --orbit-r: 11.25rem;
+  }
+}
+
+.trusted-orbit-spin {
+  animation: trusted-orbit-spin var(--orbit-duration) linear infinite;
+}
+
+.trusted-orbit-reverse {
+  animation: trusted-orbit-reverse var(--orbit-duration) linear infinite;
+}
+
+.trusted-orbit-pulse {
+  animation: trusted-orbit-pulse var(--orbit-duration) linear infinite;
+}
+
+.trusted-orbit:hover .trusted-orbit-spin,
+.trusted-orbit:hover .trusted-orbit-reverse,
+.trusted-orbit:hover .trusted-orbit-pulse {
+  animation-play-state: paused;
+}
+
+@keyframes trusted-orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes trusted-orbit-reverse {
+  from {
+    transform: rotate(calc(var(--orbit-offset) * -1deg));
+  }
+  to {
+    transform: rotate(calc(var(--orbit-offset) * -1deg - 360deg));
+  }
+}
+
+@keyframes trusted-orbit-pulse {
+  0%,
+  100% {
+    transform: scale(1.48);
+  }
+  16%,
+  84% {
+    transform: scale(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .glass-headline,
   .dark .glass-headline {
@@ -158,7 +213,10 @@ body {
 
   .hero-copy,
   .demo-caret,
-  .demo-dots i {
+  .demo-dots i,
+  .trusted-orbit-spin,
+  .trusted-orbit-reverse,
+  .trusted-orbit-pulse {
     animation: none;
   }
 }
