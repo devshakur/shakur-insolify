@@ -3,7 +3,9 @@ import { Hero } from "@/components/hero";
 import { FeaturedProducts } from "@/features/products/featured-products";
 import { FincoreCapabilities } from "@/features/products/fincore-capabilities";
 import { ImpactStories } from "@/features/products/impact-stories";
+import { InsideInsolify } from "@/features/products/inside-insolify";
 import { PowerfulFeatures } from "@/features/products/powerful-features";
+import { TrustedBrands } from "@/features/products/trusted-brands";
 
 
 
@@ -50,6 +52,8 @@ export default function Home() {
         <FincoreCapabilities />
         <PowerfulFeatures />
         <ImpactStories />
+        <InsideInsolify />
+        <TrustedBrands />
         {sections.map((section) => (
           <section
             key={section.id}

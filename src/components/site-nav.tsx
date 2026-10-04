@@ -2,12 +2,15 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { InsolifySidebar } from "@/components/insolify-sidebar";
 
 const links = [
   { href: "#how-it-works", label: "How it works" },
   { href: "#features", label: "Features" },
-  { href: "#support", label: "Support" },
-  { href: "#faq", label: "FAQ" },
+  { href: "#support", label: "Pricing" },
+  { href: "#verify", label: "TVerify" },
+  { href: "#faq", label: "About" },
+  { href: "#contact", label: "Contact" },
 ];
 
 function subscribeToTheme(onStoreChange: () => void) {
@@ -31,6 +34,7 @@ export function SiteNav() {
   const navRef = useRef<HTMLElement>(null);
   const [fixed, setFixed] = useState(false);
   const [navHeight, setNavHeight] = useState(0);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const dark = useSyncExternalStore(
     subscribeToTheme,
     getThemeSnapshot,
@@ -63,7 +67,7 @@ export function SiteNav() {
   }
 
   return (
-    <header className="relative z-40 mx-auto flex w-full  flex-wrap items-center justify-between gap-x-4 gap-y-3 px-4 pt-4 sm:px-6 lg:px-8 lg:pt-6">
+    <header className="relative z-40 mx-auto flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-3 px-4 pt-4 sm:px-6 lg:px-8 lg:pt-6">
       <a href="#top" className="flex items-center">
         <Image
           src="/insolify-logo.png"
@@ -75,7 +79,7 @@ export function SiteNav() {
         />
       </a>
 
-      <div className="order-3 flex w-full flex-col items-center lg:order-2 lg:w-auto lg:flex-1">
+      <div className="order-3 hidden w-full flex-col items-center lg:order-2 lg:flex lg:w-auto lg:flex-1">
         {fixed ? <div aria-hidden style={{ height: navHeight }} /> : null}
         <nav
           ref={navRef}
@@ -103,20 +107,40 @@ export function SiteNav() {
           type="button"
           onClick={toggleTheme}
           aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#ececf1] bg-white text-[#2b2b2b] transition-colors hover:bg-[#f6f6f6] dark:border-white/15 dark:bg-[#1c1c22] dark:text-white dark:hover:bg-[#2a2a30]"
+          className="inline-flex size-10 items-center justify-center rounded-full border border-[#ececf1] bg-white text-[#2b2b2b] transition-colors hover:bg-[#f6f6f6] dark:border-white/15 dark:bg-[#1c1c22] dark:text-white dark:hover:bg-[#2a2a30]"
         >
           {dark ? <SunIcon /> : <MoonIcon />}
+        </button>
+        <button
+          type="button"
+          onClick={() => setSidebarOpen(true)}
+          aria-expanded={sidebarOpen}
+          aria-controls="insolify-sidebar"
+          aria-label="Open menu"
+          className="inline-flex size-10 items-center justify-center rounded-full border border-[#ececf1] bg-white text-[#2b2b2b] transition-colors hover:bg-[#f6f6f6] lg:hidden dark:border-white/15 dark:bg-[#1c1c22] dark:text-white dark:hover:bg-[#2a2a30]"
+        >
+          <MenuIcon />
         </button>
         <a
           href="https://www.insolify.com/"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex h-10 items-center rounded-full bg-[#7b61ff] px-4 text-sm font-semibold text-white transition-colors hover:bg-[#6a4ff0] sm:px-5"
+          className="hidden h-10 items-center rounded-full bg-[#7b61ff] px-4 text-sm font-semibold text-white transition-colors hover:bg-[#6a4ff0] lg:inline-flex sm:px-5"
         >
           Account
         </a>
       </div>
+
+      <InsolifySidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
     </header>
+  );
+}
+
+function MenuIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+      <path d="M3.5 5h11M3.5 9h11M3.5 13h11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
   );
 }
 
