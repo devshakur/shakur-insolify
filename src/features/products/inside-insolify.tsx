@@ -12,8 +12,8 @@ const companyLinks = [
 ];
 
 const innovationLinks = [
-  { href: "#features", label: "Safi AI" },
-  { href: "#capabilities", label: "Fincore" },
+  { href: "/safi", label: "Safi AI" },
+  { href: "/fincore", label: "Fincore" },
 ];
 
 const peopleLinks = [

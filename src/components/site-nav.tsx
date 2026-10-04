@@ -6,14 +6,43 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { InsolifySidebar } from "@/components/insolify-sidebar";
 
-const links = [
-  { href: "/#how-it-works", label: "How it works" },
-  { href: "/#features", label: "Features" },
-  { href: "/#faq", label: "About" },
+type NavIcon = "safi" | "fincore" | "settle" | "docs" | "status";
+
+type NavItem = {
+  href: string;
+  label: string;
+  icon?: NavIcon;
+  external?: boolean;
+};
+
+type NavLink =
+  | { label: string; href: string }
+  | { label: string; items: NavItem[] };
+
+const links: NavLink[] = [
+   { href: "/#faq", label: "About" },
+  {
+    label: "Products",
+    items: [
+      { href: "/safi", label: "Safi AI", icon: "safi" },
+      { href: "/fincore", label: "Fincore", icon: "fincore" },
+      { href: "/settle", label: "Settle Africa", icon: "settle" },
+    ],
+  },
+  {
+    label: "Resources",
+    items: [
+      { href: "https://docs.insolify.com/", label: "Documentation", icon: "docs", external: true },
+      { href: "/status", label: "Status", icon: "status" },
+    ],
+  },
   { href: "/pricing", label: "Pricing" },
   { href: "/tverify", label: "TVerify" },
   { href: "/contact", label: "Contact" },
 ];
+
+const navLinkClass =
+  "inline-flex items-center gap-1 rounded-full px-2.5 py-2 text-[13px] whitespace-nowrap transition-colors sm:px-4 sm:text-sm";
 
 function subscribeToTheme(onStoreChange: () => void) {
   const observer = new MutationObserver(onStoreChange);
@@ -97,28 +126,29 @@ export function SiteNav() {
         <nav
           ref={navRef}
           aria-label="Primary"
-          className={`flex items-center justify-center gap-0.5 rounded-full bg-[#f2f2f4] px-1.5 py-1.5 sm:gap-1 sm:px-2 sm:py-2 dark:bg-[#2a2a30] ${
+          className={`flex items-center justify-center gap-0.5 overflow-visible rounded-full bg-[#f2f2f4] px-1.5 py-1.5 sm:gap-1 sm:px-2 sm:py-2 dark:bg-[#2a2a30] ${
             fixed
               ? "fixed top-4 left-1/2 z-50 -translate-x-1/2 shadow-[0_10px_30px_rgba(20,16,40,0.12)]"
               : "relative"
           }`}
         >
-          {links.map((link) => {
-            const active = link.href === pathname;
-            return (
+          {links.map((link) =>
+            "items" in link ? (
+              <NavDropdown key={link.label} label={link.label} items={link.items} pathname={pathname} />
+            ) : (
               <Link
                 key={link.label}
                 href={link.href}
-                className={`rounded-full px-2.5 py-2 text-[13px] whitespace-nowrap transition-colors sm:px-4 sm:text-sm ${
-                  active
+                className={`${navLinkClass} ${
+                  link.href === pathname
                     ? "text-[#1a1a1a] dark:text-white"
                     : "text-[#6d6d6d] hover:text-[#1a1a1a] dark:text-[#c8c8c8] dark:hover:text-white"
                 }`}
               >
                 {link.label}
               </Link>
-            );
-          })}
+            ),
+          )}
         </nav>
       </div>
 
@@ -156,6 +186,159 @@ export function SiteNav() {
   );
 }
 
+function NavDropdown({
+  label,
+  items,
+  pathname,
+}: {
+  label: string;
+  items: NavItem[];
+  pathname: string;
+}) {
+  const current = items.some((item) => item.href === pathname);
+
+  return (
+    <div className="group relative">
+      <button
+        type="button"
+        aria-haspopup="menu"
+        aria-label={`${label} menu`}
+        className={`${navLinkClass} ${
+          current
+            ? "text-[#1a1a1a] dark:text-white"
+            : "text-[#6d6d6d] group-hover:text-[#1a1a1a] group-focus-within:text-[#1a1a1a] dark:text-[#c8c8c8] dark:group-hover:text-white dark:group-focus-within:text-white"
+        }`}
+      >
+        {label}
+        <ChevronIcon />
+      </button>
+      <div className="pointer-events-none invisible absolute top-full left-1/2 z-50 min-w-55 -translate-x-1/2 pt-2 opacity-0 transition duration-150 group-hover:visible group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto group-focus-within:opacity-100">
+        <div
+          role="menu"
+          aria-label={label}
+          className="rounded-[22px] border border-black/6 bg-white p-2 shadow-[0_10px_30px_rgba(20,16,40,0.12)] dark:border-white/10 dark:bg-[#2a2a30]"
+        >
+          {items.map((item) => (
+            <Link
+              key={item.label}
+              href={item.href}
+              role="menuitem"
+              aria-current={item.href === pathname ? "page" : undefined}
+              target={item.external ? "_blank" : undefined}
+              rel={item.external ? "noopener noreferrer" : undefined}
+              className={`flex items-center gap-3 rounded-2xl px-2.5 py-2.5 text-[13px] transition-colors sm:text-sm ${
+                item.href === pathname
+                  ? "bg-[#f2f2f4] text-[#1a1a1a] dark:bg-white/10 dark:text-white"
+                  : "text-[#1a1a1a] hover:bg-[#f2f2f4] dark:text-white dark:hover:bg-white/10"
+              }`}
+            >
+              {item.icon ? (
+                <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-[#111] text-white dark:bg-white dark:text-[#111]">
+                  <NavGlyph name={item.icon} />
+                </span>
+              ) : null}
+              {item.label}
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function NavGlyph({ name }: { name: NavIcon }) {
+  if (name === "safi") return <SafiGlyph />;
+  if (name === "fincore") return <FincoreGlyph />;
+  if (name === "settle") return <SettleGlyph />;
+  if (name === "docs") return <DocsGlyph />;
+  return <StatusGlyph />;
+}
+
+function ChevronIcon() {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      aria-hidden
+      className="mt-px transition-transform duration-150 group-hover:rotate-180 group-focus-within:rotate-180"
+    >
+      <path
+        d="M2.6 4.4 6 7.6l3.4-3.2"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function SafiGlyph() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden>
+      <path
+        d="M7 1.4c1.8 2.2 3.3 4.1 3.3 6.3a3.3 3.3 0 1 1-6.6 0C3.7 5.5 5.2 3.6 7 1.4Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+function FincoreGlyph() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+      <path d="M7 2.2v9.6M2.2 7h9.6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      <circle cx="7" cy="2.4" r="1.15" fill="currentColor" />
+      <circle cx="7" cy="11.6" r="1.15" fill="currentColor" />
+      <circle cx="2.4" cy="7" r="1.15" fill="currentColor" />
+      <circle cx="11.6" cy="7" r="1.15" fill="currentColor" />
+    </svg>
+  );
+}
+
+function SettleGlyph() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+      <path
+        d="M9.6 4.2a3.7 3.7 0 1 0 1.1 3.8"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function DocsGlyph() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+      <path
+        d="M3.8 2.3h4.2L10.2 4.6v7.1H3.8V2.3Z"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinejoin="round"
+      />
+      <path d="M8 2.4V4.7h2.2" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function StatusGlyph() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+      <path
+        d="M2 8.6 4.8 5.7l2.3 2.4L12 3.4"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 function MenuIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
@@ -168,10 +351,8 @@ function MoonIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
       <path
-        d="M20 14.5A8.5 8.5 0 0 1 9.5 4 7 7 0 1 0 20 14.5Z"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinejoin="round"
+        d="M20.2 15.1A8.6 8.6 0 0 1 8.9 3.8 8.7 8.7 0 1 0 20.2 15.1Z"
+        fill="currentColor"
       />
     </svg>
   );

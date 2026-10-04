@@ -50,7 +50,7 @@ export function InsolifySidebarPanel({ open, onClose, children }: InsolifySideba
           exit={{ opacity: 0, x: 16 }}
           transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
           id="insolify-sidebar"
-          className="fixed inset-0 z-60 flex flex-col bg-white px-5 pt-5 pb-6 text-[#111] dark:bg-[#0B0B0D] dark:text-white"
+          className="fixed inset-0 z-60 flex flex-col overflow-hidden bg-white px-5 pt-5 pb-6 text-[#111] dark:bg-[#0B0B0D] dark:text-white"
         >
           <div className="flex items-center justify-between">
             <Link href="/" onClick={onClose} className="flex items-center">
@@ -72,7 +72,7 @@ export function InsolifySidebarPanel({ open, onClose, children }: InsolifySideba
             </button>
           </div>
 
-          <div className="mt-10 flex min-h-0 flex-1 flex-col overflow-y-auto">
+          <div className="mt-10 flex min-h-0 flex-1 flex-col overflow-y-auto scrollbar-none">
             {children}
           </div>
         </motion.aside>
