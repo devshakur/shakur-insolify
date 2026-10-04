@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { SiteNav } from "@/components/site-nav";
 
 export function Hero() {
@@ -35,18 +36,18 @@ export function Hero() {
               that values your privacy.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a
+              <Link
                 href="#how-it-works"
                 className="inline-flex h-12 items-center justify-center rounded-full bg-[#111] px-6 text-sm font-medium text-white transition-colors hover:bg-black dark:bg-white dark:text-[#111] dark:hover:bg-[#e8e8e8]"
               >
                 Get Started
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#features"
                 className="inline-flex h-12 items-center justify-center rounded-full border border-[#d7d7d7] bg-white px-6 text-sm font-medium text-[#2b2b2b] transition-colors hover:bg-[#f6f6f6] dark:border-white/20 dark:bg-transparent dark:text-white dark:hover:bg-white/10"
               >
                 Explore Our Products
-              </a>
+              </Link>
             </div>
           </div>
         </div>

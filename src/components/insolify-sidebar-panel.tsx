@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useSyncExternalStore, type ReactNode } from "react";
 import { createPortal } from "react-dom";
@@ -52,7 +53,7 @@ export function InsolifySidebarPanel({ open, onClose, children }: InsolifySideba
           className="fixed inset-0 z-60 flex flex-col bg-white px-5 pt-5 pb-6 text-[#111] dark:bg-[#0B0B0D] dark:text-white"
         >
           <div className="flex items-center justify-between">
-            <a href="#top" onClick={onClose} className="flex items-center">
+            <Link href="/" onClick={onClose} className="flex items-center">
               <Image
                 src="/insolify-logo.png"
                 alt="Insolify"
@@ -60,7 +61,7 @@ export function InsolifySidebarPanel({ open, onClose, children }: InsolifySideba
                 height={126}
                 className="h-7 w-auto dark:brightness-0 dark:invert"
               />
-            </a>
+            </Link>
             <button
               type="button"
               onClick={onClose}

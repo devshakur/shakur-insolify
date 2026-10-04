@@ -2,11 +2,12 @@
 
 import type { ReactNode } from "react";
 import { DropletIcon, LoopIcon, NodesIcon } from "@/features/products/icons";
+import Link from "next/link";
 
 const products = [
-  { href: "#features", label: "Safi AI", icon: "safi" },
-  { href: "#capabilities", label: "Fincore", icon: "fincore" },
-  { href: "#features", label: "Settle Africa", icon: "settle" },
+  { href: "/#features", label: "Safi AI", icon: "safi" },
+  { href: "/#capabilities", label: "Fincore", icon: "fincore" },
+  { href: "/#features", label: "Settle Africa", icon: "settle" },
 ] as const;
 
 const resources = [
@@ -15,10 +16,10 @@ const resources = [
 ] as const;
 
 const pages = [
-  { href: "#support", label: "Pricing" },
-  { href: "#verify", label: "TVerify" },
-  { href: "#faq", label: "About" },
-  { href: "#contact", label: "Contact" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/#verify", label: "TVerify" },
+  { href: "/#faq", label: "About" },
+  { href: "/#contact", label: "Contact" },
 ] as const;
 
 type InsolifySidebarContentProps = {
@@ -69,7 +70,7 @@ export function InsolifySidebarContent({ onNavigate }: InsolifySidebarContentPro
       </nav>
 
       <div className="mt-auto flex items-end justify-between gap-4 pt-10">
-        <a
+        <Link
           href="https://www.insolify.com/"
           target="_blank"
           rel="noopener noreferrer"
@@ -77,15 +78,15 @@ export function InsolifySidebarContent({ onNavigate }: InsolifySidebarContentPro
           className="inline-flex h-12 flex-1 items-center justify-center rounded-full bg-[#111] text-sm font-semibold text-white dark:bg-white dark:text-[#111]"
         >
           Account
-        </a>
-        <a
-          href="#top"
+        </Link>
+        <Link
+          href="/"
           onClick={onNavigate}
           aria-label="Back to top"
           className="inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-[#f2f2f4] dark:bg-white"
         >
           <DropletIcon />
-        </a>
+        </Link>
       </div>
     </div>
   );
@@ -103,7 +104,7 @@ function SidebarLink({
   external?: boolean;
 }) {
   return (
-    <a
+    <Link
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
@@ -111,7 +112,7 @@ function SidebarLink({
       className="inline-flex items-center gap-3 text-[17px] text-[#111] transition hover:text-black dark:text-white/92 dark:hover:text-white"
     >
       {children}
-    </a>
+    </Link>
   );
 }
 
