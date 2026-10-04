@@ -11,8 +11,8 @@ const links = [
   { href: "/#features", label: "Features" },
   { href: "/#faq", label: "About" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/#verify", label: "TVerify" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/tverify", label: "TVerify" },
+  { href: "/contact", label: "Contact" },
 ];
 
 function subscribeToTheme(onStoreChange: () => void) {
@@ -104,7 +104,7 @@ export function SiteNav() {
           }`}
         >
           {links.map((link) => {
-            const active = link.href === "/pricing" && pathname === "/pricing";
+            const active = link.href === pathname;
             return (
               <Link
                 key={link.label}

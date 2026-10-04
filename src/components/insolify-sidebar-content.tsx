@@ -17,9 +17,9 @@ const resources = [
 
 const pages = [
   { href: "/pricing", label: "Pricing" },
-  { href: "/#verify", label: "TVerify" },
+  { href: "/tverify", label: "TVerify" },
   { href: "/#faq", label: "About" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/contact", label: "Contact" },
 ] as const;
 
 type InsolifySidebarContentProps = {
