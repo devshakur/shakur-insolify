@@ -15,7 +15,9 @@ export function InsolifySidebarPanel({ open, onClose, children }: InsolifySideba
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    setTimeout(() => {
+      setMounted(true);
+    }, 0);
   }, []);
 
   useEffect(() => {
