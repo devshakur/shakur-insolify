@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import type { CSSProperties } from "react";
 
 const brands = [
@@ -35,13 +36,13 @@ export function TrustedBrands() {
         </p>
 
         <div className="trusted-orbit relative mx-auto mt-10 h-88 w-full max-w-160 sm:mt-12 sm:h-112">
-          <a
+          <Link
             href="#features"
             className="absolute top-[42%] left-0 z-10 hidden items-center gap-2 rounded-full border border-black/8 bg-white px-4 py-2 text-sm text-[#111] shadow-sm sm:inline-flex dark:border-white/10 dark:bg-[#16181D] dark:text-white"
           >
             Get Started
             <span aria-hidden>→</span>
-          </a>
+          </Link>
           <div className="absolute top-[38%] right-0 z-10 hidden max-w-38 text-right sm:block">
             <p className="text-3xl font-semibold tracking-tight text-[#111] dark:text-white">5+</p>
             <p className="mt-1 text-xs leading-4 text-[#6B7280] dark:text-[#9CA3AF]">

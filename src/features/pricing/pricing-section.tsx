@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { ModuleBuilder } from "@/features/pricing/module-builder";
 import {
@@ -189,7 +190,7 @@ function PricingCard({
         {plan.description}
       </p>
 
-      <a
+      <Link
         href={plan.href}
         target="_blank"
         rel="noopener noreferrer"
@@ -201,7 +202,7 @@ function PricingCard({
         }`}
       >
         {plan.cta}
-      </a>
+      </Link>
 
       <ul className="mt-7 flex flex-col gap-3">
         {plan.features.map((feature) => (

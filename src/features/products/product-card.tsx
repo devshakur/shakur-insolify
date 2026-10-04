@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { ProductMark } from "@/features/products/icons";
 import type { Product } from "@/features/products/types";
 
@@ -46,12 +47,12 @@ export function ProductCard({ product, featured = false, onSecondary, onSelect }
         {product.description}
       </p>
       <div className="mt-6 flex flex-wrap items-center gap-3">
-        <a
+        <Link
           href={product.primaryHref}
           className="inline-flex h-11 items-center rounded-full bg-[#111] px-5 text-sm font-medium text-white transition hover:bg-black dark:bg-white dark:text-[#111] dark:hover:bg-[#f3f3f3]"
         >
           {product.primaryLabel}
-        </a>
+        </Link>
         {onSecondary ? (
           <button
             type="button"
@@ -61,12 +62,12 @@ export function ProductCard({ product, featured = false, onSecondary, onSelect }
             {product.secondaryLabel}
           </button>
         ) : (
-          <a
+          <Link
             href={product.secondaryHref}
             className="inline-flex h-11 items-center rounded-full border border-black/10 bg-white/70 px-5 text-sm text-[#16181D] backdrop-blur-md transition hover:border-[#E2B857]/60 hover:shadow-[0_0_24px_rgba(212,175,55,0.18)] dark:border-white/15 dark:bg-white/5 dark:text-white"
           >
             {product.secondaryLabel}
-          </a>
+          </Link>
         )}
       </div>
     </motion.article>

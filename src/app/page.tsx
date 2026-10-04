@@ -21,7 +21,6 @@ export default function Home() {
         <ImpactStories />
         <InsideInsolify />
         <TrustedBrands />
-        
       </main>
       <SiteFooter />
     </div>

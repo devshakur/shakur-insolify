@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 const site = "https://www.insolify.com/";
@@ -32,12 +33,12 @@ export function InsideInsolify() {
               <br />
               with Insolify
             </h2>
-            <a
+            <Link
               href="#features"
               className="mt-7 inline-flex h-11 items-center rounded-full bg-[#0B6B45] px-5 text-sm font-medium text-white transition hover:bg-[#095538]"
             >
               Get Started
-            </a>
+            </Link>
           </div>
           <p className="max-w-md text-sm leading-7 text-[#6B7280] lg:mt-8 lg:justify-self-end dark:text-[#B5B5B5]">
             From next-generation AI to cutting-edge software, our deep expertise
@@ -99,7 +100,7 @@ export function InsideInsolify() {
                   </TextLink>
                 ))}
               </div>
-              <a
+              <Link
                 href={site}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -107,7 +108,7 @@ export function InsideInsolify() {
                 className="absolute top-1/2 -right-4 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full bg-[#0B6B45] text-white shadow-[0_10px_30px_rgba(11,107,69,0.35)] ring-8 ring-white dark:ring-[#0c0c0f]"
               >
                 <ArrowIcon />
-              </a>
+              </Link>
             </article>
           </div>
         </div>
@@ -157,7 +158,7 @@ function TextLink({
   const external = href.startsWith("http");
 
   return (
-    <a
+    <Link
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
@@ -167,7 +168,7 @@ function TextLink({
     >
       {children}
       <span aria-hidden>→</span>
-    </a>
+    </Link>
   );
 }
 

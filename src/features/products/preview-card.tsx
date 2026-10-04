@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { CurrencyVisual, ModulesVisual, NetworkVisual } from "@/features/products/visuals";
 import type { ProductPreview } from "@/features/products/types";
 
@@ -29,12 +30,12 @@ export function PreviewCard({ preview }: { preview: ProductPreview }) {
       <div className="mt-4">
         <Visual />
       </div>
-      <a
+      <Link
         href="#how-it-works"
         className="mt-4 inline-flex text-sm text-[#E2B857] transition hover:text-[#F6E3A4]"
       >
         {preview.linkLabel} →
-      </a>
+      </Link>
     </motion.article>
   );
 }

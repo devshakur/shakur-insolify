@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { FormEvent, useState } from "react";
 
 const columns = [
@@ -52,25 +53,25 @@ export function SiteFooter() {
             one suite, built for regulated financial institutions.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5">
-            <a
+            <Link
               href="/#features"
               className="inline-flex h-11 items-center justify-center rounded-full bg-[#111] px-6 text-sm font-medium text-white transition-colors hover:bg-black dark:bg-white dark:text-[#111] dark:hover:bg-[#e8e8e8]"
             >
               Get started
-            </a>
-            <a
+            </Link>
+            <Link
               href="mailto:sales@insolify.com"
               className="inline-flex h-11 items-center justify-center rounded-full border border-[#e5e7eb] bg-white px-6 text-sm font-medium text-[#111] transition-colors hover:bg-[#f8f8f8] dark:border-white/15 dark:bg-transparent dark:text-white dark:hover:bg-white/10"
             >
               Contact us
-            </a>
+            </Link>
           </div>
         </div>
 
         <div className="px-6 pt-2 pb-10 sm:px-10 sm:pb-12 lg:px-14">
           <div className="grid gap-12 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.6fr)] lg:gap-20">
             <div>
-              <a href="/" className="inline-flex items-center">
+              <Link href="/" className="inline-flex items-center">
                 <Image
                   src="/insolify-logo.png"
                   alt="Insolify"
@@ -78,7 +79,7 @@ export function SiteFooter() {
                   height={126}
                   className="h-7 w-auto dark:brightness-0 dark:invert"
                 />
-              </a>
+              </Link>
               <p className="mt-8 text-sm text-[#4B5563] dark:text-[#C8C8C8]">
                 Sign up to receive product updates.
               </p>
@@ -98,7 +99,7 @@ export function SiteFooter() {
                   <ul className="mt-4 flex flex-col gap-3">
                     {column.links.map((link) => (
                       <li key={link.label}>
-                        <a
+                        <Link
                           href={link.href}
                           {...("external" in link
                             ? { target: "_blank", rel: "noopener noreferrer" }
@@ -106,7 +107,7 @@ export function SiteFooter() {
                           className="text-sm text-[#6B7280] transition-colors hover:text-[#111] dark:text-[#9CA3AF] dark:hover:text-white"
                         >
                           {link.label}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>

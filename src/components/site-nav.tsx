@@ -141,14 +141,14 @@ export function SiteNav() {
         >
           <MenuIcon />
         </button>
-        <a
+        <Link
           href="https://www.insolify.com/"
           target="_blank"
           rel="noopener noreferrer"
           className="hidden h-10 items-center rounded-full bg-[#7b61ff] px-4 text-sm font-semibold text-white transition-colors hover:bg-[#6a4ff0] lg:inline-flex sm:px-5"
         >
           Account
-        </a>
+        </Link>
       </div>
 
       <InsolifySidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />

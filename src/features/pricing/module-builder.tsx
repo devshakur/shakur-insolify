@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { formatPrice, type PricingProductId } from "@/features/pricing/plans";
 import {
   getProductModules,
@@ -104,7 +105,7 @@ export function ModuleBuilder({ productId, selectedIds, onToggle }: ModuleBuilde
               </div>
             </div>
 
-            <a
+            <Link
               href="https://dash.insolify.com"
               target="_blank"
               rel="noopener noreferrer"
@@ -112,13 +113,13 @@ export function ModuleBuilder({ productId, selectedIds, onToggle }: ModuleBuilde
             >
               Get Started
               <span aria-hidden>→</span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="mailto:sales@insolify.com"
               className="mt-3 inline-flex h-11 w-full items-center justify-center rounded-full text-sm text-white/70 transition-colors hover:text-white"
             >
               Talk to sales
-            </a>
+            </Link>
           </div>
           <p className="mt-4 px-2 text-xs leading-5 text-[#9CA3AF]">
             This is an estimate. Final pricing may vary based on deployment,

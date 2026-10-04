@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
+import Link from "next/link";
 import { useState } from "react";
 
 const stories = [
@@ -110,15 +111,13 @@ export function ImpactStories() {
                           <p className="mt-3 max-w-2xl text-sm leading-6 text-[#6B6B73] dark:text-[#B5B5BD]">
                             {story.body}
                           </p>
-                          <a
+                          <Link
                             href="/"
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="mt-4 inline-flex items-center gap-1 text-sm text-[#111] transition hover:opacity-70 dark:text-white"
                           >
                             Read {story.company}&apos;s story
                             <span aria-hidden>→</span>
-                          </a>
+                          </Link>
                         </div>
                       </motion.div>
                     ) : null}
