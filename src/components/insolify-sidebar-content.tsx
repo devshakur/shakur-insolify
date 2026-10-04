@@ -4,9 +4,9 @@ import type { ReactNode } from "react";
 import { DropletIcon, LoopIcon, NodesIcon } from "@/features/products/icons";
 
 const products = [
-  { href: "#features", label: "Safi AI", icon: "safi" },
-  { href: "#capabilities", label: "Fincore", icon: "fincore" },
-  { href: "#features", label: "Settle Africa", icon: "settle" },
+  { href: "/#features", label: "Safi AI", icon: "safi" },
+  { href: "/#capabilities", label: "Fincore", icon: "fincore" },
+  { href: "/#features", label: "Settle Africa", icon: "settle" },
 ] as const;
 
 const resources = [
@@ -15,10 +15,10 @@ const resources = [
 ] as const;
 
 const pages = [
-  { href: "#support", label: "Pricing" },
-  { href: "#verify", label: "TVerify" },
-  { href: "#faq", label: "About" },
-  { href: "#contact", label: "Contact" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/#verify", label: "TVerify" },
+  { href: "/#faq", label: "About" },
+  { href: "/#contact", label: "Contact" },
 ] as const;
 
 type InsolifySidebarContentProps = {
@@ -79,7 +79,7 @@ export function InsolifySidebarContent({ onNavigate }: InsolifySidebarContentPro
           Account
         </a>
         <a
-          href="#top"
+          href="/"
           onClick={onNavigate}
           aria-label="Back to top"
           className="inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-[#f2f2f4] dark:bg-white"

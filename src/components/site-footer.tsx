@@ -7,17 +7,17 @@ const columns = [
   {
     title: "Products",
     links: [
-      { href: "#features", label: "Safi AI" },
-      { href: "#capabilities", label: "Fincore" },
-      { href: "#features", label: "Settle Africa" },
+      { href: "/#features", label: "Safi AI" },
+      { href: "/#capabilities", label: "Fincore" },
+      { href: "/#features", label: "Settle Africa" },
     ],
   },
   {
     title: "Company",
     links: [
-      { href: "#faq", label: "About" },
-      { href: "#support", label: "Pricing" },
-      { href: "#contact", label: "Contact" },
+      { href: "/#faq", label: "About" },
+      { href: "/pricing", label: "Pricing" },
+      { href: "/#contact", label: "Contact" },
     ],
   },
   {
@@ -53,7 +53,7 @@ export function SiteFooter() {
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5">
             <a
-              href="#features"
+              href="/#features"
               className="inline-flex h-11 items-center justify-center rounded-full bg-[#111] px-6 text-sm font-medium text-white transition-colors hover:bg-black dark:bg-white dark:text-[#111] dark:hover:bg-[#e8e8e8]"
             >
               Get started
@@ -70,7 +70,7 @@ export function SiteFooter() {
         <div className="px-6 pt-2 pb-10 sm:px-10 sm:pb-12 lg:px-14">
           <div className="grid gap-12 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.6fr)] lg:gap-20">
             <div>
-              <a href="#top" className="inline-flex items-center">
+              <a href="/" className="inline-flex items-center">
                 <Image
                   src="/insolify-logo.png"
                   alt="Insolify"

@@ -1,16 +1,18 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { InsolifySidebar } from "@/components/insolify-sidebar";
 
 const links = [
-  { href: "#how-it-works", label: "How it works" },
-  { href: "#features", label: "Features" },
-  { href: "#faq", label: "About" },
-  { href: "#support", label: "Pricing" },
-  { href: "#verify", label: "TVerify" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#how-it-works", label: "How it works" },
+  { href: "/#features", label: "Features" },
+  { href: "/#faq", label: "About" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/#verify", label: "TVerify" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 function subscribeToTheme(onStoreChange: () => void) {
@@ -44,6 +46,7 @@ function getServerScrollFixedSnapshot() {
 }
 
 export function SiteNav() {
+  const pathname = usePathname();
   const navRef = useRef<HTMLElement>(null);
   const [navHeight, setNavHeight] = useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -78,7 +81,7 @@ export function SiteNav() {
 
   return (
     <header className="relative z-40 mx-auto flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-3 px-4 pt-4 sm:px-6 lg:px-8 lg:pt-6">
-      <a href="#top" className="flex items-center">
+      <Link href="/" className="flex items-center">
         <Image
           src="/insolify-logo.png"
           alt="Insolify"
@@ -87,7 +90,7 @@ export function SiteNav() {
           priority
           className="h-7 w-auto dark:brightness-0 dark:invert"
         />
-      </a>
+      </Link>
 
       <div className="order-3 hidden w-full flex-col items-center lg:order-2 lg:flex lg:w-auto lg:flex-1">
         {fixed ? <div aria-hidden style={{ height: navHeight }} /> : null}
@@ -100,15 +103,22 @@ export function SiteNav() {
               : "relative"
           }`}
         >
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="rounded-full px-2.5 py-2 text-[13px] whitespace-nowrap text-[#6d6d6d] transition-colors hover:text-[#1a1a1a] sm:px-4 sm:text-sm dark:text-[#c8c8c8] dark:hover:text-white"
-            >
-              {link.label}
-            </a>
-          ))}
+          {links.map((link) => {
+            const active = link.href === "/pricing" && pathname === "/pricing";
+            return (
+              <Link
+                key={link.label}
+                href={link.href}
+                className={`rounded-full px-2.5 py-2 text-[13px] whitespace-nowrap transition-colors sm:px-4 sm:text-sm ${
+                  active
+                    ? "text-[#1a1a1a] dark:text-white"
+                    : "text-[#6d6d6d] hover:text-[#1a1a1a] dark:text-[#c8c8c8] dark:hover:text-white"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
       </div>
 
