@@ -1,58 +1,342 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { SiteNav } from "@/components/site-nav";
+import { useEffect, useRef, useState } from "react";
+
+const docsHref = "https://docs.insolify.com/";
+
+const featured = [
+  [
+    {
+      href: "/fincore",
+      title: "Fincore",
+      detail: "Accounts, lending, and channels in one core",
+    },
+    {
+      href: "/safi",
+      title: "Safi AI",
+      detail: "Support, risk checks, and research for finance teams",
+    },
+  ],
+  [
+    {
+      href: "/settle",
+      title: "Settle Africa",
+      detail: "Local and cross-border payments across Africa",
+    },
+    {
+      href: "/tverify",
+      title: "TVerify",
+      detail: "Confirm a payment from the receipt",
+    },
+  ],
+] as const;
+
+const menuLinks = [
+  { href: "/pricing", label: "Pricing" },
+  { href: docsHref, label: "Documentation", external: true },
+  { href: "/status", label: "Status" },
+  { href: "/contact", label: "Contact" },
+] as const;
+
+const barLinks = [
+  { href: "/pricing", label: "Pricing" },
+  { href: "/status", label: "Status" },
+  { href: "/contact", label: "Contact" },
+] as const;
 
 export function Hero() {
-  return (
-    <section id="top" className="relative overflow-hidden bg-white dark:bg-[#0c0c0f]">
-      <Image
-        src="/image/insolify.webp"
-        alt=""
-        fill
-        priority
-        className="object-cover object-[70%_center]"
-        sizes="100vw"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[linear-gradient(180deg,#ffffff_0%,#ffffff_62%,rgba(255,255,255,0.94)_74%,rgba(255,255,255,0.2)_100%)] lg:bg-[linear-gradient(90deg,#ffffff_0%,#ffffff_34%,rgba(255,255,255,0.92)_46%,rgba(255,255,255,0.35)_62%,rgba(255,255,255,0.05)_100%)] dark:bg-[linear-gradient(180deg,#0c0c0f_0%,#0c0c0f_62%,rgba(12,12,15,0.94)_74%,rgba(12,12,15,0.2)_100%)] dark:lg:bg-[linear-gradient(90deg,#0c0c0f_0%,#0c0c0f_34%,rgba(12,12,15,0.92)_46%,rgba(12,12,15,0.35)_62%,rgba(12,12,15,0.05)_100%)]"
-      />
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
-      <div className="relative z-10 flex min-h-160 flex-col lg:min-h-190">
-        <SiteNav />
-        <div className="mx-auto flex w-full max-w-8xl flex-1 items-start px-4 pt-6 pb-8 sm:px-6 lg:items-center lg:px-8 lg:pt-6 lg:pb-20">
-          <div className="hero-copy max-w-2xl">
-            <p className="text-sm font-medium tracking-wide text-[#7b61ff] sm:text-base">
-              Core banking, AI &amp; payments infrastructure
-            </p>
-            <h1 className="glass-headline mt-4 text-[2.65rem] leading-[1.05] font-medium tracking-[-0.035em] sm:text-5xl lg:text-[3.5rem]">
-              Your life&apos;s work,
-              <br />
-              powered by our life&apos;s work
-            </h1>
-            <p className="mt-6 max-w-xl text-base leading-7 text-[#8a8a8a] sm:text-[17px] dark:text-[#b5b5b5]">
-              A unique and powerful software suite to transform the way you
-              work. Designed for businesses of all sizes, built by a company
-              that values your privacy.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link
-                href="#how-it-works"
-                className="inline-flex h-12 items-center justify-center rounded-full bg-[#111] px-6 text-sm font-medium text-white transition-colors hover:bg-black dark:bg-white dark:text-[#111] dark:hover:bg-[#e8e8e8]"
+  useEffect(() => {
+    if (!productsOpen) return;
+
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") setProductsOpen(false);
+    }
+
+    function onPointer(event: MouseEvent) {
+      if (!menuRef.current?.contains(event.target as Node)) setProductsOpen(false);
+    }
+
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onPointer);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onPointer);
+    };
+  }, [productsOpen]);
+
+  return (
+    <section id="top" className="flex min-h-svh flex-col bg-black text-white">
+      <header className="relative z-40 border-b border-white/10">
+        <div className="flex h-16 w-full items-center justify-between gap-6 px-5 sm:px-8">
+          <Link href="/" aria-label="Insolify home" className="shrink-0">
+            <Image
+              src="/insolify-logo.png"
+              alt=""
+              width={423}
+              height={126}
+              priority
+              className="h-6 w-auto brightness-0 invert"
+            />
+          </Link>
+
+          <div
+            ref={menuRef}
+            className="relative hidden items-center gap-6 lg:flex"
+            onMouseLeave={() => setProductsOpen(false)}
+          >
+            <nav aria-label="Primary" className="flex items-center gap-6">
+              <button
+                type="button"
+                aria-expanded={productsOpen}
+                aria-controls="products-menu"
+                onMouseEnter={() => setProductsOpen(true)}
+                onClick={() => setProductsOpen((value) => !value)}
+                className={`text-[13px] transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
+                  productsOpen ? "text-white" : "text-[#b5b5b5] hover:text-white"
+                }`}
               >
-                Get Started
-              </Link>
-              <Link
-                href="#features"
-                className="inline-flex h-12 items-center justify-center rounded-full border border-[#d7d7d7] bg-white px-6 text-sm font-medium text-[#2b2b2b] transition-colors hover:bg-[#f6f6f6] dark:border-white/20 dark:bg-transparent dark:text-white dark:hover:bg-white/10"
-              >
-                Explore Our Products
-              </Link>
+                Products
+              </button>
+              <span className="flex items-center gap-6" onMouseEnter={() => setProductsOpen(false)}>
+                {barLinks.map((link) => (
+                  <TextLink key={link.href} href={link.href}>
+                    {link.label}
+                  </TextLink>
+                ))}
+              </span>
+            </nav>
+            <span
+              aria-hidden
+              className="h-4 w-px bg-white/15"
+              onMouseEnter={() => setProductsOpen(false)}
+            />
+            <span onMouseEnter={() => setProductsOpen(false)}>
+              <TextLink href={docsHref} external>
+                Docs
+              </TextLink>
+            </span>
+            <Link
+              href="/contact"
+              className="inline-flex h-8 items-center rounded-full bg-white px-3.5 text-[13px] font-medium text-black transition-colors hover:bg-[#e8e8e8] focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            >
+              Talk to us
+            </Link>
+
+            {productsOpen ? <ProductsPanel onNavigate={() => setProductsOpen(false)} /> : null}
+          </div>
+
+          <button
+            type="button"
+            className="inline-flex size-9 items-center justify-center lg:hidden"
+            aria-expanded={mobileOpen}
+            aria-controls="hero-menu"
+            onClick={() => setMobileOpen((value) => !value)}
+          >
+            <span className="sr-only">{mobileOpen ? "Close menu" : "Open menu"}</span>
+            {mobileOpen ? <CloseIcon /> : <MenuIcon />}
+          </button>
+        </div>
+
+        {mobileOpen ? <MobileMenu onNavigate={() => setMobileOpen(false)} /> : null}
+      </header>
+
+      <div className="flex w-full flex-1 flex-col justify-end px-5 pt-16 pb-8 sm:px-8 sm:pb-12">
+        <h1 className="max-w-[10em] text-[2.35rem] leading-[1.02] font-medium tracking-[-0.04em] text-white sm:max-w-[12em] sm:text-6xl lg:max-w-none lg:text-[4.25rem] lg:tracking-[-0.045em]">
+          <span className="lg:block">The financial infrastructure</span>{" "}
+          <span className="lg:block">companies integrate</span>
+        </h1>
+
+        <div className="mt-8 flex flex-col gap-6 sm:mt-12 sm:flex-row sm:items-end sm:justify-between">
+          <p className="text-sm leading-6 text-[#8d8d93] sm:text-[15px]">
+            <span className="block">Purpose-built for banks and fintechs.</span>
+            <span className="block">Designed to plug into your systems.</span>
+          </p>
+          <Link
+            href="/fincore"
+            className="inline-flex shrink-0 items-center gap-2 self-end text-sm text-[#d0d0d4] transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:self-auto"
+          >
+            <span className="rounded-md border border-white/15 px-1.5 py-0.5 text-[11px] leading-none text-[#9a9aa1]">
+              Core
+            </span>
+            Fincore
+            <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+      </div>
+
+      <div aria-hidden className="h-5 rounded-t-2xl bg-[#F6F4EE] dark:bg-[#0B0C10]" />
+    </section>
+  );
+}
+
+function ProductsPanel({ onNavigate }: { onNavigate: () => void }) {
+  return (
+    <div className="absolute top-full right-0 z-50 w-[min(52rem,calc(100vw-8rem))] pt-3">
+      <div id="products-menu" className="overflow-hidden rounded-xl border border-white/10 bg-[#161618] shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
+        <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_13rem] divide-x divide-white/10">
+          {featured.map((column) => (
+            <div key={column[0].href} className="flex flex-col gap-1 p-3">
+              {column.map((item) => (
+                <FeatureLink key={item.href} {...item} onNavigate={onNavigate} />
+              ))}
             </div>
+          ))}
+          <div className="flex flex-col p-3">
+            {menuLinks.map((link) => (
+              <PlainLink key={link.label} {...link} onNavigate={onNavigate} />
+            ))}
           </div>
         </div>
-        <div className="h-72 sm:h-80 lg:hidden" aria-hidden />
+        <MenuFooter onNavigate={onNavigate} />
       </div>
-    </section>
+    </div>
+  );
+}
+
+function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
+  return (
+    <nav id="hero-menu" aria-label="Primary" className="max-h-[calc(100svh-4rem)] overflow-y-auto px-3 pb-4 lg:hidden">
+      <div className="overflow-hidden rounded-xl border border-white/10 bg-[#161618]">
+        <div className="flex flex-col p-2 sm:grid sm:grid-cols-2 sm:gap-1">
+          {featured.flat().map((item) => (
+            <FeatureLink key={item.href} {...item} onNavigate={onNavigate} />
+          ))}
+        </div>
+        <div className="grid grid-cols-2 border-t border-white/10 p-2">
+          {menuLinks.map((link) => (
+            <PlainLink key={link.label} {...link} onNavigate={onNavigate} />
+          ))}
+        </div>
+        <MenuFooter onNavigate={onNavigate} />
+      </div>
+      <Link
+        href="/contact"
+        onClick={onNavigate}
+        className="mt-3 inline-flex h-10 items-center rounded-full bg-white px-4 text-sm font-medium text-black"
+      >
+        Talk to us
+      </Link>
+    </nav>
+  );
+}
+
+function FeatureLink({
+  href,
+  title,
+  detail,
+  onNavigate,
+}: {
+  href: string;
+  title: string;
+  detail: string;
+  onNavigate: () => void;
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onNavigate}
+      className="block rounded-lg px-3 py-3 transition-colors hover:bg-white/6 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+    >
+      <span className="block text-sm font-medium text-white">{title}</span>
+      <span className="mt-1 block max-w-[18rem] text-[13px] leading-5 text-[#8d8d93]">{detail}</span>
+    </Link>
+  );
+}
+
+function PlainLink({
+  href,
+  label,
+  external,
+  onNavigate,
+}: {
+  href: string;
+  label: string;
+  external?: boolean;
+  onNavigate: () => void;
+}) {
+  const className =
+    "block rounded-lg px-3 py-2.5 text-sm text-white transition-colors hover:bg-white/6 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none";
+
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+        {label}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} onClick={onNavigate} className={className}>
+      {label}
+    </Link>
+  );
+}
+
+function MenuFooter({ onNavigate }: { onNavigate: () => void }) {
+  return (
+    <div className="flex items-center justify-between gap-4 border-t border-white/10 px-5 py-3">
+      <p className="flex min-w-0 items-center gap-2 text-[13px] text-[#c6c6c6]">
+        <span className="shrink-0 rounded-md border border-white/15 px-1.5 py-0.5 text-[11px] leading-none text-[#9a9aa1]">
+          Platform
+        </span>
+        <span className="truncate">Core banking, payments, and AI in one suite</span>
+      </p>
+      <Link
+        href="/#features"
+        onClick={onNavigate}
+        className="shrink-0 text-[13px] text-[#d0d0d4] transition-colors hover:text-white"
+      >
+        Learn more <span aria-hidden="true">→</span>
+      </Link>
+    </div>
+  );
+}
+
+function TextLink({
+  href,
+  external,
+  children,
+}: {
+  href: string;
+  external?: boolean;
+  children: string;
+}) {
+  const className =
+    "text-[13px] text-[#b5b5b5] transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black";
+
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+        {children}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} className={className}>
+      {children}
+    </Link>
+  );
+}
+
+function MenuIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+      <path d="M3 4.5h12M3 9h12M3 13.5h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+      <path d="M4.5 4.5 13.5 13.5M13.5 4.5 4.5 13.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
   );
 }
