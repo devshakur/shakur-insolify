@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 const docsHref = "https://docs.insolify.com/";
 
@@ -200,29 +201,97 @@ function ProductsPanel({ onNavigate }: { onNavigate: () => void }) {
 }
 
 function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
-  return (
-    <nav id="hero-menu" aria-label="Primary" className="max-h-[calc(100svh-4rem)] overflow-y-auto px-3 pb-4 lg:hidden">
-      <div className="overflow-hidden rounded-xl border border-white/10 bg-[#161618]">
-        <div className="flex flex-col p-2 sm:grid sm:grid-cols-2 sm:gap-1">
-          {featured.flat().map((item) => (
-            <FeatureLink key={item.href} {...item} onNavigate={onNavigate} />
-          ))}
-        </div>
-        <div className="grid grid-cols-2 border-t border-white/10 p-2">
-          {menuLinks.map((link) => (
-            <PlainLink key={link.label} {...link} onNavigate={onNavigate} />
-          ))}
-        </div>
-        <MenuFooter onNavigate={onNavigate} />
+  useEffect(() => {
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") onNavigate();
+    }
+
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [onNavigate]);
+
+  return createPortal(
+    <div
+      id="hero-menu"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Menu"
+      className="fixed inset-0 z-80 flex h-dvh w-screen flex-col bg-black text-white"
+    >
+      <div className="flex h-16 shrink-0 items-center justify-between px-5">
+        <Link href="/" onClick={onNavigate} aria-label="Insolify home">
+          <Image
+            src="/insolify-logo.png"
+            alt=""
+            width={423}
+            height={126}
+            className="h-6 w-auto brightness-0 invert"
+          />
+        </Link>
+        <button
+          type="button"
+          onClick={onNavigate}
+          aria-label="Close menu"
+          className="inline-flex size-10 items-center justify-center"
+        >
+          <CloseIcon />
+        </button>
       </div>
-      <Link
-        href="/contact"
-        onClick={onNavigate}
-        className="mt-3 inline-flex h-10 items-center rounded-full bg-white px-4 text-sm font-medium text-black"
-      >
-        Talk to us
-      </Link>
-    </nav>
+
+      <nav aria-label="Primary" className="flex min-h-0 flex-1 flex-col overflow-y-auto px-5 pt-6 pb-8">
+        <div className="flex flex-col">
+          {featured.flat().map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={onNavigate}
+              className="border-b border-white/10 py-4"
+            >
+              <span className="block text-lg font-medium text-white">{item.title}</span>
+              <span className="mt-1 block text-sm leading-5 text-[#8d8d93]">{item.detail}</span>
+            </Link>
+          ))}
+        </div>
+        <div className="mt-2 flex flex-col">
+          {menuLinks.map((link) =>
+            "external" in link ? (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="border-b border-white/10 py-4 text-lg text-white"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={onNavigate}
+                className="border-b border-white/10 py-4 text-lg text-white"
+              >
+                {link.label}
+              </Link>
+            ),
+          )}
+        </div>
+        <Link
+          href="/contact"
+          onClick={onNavigate}
+          className="mt-auto inline-flex h-12 w-full items-center justify-center rounded-full bg-white text-sm font-medium text-black"
+        >
+          Talk to us
+        </Link>
+      </nav>
+    </div>,
+    document.body,
   );
 }
 

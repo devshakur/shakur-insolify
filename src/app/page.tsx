@@ -1,5 +1,7 @@
 
 import { Hero } from "@/components/hero";
+import { PlatformPreview } from "@/features/products/platform-preview";
+import { ProductFigures } from "@/features/products/product-figures";
 import { FeaturedProducts } from "@/features/products/featured-products";
 import { FincoreCapabilities } from "@/features/products/fincore-capabilities";
 import { ImpactStories } from "@/features/products/impact-stories";
@@ -15,12 +17,14 @@ export default function Home() {
     <div className="flex flex-1 flex-col bg-white text-[#2b2b2b] dark:bg-[#0c0c0f] dark:text-[#ededed]">
       <main>
         <Hero />
+        <ProductFigures />
+        <TrustedBrands />
+        <PlatformPreview />
         <FeaturedProducts />
         <FincoreCapabilities />
         <PowerfulFeatures />
         <ImpactStories />
         <InsideInsolify />
-        <TrustedBrands />
       </main>
       <SiteFooter />
     </div>
