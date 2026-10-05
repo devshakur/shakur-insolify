@@ -143,6 +143,23 @@ body {
   }
 }
 
+.brand-marquee {
+  animation: brand-marquee 36s linear infinite;
+}
+
+.brand-marquee-mask {
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+@keyframes brand-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 .trusted-orbit {
   --orbit-duration: 36s;
   --orbit-r: 9.25rem;
@@ -214,6 +231,7 @@ body {
   .hero-copy,
   .demo-caret,
   .demo-dots i,
+  .brand-marquee,
   .trusted-orbit-spin,
   .trusted-orbit-reverse,
   .trusted-orbit-pulse {
