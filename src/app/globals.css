@@ -84,6 +84,23 @@ body {
   animation: rise-in 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.hero-focus {
+  animation: hero-focus 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-focus-late {
+  animation-delay: 0.18s;
+}
+
+@keyframes hero-focus {
+  from {
+    filter: blur(22px);
+  }
+  to {
+    filter: blur(0);
+  }
+}
+
 @keyframes rise-in {
   from {
     opacity: 0;
@@ -229,6 +246,7 @@ body {
   }
 
   .hero-copy,
+  .hero-focus,
   .demo-caret,
   .demo-dots i,
   .brand-marquee,

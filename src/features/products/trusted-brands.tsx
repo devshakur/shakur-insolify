@@ -12,8 +12,8 @@ const loop = [...brands, ...brands, ...brands];
 
 export function TrustedBrands() {
   return (
-    <section aria-label="Brands that trust us" className="overflow-hidden bg-black pb-16 text-white">
-      <p className="px-4 text-center text-[11px] tracking-[0.18em] text-white/45 uppercase">Brands that trust us</p>
+    <section aria-label="Brands that trust us" className="overflow-hidden bg-white pb-16 text-black dark:bg-black dark:text-white">
+      <p className="px-4 text-center text-[11px] tracking-[0.18em] text-black/45 uppercase dark:text-white/45">Brands that trust us</p>
       <div className="brand-marquee-mask mt-6">
         <div className="brand-marquee flex w-max">
           <BrandRow />
