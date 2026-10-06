@@ -87,7 +87,7 @@ export function ProductFigures() {
   }
 
   return (
-    <section aria-label="Products" className="bg-black px-4 py-14 text-white sm:px-6 sm:py-20 lg:px-8">
+    <section aria-label="Products" className="bg-white px-4 py-14 text-black sm:px-6 sm:py-20 lg:px-8 dark:bg-black dark:text-white">
       <div className="mx-auto grid w-full max-w-6xl items-stretch gap-8 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-12">
         <div
           role="tablist"
@@ -110,8 +110,8 @@ export function ProductFigures() {
                 onClick={() => setActive(figure.id)}
                 className={`border-l-2 px-4 py-3 text-left text-[15px] transition-colors ${
                   selectedTab
-                    ? "border-white text-white"
-                    : "border-transparent text-[#8a8a8a] hover:text-white"
+                    ? "border-black text-black dark:border-white dark:text-white"
+                    : "border-transparent text-[#8a8a8a] hover:text-black dark:hover:text-white"
                 }`}
               >
                 {figure.label}
@@ -124,16 +124,16 @@ export function ProductFigures() {
           id="product-panel"
           role="tabpanel"
           aria-labelledby={`product-tab-${selected.id}`}
-          className="rounded-2xl bg-white px-6 py-8 text-black sm:px-8 sm:py-10 lg:px-10"
+          className="rounded-2xl bg-black px-6 py-8 text-white sm:px-8 sm:py-10 lg:px-10 dark:bg-white dark:text-black"
         >
           <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_18rem]">
             <div>
-              <h2 className="text-2xl font-semibold tracking-tight text-black sm:text-[1.7rem]">{selected.title}</h2>
-              <p className="mt-4 max-w-md text-[15px] leading-7 text-[#5c5c5c]">{selected.detail}</p>
+              <h2 className="text-2xl font-semibold tracking-tight sm:text-[1.7rem]">{selected.title}</h2>
+              <p className="mt-4 max-w-md text-[15px] leading-7 text-white/70 dark:text-black/70">{selected.detail}</p>
               <div className="mt-8 flex flex-wrap items-center gap-6">
                 <Link
                   href={selected.href}
-                  className="inline-flex h-11 items-center rounded-md bg-black px-5 text-sm font-semibold text-white transition-colors hover:bg-[#2a2a2a]"
+                  className="inline-flex h-11 items-center rounded-md bg-white px-5 text-sm font-semibold text-black transition-colors hover:bg-[#e8e8e8] dark:bg-black dark:text-white dark:hover:bg-[#2a2a2a]"
                 >
                   Learn more
                 </Link>
@@ -141,7 +141,7 @@ export function ProductFigures() {
                   href={docsHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-black hover:text-black/70"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-white hover:text-white/70 dark:text-black dark:hover:text-black/70"
                 >
                   Documentation
                   <span aria-hidden="true">›</span>
@@ -160,17 +160,15 @@ function ProductMark({ id, label }: { id: FigureId; label: string }) {
   const mark = marks[id];
 
   return (
-    <div className="flex min-h-56 items-center rounded-xl bg-black px-6 py-7">
+    <div className="flex min-h-56 items-center rounded-xl bg-white px-6 py-7 text-black dark:bg-black dark:text-white">
       <div className="w-full" aria-hidden>
-        <p className="text-[11px] tracking-[0.18em] text-white/45 uppercase">{mark.kicker}</p>
-        <p className="mt-3 text-[1.65rem] leading-none font-medium tracking-tight text-white tabular-nums">
-          {mark.value}
-        </p>
-        <div className="mt-5 border-t border-white/15">
+        <p className="text-[11px] tracking-[0.18em] text-black/45 uppercase dark:text-white/45">{mark.kicker}</p>
+        <p className="mt-3 text-[1.65rem] leading-none font-medium tracking-tight tabular-nums">{mark.value}</p>
+        <div className="mt-5 border-t border-black/15 dark:border-white/15">
           {mark.rows.map(([name, value]) => (
-            <div key={name} className="flex h-10 items-center justify-between border-b border-white/15 text-[13px]">
-              <span className="text-white/55">{name}</span>
-              <span className="text-white">{value}</span>
+            <div key={name} className="flex h-10 items-center justify-between border-b border-black/15 text-[13px] dark:border-white/15">
+              <span className="text-black/55 dark:text-white/55">{name}</span>
+              <span>{value}</span>
             </div>
           ))}
         </div>

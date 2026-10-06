@@ -1,146 +1,158 @@
 "use client";
 
-import { AnimatePresence, MotionConfig, motion } from "framer-motion";
-import { useState } from "react";
-import { FeatureList } from "@/features/products/feature-list";
-import { DropletIcon, ProductMark } from "@/features/products/icons";
-import { Insolify3dScene } from "@/features/products/insolify-3d-scene";
-import { PreviewCard } from "@/features/products/preview-card";
-import { ProductCard } from "@/features/products/product-card";
-import { getProduct, products } from "@/features/products/products";
-import { NetworkVisual } from "@/features/products/visuals";
-import { productIds, type ProductId, type SafiView } from "@/features/products/types";
+import Link from "next/link";
+import { useEffect, useRef } from "react";
+
+const systems = [
+  {
+    id: "fincore",
+    name: "Fincore",
+    badge: "Core",
+    href: "/fincore",
+    points: ["Accounts", "Lending", "Digital channels", "Regulatory reporting"],
+  },
+  {
+    id: "safi",
+    name: "Safi AI",
+    badge: "Intelligence",
+    href: "/safi",
+    points: ["Support", "Fraud checks", "Research"],
+  },
+  {
+    id: "settle",
+    name: "Settle Africa",
+    badge: "Payments",
+    href: "/settle",
+    points: ["Local rails", "Cross-border", "Reconciliation"],
+  },
+] as const;
 
 export function FeaturedProducts() {
-  const [active, setActive] = useState<ProductId>("safi");
-  const [safiView, setSafiView] = useState<SafiView>("apps");
-  const featured = getProduct(active);
-  const others = products.filter((product) => product.id !== active);
+  const desktopCards = useRef<Array<HTMLDivElement | null>>([]);
+  const mobileCards = useRef<Array<HTMLElement | null>>([]);
 
-  function selectProduct(id: ProductId, shouldFocus = false) {
-    setActive(id);
-    if (shouldFocus) {
-      document.getElementById(`product-tab-${id}`)?.focus();
-    }
-  }
+  useEffect(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let frame = 0;
+
+    const place = () => {
+      frame = 0;
+      const view = window.innerHeight;
+      const apply = (node: HTMLElement | null, index: number, axis: "x" | "y") => {
+        const anchor = node?.parentElement;
+        if (!node || !anchor || anchor.getBoundingClientRect().height === 0) return;
+        if (reduce) {
+          node.style.transform = "none";
+          node.style.filter = "none";
+          node.style.opacity = "1";
+          return;
+        }
+        const rect = anchor.getBoundingClientRect();
+        const start = view * 0.96;
+        const end = view * 0.46;
+        const raw = (start - rect.top) / (start - end);
+        const t = raw < 0 ? 0 : raw > 1 ? 1 : raw;
+        const progress = t * t * (3 - 2 * t);
+        const towardCenter = index % 2 === 0 ? 1 : -1;
+        const shift = (1 - progress) * 96 * (axis === "x" ? towardCenter : 1);
+        node.style.transform = axis === "x" ? `translate3d(${shift}px,0,0)` : `translate3d(0,${shift}px,0)`;
+        node.style.filter = `blur(${(1 - progress) * 18}px)`;
+        node.style.opacity = String(0.45 + progress * 0.55);
+      };
+
+      desktopCards.current.forEach((node, index) => apply(node, index, "x"));
+      mobileCards.current.forEach((node, index) => apply(node, index, "y"));
+    };
+
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(place);
+    };
+
+    place();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
 
   return (
-    <MotionConfig reducedMotion="user">
-      <section id="features" className="relative scroll-mt-28 overflow-hidden bg-[#F6F4EE] py-8 text-[#16181D] dark:bg-[#0B0C10] dark:text-white">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute top-24 left-1/4 h-72 w-72 rounded-full bg-[#D4AF37]/15 blur-3xl"
-        />
-        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-64 opacity-50">
-          <NetworkVisual />
-        </div>
+    <section id="features" className="scroll-mt-28 bg-white px-4 py-16 text-black sm:px-6 sm:py-20 lg:px-8 dark:bg-black dark:text-white">
+      <div className="mx-auto w-full max-w-6xl">
+        <p className="text-[11px] tracking-[0.18em] text-[#6d6d6d] uppercase dark:text-white/50">Platform</p>
+        <h2 className="mt-3 max-w-xl text-3xl font-semibold tracking-tight sm:text-4xl">Three systems companies integrate</h2>
 
-        <div className="relative mx-auto w-full px-4 sm:px-6 lg:px-8">
-          <h2 className="sr-only">Featured products</h2>
-          <div
-            role="tablist"
-            aria-label="Featured products"
-            className="mb-8 inline-flex max-w-full items-center gap-1 overflow-x-auto rounded-full border border-[#E6E2D6] bg-white p-1 dark:border-[#2A2D35] dark:bg-[#12141a]"
-            onKeyDown={(event) => {
-              const index = productIds.indexOf(active);
-              const next =
-                event.key === "ArrowRight"
-                  ? productIds[(index + 1) % productIds.length]
-                  : event.key === "ArrowLeft"
-                    ? productIds[(index - 1 + productIds.length) % productIds.length]
-                    : event.key === "Home"
-                      ? productIds[0]
-                      : event.key === "End"
-                        ? productIds[productIds.length - 1]
-                        : null;
-              if (!next) return;
-              event.preventDefault();
-              selectProduct(next, true);
-            }}
-          >
-            {products.map((product) => {
-              const selected = product.id === active;
+        <div className="relative mx-auto mt-14 hidden max-w-4xl md:block">
+          <div className="absolute top-0 bottom-0 left-1/2 w-px -translate-x-1/2 bg-black/15 dark:bg-white/20" />
+          <div className="flex flex-col gap-8">
+            {systems.map((system, index) => {
+              const onLeft = index % 2 === 0;
               return (
-                <button
-                  key={product.id}
-                  type="button"
-                  role="tab"
-                  id={`product-tab-${product.id}`}
-                  aria-selected={selected}
-                  aria-controls="featured-product-panel"
-                  tabIndex={selected ? 0 : -1}
-                  onClick={() => selectProduct(product.id)}
-                  className={`relative inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-sm transition ${
-                    selected
-                      ? "text-[#16181D] dark:text-white"
-                      : "text-[#6B7280] hover:text-[#16181D] dark:text-[#9CA3AF] dark:hover:text-white"
-                  }`}
-                >
-                  <ProductMark id={product.id} />
-                  {product.name}
-                  {selected ? (
-                    <span className="absolute right-3 bottom-1 left-3 h-px bg-[#D4AF37]" />
-                  ) : null}
-                </button>
+                <div key={system.id} className="relative grid grid-cols-2 items-center">
+                  <div className={onLeft ? "pr-12" : "col-start-2 pl-12"}>
+                    <div
+                      ref={(node) => {
+                        desktopCards.current[index] = node;
+                      }}
+                      className="will-change-[transform,filter]"
+                    >
+                      <SystemCard system={system} />
+                    </div>
+                  </div>
+                  <span className="absolute top-1/2 left-1/2 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-black/15 bg-white text-sm dark:border-white/25 dark:bg-black">
+                    {index + 1}
+                  </span>
+                </div>
               );
             })}
           </div>
-
-          <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)_minmax(0,1.15fr)]">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={active}
-                role="tabpanel"
-                id="featured-product-panel"
-                aria-labelledby={`product-tab-${active}`}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                className="grid items-start gap-4 lg:col-span-2 lg:grid-cols-2"
-              >
-                <div className="rounded-[28px] border border-transparent px-2 py-4 sm:px-4">
-                  <ProductCard
-                    product={featured}
-                    featured
-                    onSecondary={featured.id === "safi" ? () => setSafiView("demo") : undefined}
-                  />
-                </div>
-                {featured.id === "safi" ? (
-                  <FeatureList view={safiView} onViewChange={setSafiView} />
-                ) : (
-                  <PreviewCard preview={featured.preview} />
-                )}
-                <div className="lg:col-span-2">
-                  <Insolify3dScene />
-                </div>
-              </motion.div>
-            </AnimatePresence>
-
-            <div className="grid w-full items-start gap-4 self-start">
-              {others.map((product) => (
-                <div key={product.id} className="grid items-start gap-4 sm:grid-cols-2">
-                  <div className="rounded-[28px] border border-[#E6E2D6] bg-white p-5 dark:border-[#2A2D35] dark:bg-[#16181D]/70">
-                    <ProductCard product={product} onSelect={() => selectProduct(product.id)} />
-                  </div>
-                  <PreviewCard preview={product.preview} />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-8 flex justify-center">
-            <button
-              type="button"
-              onClick={() => selectProduct("safi", true)}
-              aria-label="Show Safi AI"
-              className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-[0_0_30px_rgba(212,175,55,0.35)]"
-            >
-              <DropletIcon />
-            </button>
-          </div>
         </div>
-      </section>
-    </MotionConfig>
+
+        <ol className="relative mt-10 ml-3 border-l border-black/15 pl-8 md:hidden dark:border-white/20">
+          {systems.map((system, index) => (
+            <li key={system.id} className="relative pb-8 last:pb-0">
+              <span className="absolute top-5 -left-8 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border border-black/15 bg-white text-sm dark:border-white/25 dark:bg-black">
+                {index + 1}
+              </span>
+              <div
+                ref={(node) => {
+                  mobileCards.current[index] = node;
+                }}
+                className="will-change-[transform,filter]"
+              >
+                <SystemCard system={system} />
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+function SystemCard({ system }: { system: (typeof systems)[number] }) {
+  return (
+    <article className="rounded-2xl border border-black/10 bg-white px-5 py-5 shadow-[0_10px_30px_rgba(0,0,0,0.04)] dark:border-white/15 dark:bg-black dark:shadow-none">
+      <div className="flex items-center justify-between gap-3">
+        <h3 className="text-lg font-medium">{system.name}</h3>
+        <span className="rounded-full bg-black/5 px-2.5 py-1 text-xs text-[#5c5c5c] dark:bg-white/10 dark:text-[#b5b5b5]">
+          {system.badge}
+        </span>
+      </div>
+      <ul className="mt-4 space-y-2.5">
+        {system.points.map((point) => (
+          <li key={point} className="flex items-center gap-2.5 text-sm text-[#5c5c5c] dark:text-[#b5b5b5]">
+            <span className="h-3.5 w-3.5 shrink-0 rounded-full border border-black/25 dark:border-white/30" />
+            {point}
+          </li>
+        ))}
+      </ul>
+      <Link href={system.href} className="mt-5 inline-flex text-sm font-medium underline underline-offset-4">
+        Learn more
+      </Link>
+    </article>
   );
 }

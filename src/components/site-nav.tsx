@@ -2,105 +2,63 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { InsolifySidebar } from "@/components/insolify-sidebar";
+import { createPortal } from "react-dom";
 
-type NavIcon = "safi" | "fincore" | "settle" | "docs" | "status";
+const docsHref = "https://docs.insolify.com/";
 
-type NavItem = {
-  href: string;
-  label: string;
-  icon?: NavIcon;
-  external?: boolean;
-};
+const featured = [
+  [
+    {
+      href: "/fincore",
+      title: "Fincore",
+      detail: "Accounts, lending, and channels in one core",
+    },
+    {
+      href: "/safi",
+      title: "Safi AI",
+      detail: "Support, risk checks, and research for finance teams",
+    },
+  ],
+  [
+    {
+      href: "/settle",
+      title: "Settle Africa",
+      detail: "Local and cross-border payments across Africa",
+    },
+    {
+      href: "/tverify",
+      title: "TVerify",
+      detail: "Confirm a payment from the receipt",
+    },
+  ],
+] as const;
 
-type NavLink =
-  | { label: string; href: string }
-  | { label: string; items: NavItem[] };
-
-const links: NavLink[] = [
-   { href: "/#faq", label: "About" },
-  {
-    label: "Products",
-    items: [
-      { href: "/safi", label: "Safi AI", icon: "safi" },
-      { href: "/fincore", label: "Fincore", icon: "fincore" },
-      { href: "/settle", label: "Settle Africa", icon: "settle" },
-    ],
-  },
-  {
-    label: "Resources",
-    items: [
-      { href: "https://docs.insolify.com/", label: "Documentation", icon: "docs", external: true },
-      { href: "/status", label: "Status", icon: "status" },
-    ],
-  },
+const menuLinks = [
+  { href: "/", label: "Home" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/tverify", label: "TVerify" },
+  { href: docsHref, label: "Documentation", external: true },
+  { href: "/status", label: "Status" },
   { href: "/contact", label: "Contact" },
-];
+] as const;
 
-const navLinkClass =
-  "inline-flex items-center gap-1 rounded-full px-2.5 py-2 text-[13px] whitespace-nowrap transition-colors sm:px-4 sm:text-sm";
+const barLinks = [
+  { href: "/pricing", label: "Pricing" },
+  { href: "/status", label: "Status" },
+  { href: "/contact", label: "Contact" },
+] as const;
 
 function subscribeToTheme(onStoreChange: () => void) {
   const observer = new MutationObserver(onStoreChange);
-  observer.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
   return () => observer.disconnect();
 }
 
-function getThemeSnapshot() {
-  return document.documentElement.classList.contains("dark");
-}
-
-function getServerThemeSnapshot() {
-  return false;
-}
-
-function subscribeToScroll(onStoreChange: () => void) {
-  window.addEventListener("scroll", onStoreChange, { passive: true });
-  return () => window.removeEventListener("scroll", onStoreChange);
-}
-
-function getScrollFixedSnapshot() {
-  return window.scrollY > 24;
-}
-
-function getServerScrollFixedSnapshot() {
-  return false;
-}
-
 export function SiteNav() {
-  const pathname = usePathname();
-  const navRef = useRef<HTMLElement>(null);
-  const [navHeight, setNavHeight] = useState(0);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const dark = useSyncExternalStore(
-    subscribeToTheme,
-    getThemeSnapshot,
-    getServerThemeSnapshot,
-  );
-  const fixed = useSyncExternalStore(
-    subscribeToScroll,
-    getScrollFixedSnapshot,
-    getServerScrollFixedSnapshot,
-  );
-
-  useEffect(() => {
-    const nav = navRef.current;
-    if (!nav) return;
-
-    const measure = () => setNavHeight(nav.offsetHeight);
-    measure();
-
-    const observer = new ResizeObserver(measure);
-    observer.observe(nav);
-    return () => observer.disconnect();
-  }, []);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const dark = useSyncExternalStore(subscribeToTheme, () => document.documentElement.classList.contains("dark"), () => false);
 
   function toggleTheme() {
     const next = !document.documentElement.classList.contains("dark");
@@ -108,252 +66,302 @@ export function SiteNav() {
     localStorage.setItem("theme", next ? "dark" : "light");
   }
 
+  useEffect(() => {
+    if (!productsOpen) return;
+
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") setProductsOpen(false);
+    }
+
+    function onPointer(event: MouseEvent) {
+      if (!menuRef.current?.contains(event.target as Node)) setProductsOpen(false);
+    }
+
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onPointer);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onPointer);
+    };
+  }, [productsOpen]);
+
   return (
-    <header className="relative z-40 mx-auto flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-3 px-4 pt-4 sm:px-6 lg:px-8 lg:pt-6">
-      <Link href="/" className="flex items-center">
-        <Image
-          src="/insolify-logo.png"
-          alt="Insolify"
-          width={423}
-          height={126}
-          priority
-          className="h-7 w-auto dark:brightness-0 dark:invert"
-        />
-      </Link>
-
-      <div className="order-3 hidden w-full flex-col items-center lg:order-2 lg:flex lg:w-auto lg:flex-1">
-        {fixed ? <div aria-hidden style={{ height: navHeight }} /> : null}
-        <nav
-          ref={navRef}
-          aria-label="Primary"
-          className={`flex items-center justify-center gap-0.5 overflow-visible rounded-full bg-[#f2f2f4] px-1.5 py-1.5 sm:gap-1 sm:px-2 sm:py-2 dark:bg-[#2a2a30] ${
-            fixed
-              ? "fixed top-4 left-1/2 z-50 -translate-x-1/2 shadow-[0_10px_30px_rgba(20,16,40,0.12)]"
-              : "relative"
-          }`}
-        >
-          {links.map((link) =>
-            "items" in link ? (
-              <NavDropdown key={link.label} label={link.label} items={link.items} pathname={pathname} />
-            ) : (
-              <Link
-                key={link.label}
-                href={link.href}
-                className={`${navLinkClass} ${
-                  link.href === pathname
-                    ? "text-[#1a1a1a] dark:text-white"
-                    : "text-[#6d6d6d] hover:text-[#1a1a1a] dark:text-[#c8c8c8] dark:hover:text-white"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ),
-          )}
-        </nav>
-      </div>
-
-      <div className="order-2 flex items-center gap-2 lg:order-3">
-        <button
-          type="button"
-          onClick={toggleTheme}
-          aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
-          className="inline-flex size-10 items-center justify-center rounded-full border border-[#ececf1] bg-white text-[#2b2b2b] transition-colors hover:bg-[#f6f6f6] dark:border-white/15 dark:bg-[#1c1c22] dark:text-white dark:hover:bg-[#2a2a30]"
-        >
-          {dark ? <SunIcon /> : <MoonIcon />}
-        </button>
-        <button
-          type="button"
-          onClick={() => setSidebarOpen(true)}
-          aria-expanded={sidebarOpen}
-          aria-controls="insolify-sidebar"
-          aria-label="Open menu"
-          className="inline-flex size-10 items-center justify-center rounded-full border border-[#ececf1] bg-white text-[#2b2b2b] transition-colors hover:bg-[#f6f6f6] lg:hidden dark:border-white/15 dark:bg-[#1c1c22] dark:text-white dark:hover:bg-[#2a2a30]"
-        >
-          <MenuIcon />
-        </button>
-        <Link
-          href="https://www.insolify.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden h-10 items-center rounded-full bg-[#7b61ff] px-4 text-sm font-semibold text-white transition-colors hover:bg-[#6a4ff0] lg:inline-flex sm:px-5"
-        >
-          Account
+    <header className="sticky top-0 z-40 border-b border-black/10 bg-white text-black dark:border-white/10 dark:bg-black dark:text-white">
+      <div className="flex h-16 w-full items-center justify-between gap-6 px-5 sm:px-8">
+        <Link href="/" aria-label="Insolify home" className="shrink-0">
+          <Image
+            src="/insolify-logo.png"
+            alt=""
+            width={423}
+            height={126}
+            priority
+            className="h-6 w-auto dark:brightness-0 dark:invert"
+          />
         </Link>
-      </div>
 
-      <InsolifySidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        <div ref={menuRef} className="relative hidden items-center gap-6 lg:flex" onMouseLeave={() => setProductsOpen(false)}>
+          <nav aria-label="Primary" className="flex items-center gap-6">
+            <span onMouseEnter={() => setProductsOpen(false)}>
+              <TextLink href="/">Home</TextLink>
+            </span>
+            <button
+              type="button"
+              aria-expanded={productsOpen}
+              aria-controls="products-menu"
+              onMouseEnter={() => setProductsOpen(true)}
+              onClick={() => setProductsOpen((value) => !value)}
+              className={`text-[13px] transition-colors focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black ${
+                productsOpen ? "text-black dark:text-white" : "text-[#6d6d6d] hover:text-black dark:text-[#b5b5b5] dark:hover:text-white"
+              }`}
+            >
+              Products
+            </button>
+            <span className="flex items-center gap-6" onMouseEnter={() => setProductsOpen(false)}>
+              {barLinks.map((link) => (
+                <TextLink key={link.href} href={link.href}>
+                  {link.label}
+                </TextLink>
+              ))}
+            </span>
+          </nav>
+          <span aria-hidden className="h-4 w-px bg-black/15 dark:bg-white/15" onMouseEnter={() => setProductsOpen(false)} />
+          <span onMouseEnter={() => setProductsOpen(false)}>
+            <TextLink href={docsHref} external>
+              Docs
+            </TextLink>
+          </span>
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
+            className="inline-flex size-8 items-center justify-center rounded-full text-black dark:text-white"
+          >
+            {dark ? <SunIcon /> : <MoonIcon />}
+          </button>
+          <Link
+            href="/contact"
+            className="inline-flex h-8 items-center rounded-full bg-black px-3.5 text-[13px] font-medium text-white transition-colors hover:bg-[#2a2a2a] focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:bg-white dark:text-black dark:hover:bg-[#e8e8e8] dark:focus-visible:ring-offset-black"
+          >
+            Talk to us
+          </Link>
+          {productsOpen ? <ProductsPanel onNavigate={() => setProductsOpen(false)} /> : null}
+        </div>
+
+        <div className="flex items-center gap-1 lg:hidden">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
+            className="inline-flex size-9 items-center justify-center"
+          >
+            {dark ? <SunIcon /> : <MoonIcon />}
+          </button>
+          <button
+            type="button"
+            className="inline-flex size-9 items-center justify-center"
+            aria-expanded={mobileOpen}
+            aria-controls="site-menu"
+            onClick={() => setMobileOpen((value) => !value)}
+          >
+            <span className="sr-only">{mobileOpen ? "Close menu" : "Open menu"}</span>
+            {mobileOpen ? <CloseIcon /> : <MenuIcon />}
+          </button>
+        </div>
+      </div>
+      {mobileOpen ? <MobileMenu onNavigate={() => setMobileOpen(false)} /> : null}
     </header>
   );
 }
 
-function NavDropdown({
-  label,
-  items,
-  pathname,
-}: {
-  label: string;
-  items: NavItem[];
-  pathname: string;
-}) {
-  const current = items.some((item) => item.href === pathname);
-
+function ProductsPanel({ onNavigate }: { onNavigate: () => void }) {
   return (
-    <div className="group relative">
-      <button
-        type="button"
-        aria-haspopup="menu"
-        aria-label={`${label} menu`}
-        className={`${navLinkClass} ${
-          current
-            ? "text-[#1a1a1a] dark:text-white"
-            : "text-[#6d6d6d] group-hover:text-[#1a1a1a] group-focus-within:text-[#1a1a1a] dark:text-[#c8c8c8] dark:group-hover:text-white dark:group-focus-within:text-white"
-        }`}
-      >
-        {label}
-        <ChevronIcon />
-      </button>
-      <div className="pointer-events-none invisible absolute top-full left-1/2 z-50 min-w-55 -translate-x-1/2 pt-2 opacity-0 transition duration-150 group-hover:visible group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto group-focus-within:opacity-100">
-        <div
-          role="menu"
-          aria-label={label}
-          className="rounded-[22px] border border-black/6 bg-white p-2 shadow-[0_10px_30px_rgba(20,16,40,0.12)] dark:border-white/10 dark:bg-[#2a2a30]"
-        >
-          {items.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              role="menuitem"
-              aria-current={item.href === pathname ? "page" : undefined}
-              target={item.external ? "_blank" : undefined}
-              rel={item.external ? "noopener noreferrer" : undefined}
-              className={`flex items-center gap-3 rounded-2xl px-2.5 py-2.5 text-[13px] transition-colors sm:text-sm ${
-                item.href === pathname
-                  ? "bg-[#f2f2f4] text-[#1a1a1a] dark:bg-white/10 dark:text-white"
-                  : "text-[#1a1a1a] hover:bg-[#f2f2f4] dark:text-white dark:hover:bg-white/10"
-              }`}
-            >
-              {item.icon ? (
-                <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-[#111] text-white dark:bg-white dark:text-[#111]">
-                  <NavGlyph name={item.icon} />
-                </span>
-              ) : null}
-              {item.label}
-            </Link>
+    <div className="absolute top-full right-0 z-50 w-[min(52rem,calc(100vw-8rem))] pt-3">
+      <div id="products-menu" className="overflow-hidden rounded-xl border border-black/10 bg-white text-black shadow-[0_24px_80px_rgba(0,0,0,0.12)] dark:border-white/10 dark:bg-[#161618] dark:text-white dark:shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
+        <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_13rem] divide-x divide-black/10 dark:divide-white/10">
+          {featured.map((column) => (
+            <div key={column[0].href} className="flex flex-col gap-1 p-3">
+              {column.map((item) => (
+                <FeatureLink key={item.href} {...item} onNavigate={onNavigate} />
+              ))}
+            </div>
           ))}
+          <div className="flex flex-col p-3">
+            {menuLinks.map((link) => (
+              <PlainLink key={link.label} {...link} onNavigate={onNavigate} />
+            ))}
+          </div>
         </div>
+        <MenuFooter onNavigate={onNavigate} />
       </div>
     </div>
   );
 }
 
-function NavGlyph({ name }: { name: NavIcon }) {
-  if (name === "safi") return <SafiGlyph />;
-  if (name === "fincore") return <FincoreGlyph />;
-  if (name === "settle") return <SettleGlyph />;
-  if (name === "docs") return <DocsGlyph />;
-  return <StatusGlyph />;
-}
+function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
+  useEffect(() => {
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
 
-function ChevronIcon() {
-  return (
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 12 12"
-      fill="none"
-      aria-hidden
-      className="mt-px transition-transform duration-150 group-hover:rotate-180 group-focus-within:rotate-180"
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") onNavigate();
+    }
+
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [onNavigate]);
+
+  return createPortal(
+    <div
+      id="site-menu"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Menu"
+      className="fixed inset-0 z-80 flex h-dvh w-screen flex-col bg-white text-black dark:bg-black dark:text-white"
     >
-      <path
-        d="M2.6 4.4 6 7.6l3.4-3.2"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+      <div className="flex h-16 shrink-0 items-center justify-between px-5">
+        <Link href="/" onClick={onNavigate} aria-label="Insolify home">
+          <Image src="/insolify-logo.png" alt="" width={423} height={126} className="h-6 w-auto dark:brightness-0 dark:invert" />
+        </Link>
+        <button type="button" onClick={onNavigate} aria-label="Close menu" className="inline-flex size-10 items-center justify-center">
+          <CloseIcon />
+        </button>
+      </div>
+      <nav aria-label="Primary" className="flex min-h-0 flex-1 flex-col overflow-y-auto px-5 pt-6 pb-8">
+        <Link href="/" onClick={onNavigate} className="border-b border-black/10 py-4 text-lg font-medium dark:border-white/10">
+          Home
+        </Link>
+        <div className="flex flex-col">
+          {featured.flat().map((item) => (
+            <Link key={item.href} href={item.href} onClick={onNavigate} className="border-b border-black/10 py-4 dark:border-white/10">
+              <span className="block text-lg font-medium">{item.title}</span>
+              <span className="mt-1 block text-sm leading-5 text-[#8d8d93]">{item.detail}</span>
+            </Link>
+          ))}
+        </div>
+        <div className="mt-2 flex flex-col">
+          {menuLinks.map((link) =>
+            "external" in link ? (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="border-b border-black/10 py-4 text-lg dark:border-white/10"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link key={link.label} href={link.href} onClick={onNavigate} className="border-b border-black/10 py-4 text-lg dark:border-white/10">
+                {link.label}
+              </Link>
+            ),
+          )}
+        </div>
+        <Link
+          href="/contact"
+          onClick={onNavigate}
+          className="mt-auto inline-flex h-12 w-full items-center justify-center rounded-full bg-black text-sm font-medium text-white dark:bg-white dark:text-black"
+        >
+          Talk to us
+        </Link>
+      </nav>
+    </div>,
+    document.body,
   );
 }
 
-function SafiGlyph() {
+function FeatureLink({
+  href,
+  title,
+  detail,
+  onNavigate,
+}: {
+  href: string;
+  title: string;
+  detail: string;
+  onNavigate: () => void;
+}) {
   return (
-    <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden>
-      <path
-        d="M7 1.4c1.8 2.2 3.3 4.1 3.3 6.3a3.3 3.3 0 1 1-6.6 0C3.7 5.5 5.2 3.6 7 1.4Z"
-        fill="currentColor"
-      />
-    </svg>
+    <Link
+      href={href}
+      onClick={onNavigate}
+      className="block rounded-lg px-3 py-3 transition-colors hover:bg-black/5 focus-visible:ring-2 focus-visible:ring-current focus-visible:outline-none dark:hover:bg-white/6"
+    >
+      <span className="block text-sm font-medium">{title}</span>
+      <span className="mt-1 block max-w-[18rem] text-[13px] leading-5 text-[#6d6d6d] dark:text-[#8d8d93]">{detail}</span>
+    </Link>
   );
 }
 
-function FincoreGlyph() {
+function PlainLink({
+  href,
+  label,
+  external,
+  onNavigate,
+}: {
+  href: string;
+  label: string;
+  external?: boolean;
+  onNavigate: () => void;
+}) {
+  const className =
+    "block rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-black/5 focus-visible:ring-2 focus-visible:ring-current focus-visible:outline-none dark:hover:bg-white/6";
+
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+        {label}
+      </a>
+    );
+  }
+
   return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-      <path d="M7 2.2v9.6M2.2 7h9.6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-      <circle cx="7" cy="2.4" r="1.15" fill="currentColor" />
-      <circle cx="7" cy="11.6" r="1.15" fill="currentColor" />
-      <circle cx="2.4" cy="7" r="1.15" fill="currentColor" />
-      <circle cx="11.6" cy="7" r="1.15" fill="currentColor" />
-    </svg>
+    <Link href={href} onClick={onNavigate} className={className}>
+      {label}
+    </Link>
   );
 }
 
-function SettleGlyph() {
+function MenuFooter({ onNavigate }: { onNavigate: () => void }) {
   return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-      <path
-        d="M9.6 4.2a3.7 3.7 0 1 0 1.1 3.8"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
+    <div className="flex items-center justify-between gap-4 border-t border-black/10 px-5 py-3 dark:border-white/10">
+      <p className="flex min-w-0 items-center gap-2 text-[13px] text-[#c6c6c6]">
+        <span className="shrink-0 rounded-md border border-white/15 px-1.5 py-0.5 text-[11px] leading-none text-[#9a9aa1]">Platform</span>
+        <span className="truncate">Core banking, payments, and AI in one suite</span>
+      </p>
+      <Link href="/#features" onClick={onNavigate} className="shrink-0 text-[13px] text-[#444] transition-colors hover:text-black dark:text-[#d0d0d4] dark:hover:text-white">
+        Learn more <span aria-hidden="true">→</span>
+      </Link>
+    </div>
   );
 }
 
-function DocsGlyph() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-      <path
-        d="M3.8 2.3h4.2L10.2 4.6v7.1H3.8V2.3Z"
-        stroke="currentColor"
-        strokeWidth="1.3"
-        strokeLinejoin="round"
-      />
-      <path d="M8 2.4V4.7h2.2" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
-    </svg>
-  );
-}
+function TextLink({ href, external, children }: { href: string; external?: boolean; children: string }) {
+  const className =
+    "text-[13px] text-[#6d6d6d] transition-colors hover:text-black focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-[#b5b5b5] dark:hover:text-white dark:focus-visible:ring-offset-black";
 
-function StatusGlyph() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-      <path
-        d="M2 8.6 4.8 5.7l2.3 2.4L12 3.4"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+        {children}
+      </a>
+    );
+  }
 
-function MenuIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
-      <path d="M3.5 5h11M3.5 9h11M3.5 13h11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-    </svg>
+    <Link href={href} className={className}>
+      {children}
+    </Link>
   );
 }
 
 function MoonIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        d="M20.2 15.1A8.6 8.6 0 0 1 8.9 3.8 8.7 8.7 0 1 0 20.2 15.1Z"
-        fill="currentColor"
-      />
+      <path d="M20.2 15.1A8.6 8.6 0 0 1 8.9 3.8 8.7 8.7 0 1 0 20.2 15.1Z" fill="currentColor" />
     </svg>
   );
 }
@@ -368,6 +376,22 @@ function SunIcon() {
         strokeWidth="1.8"
         strokeLinecap="round"
       />
+    </svg>
+  );
+}
+
+function MenuIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+      <path d="M3 4.5h12M3 9h12M3 13.5h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+      <path d="M4.5 4.5 13.5 13.5M13.5 4.5 4.5 13.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
