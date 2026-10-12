@@ -29,7 +29,7 @@ export function PowerfulFeatures() {
           return (
             <article
               key={feature.id}
-              className="flex min-h-120 flex-col border-black/10 px-4 py-6 border-t first:border-t-0 md:[&:nth-child(2n)]:border-l md:[&:nth-child(n+3)]:border-t xl:[&:nth-child(n+2)]:border-l xl:[&:nth-child(n+3)]:border-t-0 dark:border-white/10"
+              className="flex min-h-120 flex-col border-black/10 px-4 py-6 border-t first:border-t-0 md:nth-[2n]:border-l md:nth-[n+3]:border-t xl:[&:nth-child(n+2)]:border-l xl:[&:nth-child(n+3)]:border-t-0 dark:border-white/10"
               onMouseEnter={() => setActive(feature.id)}
               onFocus={() => setActive(feature.id)}
             >
