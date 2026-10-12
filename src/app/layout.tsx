@@ -35,7 +35,7 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col bg-white font-sans text-[#2b2b2b] dark:bg-[#0c0c0f] dark:text-[#ededed]">
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{if(localStorage.getItem("theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}`,
+            __html: `try{if(!localStorage.getItem("theme-default")){localStorage.setItem("theme","light");localStorage.setItem("theme-default","light")}document.documentElement.classList.toggle("dark",localStorage.getItem("theme")==="dark")}catch(e){}`,
           }}
         />
         <SiteNav />

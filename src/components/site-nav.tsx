@@ -57,7 +57,7 @@ function subscribeToTheme(onStoreChange: () => void) {
 export function SiteNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLElement>(null);
   const dark = useSyncExternalStore(subscribeToTheme, () => document.documentElement.classList.contains("dark"), () => false);
 
   function toggleTheme() {
@@ -86,8 +86,12 @@ export function SiteNav() {
   }, [productsOpen]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-black/10 bg-white text-black dark:border-white/10 dark:bg-black dark:text-white">
-      <div className="flex h-16 w-full items-center justify-between gap-6 px-5 sm:px-8">
+    <header
+      ref={menuRef}
+      onMouseLeave={() => setProductsOpen(false)}
+      className="sticky top-0 z-40 bg-white text-black dark:bg-black dark:text-white"
+    >
+      <div className="flex h-16 w-full items-center justify-between gap-6 border-b border-black/10 px-5 sm:px-8 dark:border-white/10">
         <Link href="/" aria-label="Insolify home" className="shrink-0">
           <Image
             src="/insolify-logo.png"
@@ -99,7 +103,7 @@ export function SiteNav() {
           />
         </Link>
 
-        <div ref={menuRef} className="relative hidden items-center gap-6 lg:flex" onMouseLeave={() => setProductsOpen(false)}>
+        <div className="relative hidden items-center gap-6 lg:flex">
           <nav aria-label="Primary" className="flex items-center gap-6">
             <span onMouseEnter={() => setProductsOpen(false)}>
               <TextLink href="/">Home</TextLink>
@@ -133,6 +137,7 @@ export function SiteNav() {
           <button
             type="button"
             onClick={toggleTheme}
+            onMouseEnter={() => setProductsOpen(false)}
             aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
             className="inline-flex size-8 items-center justify-center rounded-full text-black dark:text-white"
           >
@@ -140,11 +145,11 @@ export function SiteNav() {
           </button>
           <Link
             href="/contact"
+            onMouseEnter={() => setProductsOpen(false)}
             className="inline-flex h-8 items-center rounded-full bg-black px-3.5 text-[13px] font-medium text-white transition-colors hover:bg-[#2a2a2a] focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:bg-white dark:text-black dark:hover:bg-[#e8e8e8] dark:focus-visible:ring-offset-black"
           >
             Talk to us
           </Link>
-          {productsOpen ? <ProductsPanel onNavigate={() => setProductsOpen(false)} /> : null}
         </div>
 
         <div className="flex items-center gap-1 lg:hidden">
@@ -168,30 +173,81 @@ export function SiteNav() {
           </button>
         </div>
       </div>
+      {productsOpen ? <ProductsPanel onNavigate={() => setProductsOpen(false)} /> : null}
       {mobileOpen ? <MobileMenu onNavigate={() => setMobileOpen(false)} /> : null}
     </header>
   );
 }
 
+const productColumns = [
+  [
+    {
+      id: "core",
+      label: "Core",
+      items: [{ href: "/fincore", title: "Fincore", detail: "Accounts, lending, and channels" }],
+    },
+    {
+      id: "intelligence",
+      label: "Intelligence",
+      items: [{ href: "/safi", title: "Safi AI", detail: "Support, risk, and research" }],
+    },
+  ],
+  [
+    {
+      id: "payments",
+      label: "Payments",
+      items: [
+        { href: "/settle", title: "Settle Africa", detail: "Cross-border payments" },
+        { href: "/tverify", title: "TVerify", detail: "Confirm a payment receipt" },
+      ],
+    },
+  ],
+] as const;
+
 function ProductsPanel({ onNavigate }: { onNavigate: () => void }) {
   return (
-    <div className="absolute top-full right-0 z-50 w-[min(52rem,calc(100vw-8rem))] pt-3">
-      <div id="products-menu" className="overflow-hidden rounded-xl border border-black/10 bg-white text-black shadow-[0_24px_80px_rgba(0,0,0,0.12)] dark:border-white/10 dark:bg-[#161618] dark:text-white dark:shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
-        <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_13rem] divide-x divide-black/10 dark:divide-white/10">
-          {featured.map((column) => (
-            <div key={column[0].href} className="flex flex-col gap-1 p-3">
-              {column.map((item) => (
-                <FeatureLink key={item.href} {...item} onNavigate={onNavigate} />
+    <div id="products-menu" className="absolute inset-x-0 top-full hidden border-b border-black/10 bg-white lg:block dark:border-white/10 dark:bg-black">
+      <div className="mx-auto flex w-full max-w-305 flex-row gap-16 px-5 pt-10 pb-20 xl:gap-30.5">
+        <div className="w-full max-w-67.25 shrink-0">
+          <h2 className="text-[45px] leading-[1.11] font-medium tracking-tight">Products</h2>
+          <p className="mt-7 mb-2.5 text-lg leading-snug text-[#6d6d6d] dark:text-white/60">
+            Core banking, payments, and checks for the institutions that run them.
+          </p>
+          <Link href="/contact" onClick={onNavigate} className="group inline-flex w-fit items-center gap-1 text-base font-medium">
+            Talk to us
+            <MenuArrow />
+          </Link>
+        </div>
+        <div className="grid min-w-0 flex-1 grid-cols-2 items-start gap-12.5">
+          {productColumns.map((column) => (
+            <div key={column[0].id} className="flex flex-col gap-12.5">
+              {column.map((group) => (
+                <section key={group.id}>
+                  <h3 className="mb-5 flex items-center gap-3.5 text-sm font-medium uppercase">
+                    <GroupMark id={group.id} />
+                    {group.label}
+                  </h3>
+                  <div className="flex flex-col gap-2.5 pl-10">
+                    {group.items.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={onNavigate}
+                        className="group flex items-center gap-2.5 transition-transform hover:translate-x-2"
+                      >
+                        <span className="shrink-0 text-base font-medium">{item.title}</span>
+                        <span className="flex items-center gap-2.5 text-sm text-[#6d6d6d] transition-colors group-hover:text-black dark:text-white/55 dark:group-hover:text-white">
+                          {item.detail}
+                          <MenuArrow />
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
               ))}
             </div>
           ))}
-          <div className="flex flex-col p-3">
-            {menuLinks.map((link) => (
-              <PlainLink key={link.label} {...link} onNavigate={onNavigate} />
-            ))}
-          </div>
         </div>
-        <MenuFooter onNavigate={onNavigate} />
       </div>
     </div>
   );
@@ -273,69 +329,40 @@ function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
   );
 }
 
-function FeatureLink({
-  href,
-  title,
-  detail,
-  onNavigate,
-}: {
-  href: string;
-  title: string;
-  detail: string;
-  onNavigate: () => void;
-}) {
+function GroupMark({ id }: { id: (typeof productColumns)[number][number]["id"] }) {
   return (
-    <Link
-      href={href}
-      onClick={onNavigate}
-      className="block rounded-lg px-3 py-3 transition-colors hover:bg-black/5 focus-visible:ring-2 focus-visible:ring-current focus-visible:outline-none dark:hover:bg-white/6"
-    >
-      <span className="block text-sm font-medium">{title}</span>
-      <span className="mt-1 block max-w-[18rem] text-[13px] leading-5 text-[#6d6d6d] dark:text-[#8d8d93]">{detail}</span>
-    </Link>
+    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" aria-hidden className="size-6.25 shrink-0">
+      <circle cx="12.5" cy="12.5" r="12.5" className="fill-black dark:fill-white" />
+      {id === "core" ? (
+        <path d="M8 9.5h9M8 12.5h9M8 15.5h6" stroke="white" className="dark:stroke-black" strokeWidth="1.4" strokeLinecap="round" />
+      ) : null}
+      {id === "payments" ? (
+        <path d="M8 12.5h8.2M13.4 9.2 16.8 12.5 13.4 15.8" stroke="white" className="dark:stroke-black" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+      ) : null}
+      {id === "intelligence" ? (
+        <path d="M12.5 7.5v2.2M12.5 15.3v2.2M7.5 12.5h2.2M15.3 12.5h2.2M9 9l1.5 1.5M14.5 14.5 16 16M16 9l-1.5 1.5M10.5 14.5 9 16" stroke="white" className="dark:stroke-black" strokeWidth="1.3" strokeLinecap="round" />
+      ) : null}
+    </svg>
   );
 }
 
-function PlainLink({
-  href,
-  label,
-  external,
-  onNavigate,
-}: {
-  href: string;
-  label: string;
-  external?: boolean;
-  onNavigate: () => void;
-}) {
-  const className =
-    "block rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-black/5 focus-visible:ring-2 focus-visible:ring-current focus-visible:outline-none dark:hover:bg-white/6";
-
-  if (external) {
-    return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
-        {label}
-      </a>
-    );
-  }
-
+function MenuArrow() {
   return (
-    <Link href={href} onClick={onNavigate} className={className}>
-      {label}
-    </Link>
-  );
-}
-
-function MenuFooter({ onNavigate }: { onNavigate: () => void }) {
-  return (
-    <div className="flex items-center justify-between gap-4 border-t border-black/10 px-5 py-3 dark:border-white/10">
-      <p className="flex min-w-0 items-center gap-2 text-[13px] text-[#c6c6c6]">
-        <span className="shrink-0 rounded-md border border-white/15 px-1.5 py-0.5 text-[11px] leading-none text-[#9a9aa1]">Platform</span>
-        <span className="truncate">Core banking, payments, and AI in one suite</span>
-      </p>
-      <Link href="/#features" onClick={onNavigate} className="shrink-0 text-[13px] text-[#444] transition-colors hover:text-black dark:text-[#d0d0d4] dark:hover:text-white">
-        Learn more <span aria-hidden="true">→</span>
-      </Link>
-    </div>
+    <svg className="size-3.5 shrink-0 -translate-x-1 transition-transform group-hover:translate-x-0" width="21" height="20" viewBox="0 0 21 20" fill="none" aria-hidden>
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M9.23245 0.261511C9.5528 -0.0871703 10.0722 -0.0871703 10.3925 0.261511L18.2675 8.83294C18.5879 9.18163 18.5879 9.74694 18.2675 10.0956L10.3925 18.667C10.0722 19.0157 9.5528 19.0157 9.23245 18.667C8.9121 18.3184 8.9121 17.753 9.23245 17.4044L16.5274 9.46428L9.23245 1.5242C8.9121 1.17551 8.9121 0.610194 9.23245 0.261511Z"
+      />
+      <path
+        className="opacity-0 transition-opacity group-hover:opacity-100"
+        fill="currentColor"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M1 9.35379C1 8.86068 1.36727 8.46094 1.82031 8.46094H17.1328C17.5859 8.46094 17.9531 8.86068 17.9531 9.35379C17.9531 9.84691 17.5859 10.2467 17.1328 10.2467H1.82031C1.36727 10.2467 1 9.84691 1 9.35379Z"
+      />
+    </svg>
   );
 }
 
