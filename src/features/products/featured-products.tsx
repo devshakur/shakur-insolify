@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -6,24 +7,45 @@ import { useEffect, useRef } from "react";
 const systems = [
   {
     id: "fincore",
-    name: "Fincore",
-    badge: "Core",
+    name: "Fincore Engine",
+    badge: "Core Infrastructure",
     href: "/fincore",
-    points: ["Accounts", "Lending", "Digital channels", "Regulatory reporting"],
+    description:
+      "A modular core banking platform with 12 integrated engines running ledgers, deposits, and multi-channel delivery.",
+    points: [
+      "Core Ledger & Inter-Banking Engine",
+      "Virtual Cards & Web/Mobile Digital Banking",
+      "Native USSD Banking & POS Terminal Gateway",
+      "Real-time Automated GL Reconciliation",
+    ],
   },
   {
     id: "safi",
-    name: "Safi AI",
-    badge: "Intelligence",
+    name: "Safi AI Platform",
+    badge: "Native Intelligence",
     href: "/safi",
-    points: ["Support", "Fraud checks", "Research"],
+    description:
+      "Autonomous risk management and operational AI directly embedded into banking telemetry.",
+    points: [
+      "Real-Time AI Transaction Fraud Detection",
+      "Multilingual AI Customer Support & Chatbot",
+      "Autonomous Meeting & Compliance Assistant",
+      "Deep Financial Research & Predictive Analytics",
+    ],
   },
   {
     id: "settle",
-    name: "Settle Africa",
-    badge: "Payments",
+    name: "Settle Africa Rail",
+    badge: "Pan-African Payments",
     href: "/settle",
-    points: ["Local rails", "Cross-border", "Reconciliation"],
+    description:
+      "Optimized cross-border and local settlement rails with automated compliance built-in.",
+    points: [
+      "Cross-Border & Instant Local Cash Transfer",
+      "Mobile Money & Airtime Topup Integration",
+      "Business API for Automated Enterprise Payouts",
+      "TVerify Real-Time Payout & Settlement Audit",
+    ],
   },
 ] as const;
 
@@ -54,10 +76,11 @@ export function FeaturedProducts() {
         const t = raw < 0 ? 0 : raw > 1 ? 1 : raw;
         const progress = t * t * (3 - 2 * t);
         const towardCenter = index % 2 === 0 ? 1 : -1;
-        const shift = (1 - progress) * 96 * (axis === "x" ? towardCenter : 1);
+        const shift = (1 - progress) * 48 * (axis === "x" ? towardCenter : 1);
+        
         node.style.transform = axis === "x" ? `translate3d(${shift}px,0,0)` : `translate3d(0,${shift}px,0)`;
-        node.style.filter = `blur(${(1 - progress) * 18}px)`;
-        node.style.opacity = String(0.45 + progress * 0.55);
+        node.style.filter = `blur(${(1 - progress) * 12}px)`;
+        node.style.opacity = String(0.55 + progress * 0.45);
       };
 
       desktopCards.current.forEach((node, index) => apply(node, index, "x"));
@@ -80,19 +103,31 @@ export function FeaturedProducts() {
   }, []);
 
   return (
-    <section id="features" className="scroll-mt-28 bg-white px-4 py-16 text-black sm:px-6 sm:py-20 lg:px-8 dark:bg-black dark:text-white">
-      <div className="mx-auto w-full max-w-6xl">
-        <p className="text-[11px] tracking-[0.18em] text-[#6d6d6d] uppercase dark:text-white/50">Platform</p>
-        <h2 className="mt-3 max-w-xl text-3xl font-semibold tracking-tight sm:text-4xl">Three systems companies integrate</h2>
+    <section id="features" className="scroll-mt-20 bg-white px-4 py-5 text-black sm:px-6 sm:py-4 lg:px-8 dark:bg-black dark:text-white">
+      <div className="mx-auto w-full max-w-5xl">
+        <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-end">
+          <div>
+            <p className="text-[11px] font-semibold tracking-[0.18em] text-[#6d6d6d] uppercase dark:text-white/50">
+              Platform Architecture
+            </p>
+            <h2 className="mt-1.5 text-2xl font-bold tracking-tight sm:text-3xl">
+              Three Unified Core Pillars
+            </h2>
+          </div>
+          <p className="max-w-xs text-xs text-[#5c5c5c] dark:text-white/60">
+            A single, modular system engineered to power modern banks, MFBs, and agile fintech applications.
+          </p>
+        </div>
 
-        <div className="relative mx-auto mt-14 hidden max-w-4xl md:block">
-          <div className="absolute top-0 bottom-0 left-1/2 w-px -translate-x-1/2 bg-black/15 dark:bg-white/20" />
-          <div className="flex flex-col gap-8">
+        {/* Desktop Timeline */}
+        <div className="relative mx-auto mt-10 hidden max-w-4xl md:block">
+          <div className="absolute top-2 bottom-2 left-1/2 w-px -translate-x-1/2 bg-black/10 dark:bg-white/15" />
+          <div className="flex flex-col gap-6">
             {systems.map((system, index) => {
               const onLeft = index % 2 === 0;
               return (
                 <div key={system.id} className="relative grid grid-cols-2 items-center">
-                  <div className={onLeft ? "pr-12" : "col-start-2 pl-12"}>
+                  <div className={onLeft ? "pr-8" : "col-start-2 pl-8"}>
                     <div
                       ref={(node) => {
                         desktopCards.current[index] = node;
@@ -102,7 +137,7 @@ export function FeaturedProducts() {
                       <SystemCard system={system} />
                     </div>
                   </div>
-                  <span className="absolute top-1/2 left-1/2 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-black/15 bg-white text-sm dark:border-white/25 dark:bg-black">
+                  <span className="absolute top-1/2 left-1/2 flex h-7 w-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-black/20 bg-white text-xs font-semibold text-black shadow-sm dark:border-white/30 dark:bg-black dark:text-white">
                     {index + 1}
                   </span>
                 </div>
@@ -111,10 +146,11 @@ export function FeaturedProducts() {
           </div>
         </div>
 
-        <ol className="relative mt-10 ml-3 border-l border-black/15 pl-8 md:hidden dark:border-white/20">
+        {/* Mobile Timeline */}
+        <ol className="relative mt-8 ml-2 border-l border-black/15 pl-6 md:hidden dark:border-white/20">
           {systems.map((system, index) => (
-            <li key={system.id} className="relative pb-8 last:pb-0">
-              <span className="absolute top-5 -left-8 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border border-black/15 bg-white text-sm dark:border-white/25 dark:bg-black">
+            <li key={system.id} className="relative pb-6 last:pb-0">
+              <span className="absolute top-4 -left-6 flex h-7 w-7 -translate-x-1/2 items-center justify-center rounded-full border border-black/20 bg-white text-xs font-semibold dark:border-white/30 dark:bg-black">
                 {index + 1}
               </span>
               <div
@@ -135,24 +171,35 @@ export function FeaturedProducts() {
 
 function SystemCard({ system }: { system: (typeof systems)[number] }) {
   return (
-    <article className="rounded-2xl border border-black/10 bg-white px-5 py-5 shadow-[0_10px_30px_rgba(0,0,0,0.04)] dark:border-white/15 dark:bg-black dark:shadow-none">
-      <div className="flex items-center justify-between gap-3">
-        <h3 className="text-lg font-medium">{system.name}</h3>
-        <span className="rounded-full bg-black/5 px-2.5 py-1 text-xs text-[#5c5c5c] dark:bg-white/10 dark:text-[#b5b5b5]">
+    <article className="group rounded-2xl border border-black/10 bg-white p-5 shadow-sm transition-all duration-200 hover:border-black/30 dark:border-white/15 dark:bg-black dark:shadow-none dark:hover:border-white/30">
+      <div className="flex items-center justify-between gap-2 border-b border-black/5 pb-3 dark:border-white/10">
+        <h3 className="text-base font-bold tracking-tight">{system.name}</h3>
+        <span className="rounded-md bg-black/5 px-2 py-0.5 text-[11px] font-medium text-[#404040] dark:bg-white/10 dark:text-[#d4d4d4]">
           {system.badge}
         </span>
       </div>
-      <ul className="mt-4 space-y-2.5">
+
+      <p className="mt-3 text-xs leading-5 text-[#5c5c5c] dark:text-white/70">
+        {system.description}
+      </p>
+
+      <ul className="mt-3.5 space-y-2">
         {system.points.map((point) => (
-          <li key={point} className="flex items-center gap-2.5 text-sm text-[#5c5c5c] dark:text-[#b5b5b5]">
-            <span className="h-3.5 w-3.5 shrink-0 rounded-full border border-black/25 dark:border-white/30" />
+          <li key={point} className="flex items-center gap-2 text-xs text-[#404040] dark:text-[#d4d4d4]">
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-black/40 dark:bg-white/50" />
             {point}
           </li>
         ))}
       </ul>
-      <Link href={system.href} className="mt-5 inline-flex text-sm font-medium underline underline-offset-4">
-        Learn more
-      </Link>
+
+      <div className="mt-4 pt-2">
+        <Link
+          href={system.href}
+          className="inline-flex items-center gap-1.5 text-xs font-semibold underline decoration-black/20 underline-offset-4 transition-colors group-hover:decoration-black dark:decoration-white/30 dark:group-hover:decoration-white"
+        >
+          Explore {system.name} Capabilities →
+        </Link>
+      </div>
     </article>
   );
 }

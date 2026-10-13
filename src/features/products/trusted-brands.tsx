@@ -12,13 +12,31 @@ const loop = [...brands, ...brands, ...brands];
 
 export function TrustedBrands() {
   return (
-    <section aria-label="Brands that trust us" className="overflow-hidden bg-white pb-16 text-black dark:bg-black dark:text-white">
-      <p className="px-4 text-center text-[11px] tracking-[0.18em] text-black/45 uppercase dark:text-white/45">Brands that trust us</p>
-      <div className="brand-marquee-mask mt-6">
-        <div className="brand-marquee flex w-max">
-          <BrandRow />
-          <BrandRow hidden />
+    <section aria-label="Banks that trust us" className="bg-white py-4 text-black sm:py-6 dark:bg-black dark:text-white">
+      <div className="mx-auto max-w-4xl px-5 text-center sm:px-8">
+        <h2 className="text-[1.85rem] leading-[1.15] font-bold tracking-[-0.03em] text-[#111] sm:text-4xl lg:text-[2.65rem] dark:text-white">
+          Scalable payment infrastructure for banks and microfinance banks.
+        </h2>
+        <p className="mx-auto mt-5 max-w-xl text-[15px] leading-7 text-[#5c5c5c] sm:text-base dark:text-[#8d8d93]">
+          Trusted by institutions across Africa, Insolify gives you one platform for accounts, collections, transfers, and settlement.
+        </p>
+      </div>
+
+      <div className="brand-marquee-window relative mx-auto mt-14 overflow-hidden sm:mt-16">
+        <div className="brand-marquee-sharp">
+          <div className="brand-marquee flex w-max">
+            <BrandRow />
+            <BrandRow hidden />
+          </div>
         </div>
+        <div aria-hidden className="brand-marquee-blur pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="brand-marquee flex w-max">
+            <BrandRow hidden />
+            <BrandRow hidden />
+          </div>
+        </div>
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-linear-to-r from-white to-transparent sm:w-8 dark:from-black" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-linear-to-l from-white to-transparent sm:w-8 dark:from-black" />
       </div>
     </section>
   );
@@ -26,18 +44,16 @@ export function TrustedBrands() {
 
 function BrandRow({ hidden = false }: { hidden?: boolean }) {
   return (
-    <ul className="flex shrink-0 items-center" aria-hidden={hidden || undefined}>
+    <ul className="brand-logo-row flex shrink-0 items-center" aria-hidden={hidden || undefined}>
       {loop.map((brand, index) => (
-        <li key={`${brand.name}-${index}`} className="px-4">
-          <div className="flex h-16 w-44 items-center justify-center rounded-xl bg-white px-4">
-            <Image
-              src={brand.src}
-              alt={hidden ? "" : brand.name}
-              width={140}
-              height={48}
-              className="h-9 w-auto max-w-full object-contain"
-            />
-          </div>
+        <li key={`${brand.name}-${index}`} className="brand-logo-slot flex h-14 shrink-0 items-center justify-center">
+          <Image
+            src={brand.src}
+            alt={hidden || index >= brands.length ? "" : brand.name}
+            width={160}
+            height={48}
+            className="h-10 w-auto max-w-38 object-contain"
+          />
         </li>
       ))}
     </ul>
