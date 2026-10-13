@@ -12,7 +12,7 @@ const products = [
 ] as const;
 
 const resources = [
-  { href: "https://docs.insolify.com/", label: "Documentation", icon: "docs" },
+  { href: "https://docs.insolify.com/", label: "Developer Hub", icon: "docs" },
   { href: "/status", label: "Status", icon: "status" },
 ] as const;
 

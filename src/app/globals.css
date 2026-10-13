@@ -164,8 +164,46 @@ body {
   animation: brand-marquee 36s linear infinite;
 }
 
-.brand-marquee-mask {
-  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+.brand-marquee-window {
+  --logo-slot: 6.5rem;
+  --logo-gap: 1.25rem;
+  width: calc(var(--logo-slot) * 3 + var(--logo-gap) * 2);
+}
+
+.brand-logo-row {
+  gap: var(--logo-gap);
+}
+
+.brand-logo-slot {
+  width: var(--logo-slot);
+}
+
+.brand-marquee-sharp {
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 2.25rem, #000 calc(100% - 2.25rem), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 2.25rem, #000 calc(100% - 2.25rem), transparent 100%);
+}
+
+.brand-marquee-blur {
+  filter: blur(12px);
+  -webkit-mask-image: linear-gradient(to right, #000 0, transparent 2.25rem, transparent calc(100% - 2.25rem), #000 100%);
+  mask-image: linear-gradient(to right, #000 0, transparent 2.25rem, transparent calc(100% - 2.25rem), #000 100%);
+}
+
+@media (min-width: 640px) {
+  .brand-marquee-window {
+    --logo-slot: 11rem;
+    --logo-gap: 2.5rem;
+  }
+
+  .brand-marquee-sharp {
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 3.5rem, #000 calc(100% - 3.5rem), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 3.5rem, #000 calc(100% - 3.5rem), transparent 100%);
+  }
+
+  .brand-marquee-blur {
+    -webkit-mask-image: linear-gradient(to right, #000 0, transparent 3.5rem, transparent calc(100% - 3.5rem), #000 100%);
+    mask-image: linear-gradient(to right, #000 0, transparent 3.5rem, transparent calc(100% - 3.5rem), #000 100%);
+  }
 }
 
 @keyframes brand-marquee {

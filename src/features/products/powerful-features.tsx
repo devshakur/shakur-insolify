@@ -1,73 +1,154 @@
+
 "use client";
 
 import Link from "next/link";
 import { useState } from "react";
-import { featureCards } from "@/features/products/features";
 
 const features = [
-  { ...featureCards[0], kicker: "Speed", href: "/safi" },
-  { ...featureCards[1], kicker: "Intelligence", href: "/safi" },
-  { ...featureCards[2], kicker: "Security", href: "/fincore" },
-  { ...featureCards[4], kicker: "Integration", href: "/settle" },
-];
+  {
+    id: "speed",
+    kicker: "Speed",
+    title: "Sub-15ms Core Execution",
+    metric: "< 15ms",
+    excerpt:
+      "High-throughput atomic ledger posting and instant multi-channel event routing powered by Fincore.",
+    href: "/fincore",
+  },
+  {
+    id: "intelligence",
+    kicker: "Intelligence",
+    title: "Autonomous AI Operations",
+    metric: "99.8% Acc",
+    excerpt:
+      "Real-time fraud screening, automated AML monitoring, and multi-lingual customer assistant via SAFI AI.",
+    href: "/safi",
+  },
+  {
+    id: "security",
+    kicker: "Security",
+    title: "Institutional Compliance",
+    metric: "SOC 2 Type II",
+    excerpt:
+      "Bank-grade ledger immutability, automated CBN/NDIC regulatory exports, and FIDO2 authentication.",
+    href: "/fincore",
+  },
+  {
+    id: "integration",
+    kicker: "Integration",
+    title: "Pan-African Payout Rails",
+    metric: "24+ Countries",
+    excerpt:
+      "Unified cross-border transfers, mobile money clearing, and TVerify audit receipts via Settle Africa.",
+    href: "/settle",
+  },
+] as const;
 
 export function PowerfulFeatures() {
-  const [active, setActive] = useState(features[0].id);
+  const [active, setActive] = useState<string>(features[0].id);
 
   return (
-    <section aria-label="Features" className="bg-white px-4 py-16 text-black sm:px-6 sm:py-20 lg:px-8 dark:bg-black dark:text-white">
+    <section
+      aria-label="Platform Features"
+      className="bg-white px-4 py-3 text-black sm:px-6 sm:py-5 lg:px-8 dark:bg-black dark:text-white"
+    >
       <div className="mx-auto w-full max-w-6xl">
-        <p className="text-[11px] tracking-[0.18em] text-[#6d6d6d] uppercase dark:text-white/50">Features</p>
-        <h2 className="mt-3 max-w-xl text-3xl font-semibold tracking-tight sm:text-4xl">What the platform does</h2>
-        <p className="mt-4 max-w-lg text-[15px] leading-7 text-[#5c5c5c] dark:text-[#b5b5b5]">
-          Speed, intelligence, security, and integration for the companies that run on Insolify.
-        </p>
-      </div>
-      <div className="mx-auto mt-10 grid w-full max-w-6xl md:grid-cols-2 xl:grid-cols-4">
-        {features.map((feature) => {
-          const open = feature.id === active;
-          return (
-            <article
-              key={feature.id}
-              className="flex min-h-120 flex-col border-black/10 px-4 py-6 border-t first:border-t-0 md:nth-[2n]:border-l md:nth-[n+3]:border-t xl:[&:nth-child(n+2)]:border-l xl:[&:nth-child(n+3)]:border-t-0 dark:border-white/10"
-              onMouseEnter={() => setActive(feature.id)}
-              onFocus={() => setActive(feature.id)}
-            >
-              <div
-                className={`flex flex-col overflow-hidden rounded-2xl bg-black p-5 text-white transition-[flex-grow,min-height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] dark:bg-white dark:text-black ${
-                  open ? "min-h-80 flex-1" : "min-h-44"
-                }`}
+        <div className="flex flex-col gap-2 border-b border-black/10 pb-6 sm:flex-row sm:items-end sm:justify-between dark:border-white/10">
+          <div>
+            <p className="text-[11px] font-semibold tracking-[0.18em] text-[#6d6d6d] uppercase dark:text-white/50">
+              Platform Features
+            </p>
+            <h2 className="mt-1 text-2xl font-bold tracking-tight sm:text-3xl">
+              Engineered for Enterprise FinTech
+            </h2>
+          </div>
+          <p className="max-w-xs text-xs text-[#5c5c5c] dark:text-[#b5b5b5]">
+            Speed, intelligence, security, and pan-African payment integration built into one core infrastructure.
+          </p>
+        </div>
+
+        {/* Accordion Grid */}
+        <div className="mt-8 grid w-full gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {features.map((feature) => {
+            const open = feature.id === active;
+            return (
+              <article
+                key={feature.id}
+                className="group relative flex flex-col"
+                onMouseEnter={() => setActive(feature.id)}
+                onFocus={() => setActive(feature.id)}
+                tabIndex={0}
               >
-                <p className="text-[11px] tracking-[0.18em] uppercase opacity-55">{feature.kicker}</p>
-                <h3 className="mt-4 text-[1.35rem] leading-snug font-medium">{feature.title}</h3>
                 <div
-                  className={`grid transition-[grid-template-rows,opacity,margin] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                    open ? "mt-auto grid-rows-[1fr] pt-6 opacity-100" : "mt-0 grid-rows-[0fr] opacity-0"
+                  className={`flex flex-col overflow-hidden rounded-2xl border p-5 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    open
+                      ? "border-black bg-black text-white shadow-md dark:border-white dark:bg-white dark:text-black"
+                      : "border-black/10 bg-black/2 text-black hover:border-black/30 dark:border-white/15 dark:bg-white/3 dark:text-white dark:hover:border-white/30"
                   }`}
                 >
-                  <div className="overflow-hidden">
-                    <p className="text-sm leading-6 opacity-75">{feature.excerpt}</p>
-                    <Link
-                      href={feature.href}
-                      className="mt-6 flex items-center justify-between text-sm font-medium"
+                  {/* Top Bar */}
+                  <div className="flex items-center justify-between">
+                    <span
+                      className={`text-[10px] font-semibold tracking-[0.18em] uppercase ${
+                        open
+                          ? "text-white/60 dark:text-black/60"
+                          : "text-[#6d6d6d] dark:text-white/50"
+                      }`}
                     >
-                      <span className="underline decoration-current/40 underline-offset-4">Learn more</span>
-                      <span aria-hidden="true">→</span>
-                    </Link>
+                      {feature.kicker}
+                    </span>
+                    <span
+                      className={`rounded-md px-2 py-0.5 text-[10px] font-mono font-bold ${
+                        open
+                          ? "bg-white/15 text-white dark:bg-black/10 dark:text-black"
+                          : "bg-black/5 text-black dark:bg-white/10 dark:text-white"
+                      }`}
+                    >
+                      {feature.metric}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="mt-4 text-base font-bold tracking-tight sm:text-lg">
+                    {feature.title}
+                  </h3>
+
+                  {/* Expandable Excerpt & Link */}
+                  <div
+                    className={`grid transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                      open
+                        ? "mt-3 grid-rows-[1fr] opacity-100"
+                        : "mt-0 grid-rows-[0fr] opacity-0"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <p
+                        className={`text-xs leading-5 ${
+                          open
+                            ? "text-white/80 dark:text-black/80"
+                            : "text-[#5c5c5c] dark:text-white/70"
+                        }`}
+                      >
+                        {feature.excerpt}
+                      </p>
+
+                      <Link
+                        href={feature.href}
+                        className={`mt-4 inline-flex items-center gap-1 text-xs font-semibold underline underline-offset-4 ${
+                          open
+                            ? "decoration-white/40 hover:decoration-white dark:decoration-black/40 dark:hover:decoration-black"
+                            : "decoration-black/30 hover:decoration-black dark:decoration-white/30 dark:hover:decoration-white"
+                        }`}
+                      >
+                        <span>Learn more</span>
+                        <span aria-hidden="true">→</span>
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div
-                className={`overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                  open ? "max-h-0 pt-0 opacity-0" : "max-h-28 pt-5 opacity-100"
-                }`}
-              >
-                <p className="text-[11px] tracking-[0.18em] text-[#6d6d6d] uppercase dark:text-white/50">{feature.kicker}</p>
-                <p className="mt-2 text-lg leading-snug font-medium">{feature.title}</p>
-              </div>
-            </article>
-          );
-        })}
+              </article>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

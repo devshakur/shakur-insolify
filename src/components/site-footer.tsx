@@ -35,7 +35,7 @@ const columns = [
   {
     title: "Resources",
     links: [
-      { href: "https://docs.insolify.com/", label: "Documentation", external: true },
+      { href: "https://docs.insolify.com/", label: "Developer Hub", external: true },
       { href: "/status", label: "Status" },
       { href: "/tverify", label: "TVerify" },
       { href: "/pricing", label: "Pricing" },
@@ -45,7 +45,7 @@ const columns = [
     title: "Connect",
     links: [
       { href: "/contact", label: "Contact us" },
-      { href: "https://docs.insolify.com/", label: "Documentation", external: true },
+      { href: "https://docs.insolify.com/", label: "Developer Hub", external: true },
       { href: "/status", label: "Status" },
     ],
   },

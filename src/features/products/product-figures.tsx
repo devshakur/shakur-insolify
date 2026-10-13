@@ -143,7 +143,7 @@ export function ProductFigures() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-sm font-medium text-white hover:text-white/70 dark:text-black dark:hover:text-black/70"
                 >
-                  Documentation
+                  Developer Hub
                   <span aria-hidden="true">›</span>
                 </a>
               </div>

@@ -34,14 +34,14 @@ export function NetworkVisual() {
 
 export function CurrencyVisual() {
   return (
-    <div className="relative h-24 w-full" aria-hidden>
-      <span className="absolute top-4 left-6 flex h-12 w-12 items-center justify-center rounded-full border border-[#E2B857]/40 bg-[#1c1a14] text-sm font-semibold text-[#E2B857] shadow-[0_0_24px_rgba(212,175,55,0.25)]">
+    <div className="flex min-h-20 w-full flex-wrap items-center justify-center gap-3 py-2" aria-hidden>
+      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#E2B857]/40 bg-[#1c1a14] text-sm font-semibold text-[#E2B857] shadow-[0_0_24px_rgba(212,175,55,0.25)]">
         $
       </span>
-      <span className="absolute top-2 left-16 flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-[#F3F0E7] text-sm font-semibold text-[#16181D] dark:border-white/15 dark:bg-[#22252c] dark:text-white">
+      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-black/10 bg-[#F3F0E7] text-sm font-semibold text-[#16181D] dark:border-white/15 dark:bg-[#22252c] dark:text-white">
         €
       </span>
-      <span className="absolute top-8 left-24 flex h-12 w-12 items-center justify-center rounded-full border border-[#E2B857]/30 bg-[#14160c] text-sm font-semibold text-[#F6E3A4]">
+      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#E2B857]/30 bg-[#14160c] text-sm font-semibold text-[#F6E3A4]">
         ₦
       </span>
     </div>

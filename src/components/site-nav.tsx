@@ -5,8 +5,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 
-const docsHref = "https://docs.insolify.com/";
-
 const featured = [
   [
     {
@@ -37,14 +35,11 @@ const featured = [
 const menuLinks = [
   { href: "/", label: "Home" },
   { href: "/pricing", label: "Pricing" },
-  { href: docsHref, label: "Documentation", external: true },
-  { href: "/status", label: "Status" },
   { href: "/contact", label: "Contact" },
 ] as const;
 
 const barLinks = [
   { href: "/pricing", label: "Pricing" },
-  { href: "/status", label: "Status" },
   { href: "/contact", label: "Contact" },
 ] as const;
 
@@ -128,12 +123,6 @@ export function SiteNav() {
               ))}
             </span>
           </nav>
-          <span aria-hidden className="h-4 w-px bg-black/15 dark:bg-white/15" onMouseEnter={() => setProductsOpen(false)} />
-          <span onMouseEnter={() => setProductsOpen(false)}>
-            <TextLink href={docsHref} external>
-              Docs
-            </TextLink>
-          </span>
           <button
             type="button"
             onClick={toggleTheme}
