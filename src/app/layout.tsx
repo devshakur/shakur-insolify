@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import type { ReactNode } from "react";
 import { SiteNav } from "@/components/site-nav";
 import "./globals.css";
@@ -33,11 +34,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-white font-sans text-[#2b2b2b] dark:bg-[#0c0c0f] dark:text-[#ededed]">
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{if(!localStorage.getItem("theme-default")){localStorage.setItem("theme","light");localStorage.setItem("theme-default","light")}document.documentElement.classList.toggle("dark",localStorage.getItem("theme")==="dark")}catch(e){}`,
-          }}
-        />
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
+        >{`try{if(!localStorage.getItem("theme-default")){localStorage.setItem("theme","light");localStorage.setItem("theme-default","light")}document.documentElement.classList.toggle("dark",localStorage.getItem("theme")==="dark")}catch(e){}`}</Script>
         <SiteNav />
         {children}
       </body>
