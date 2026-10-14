@@ -144,21 +144,21 @@ export function Hero() {
             GATEWAYS ACROSS AFRICA
           </p>
           <div className="grid grid-cols-2 items-center justify-items-center gap-6 opacity-80 sm:grid-cols-4">
-            <div className="flex items-center space-x-2 text-sm font-medium tracking-tight text-zinc-700 transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white">
-              <div className="h-3.5 w-3.5 rounded-sm bg-black dark:bg-white" />
-              <span>INSTITUTIONAL BANKS</span>
+          <div className="flex items-center space-x-2 text-sm font-medium tracking-tight text-zinc-700 transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white">
+              <div className="h-3.5 w-3.5 rotate-45 transform bg-black dark:bg-white" />
+              <span>Institutional Banks</span>
             </div>
             <div className="flex items-center space-x-2 text-sm font-medium tracking-tight text-zinc-700 transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white">
-              <div className="h-3.5 w-3.5 rounded-full bg-black dark:bg-white" />
-              <span>MICROFINANCE BANKS</span>
+              <div className="h-3.5 w-3.5 rotate-45 transform bg-black dark:bg-white" />
+              <span>Microfinance Banks</span>
             </div>
             <div className="flex items-center space-x-2 text-sm font-medium tracking-tight text-zinc-700 transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white">
               <div className="h-3.5 w-3.5 rotate-45 transform bg-black dark:bg-white" />
               <span>AGILE FINTECHS</span>
             </div>
             <div className="flex items-center space-x-2 text-sm font-medium tracking-tight text-zinc-700 transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white">
-              <div className="h-3.5 w-3.5 rotate-12 rounded-sm bg-black dark:bg-white" />
-              <span>PAYMENT GATEWAYS</span>
+              <div className="h-3.5 w-3.5 rotate-45 transform bg-black dark:bg-white" />
+              <span>Payment Infrastructure</span>
             </div>
           </div>
         </div>

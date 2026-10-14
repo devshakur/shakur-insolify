@@ -1,14 +1,3 @@
-import Image from "next/image";
-
-const brands = [
-  { name: "MicroBiz Bank LTD", src: "/image/brands/microbiz.png" },
-  { name: "Peace Microfinance Bank", src: "/image/brands/peace.png" },
-  { name: "FidFund MicroFinance Bank", src: "/image/brands/fidfund.png" },
-  { name: "Wapia", src: "/image/brands/wapfi.png" },
-  { name: "AC-Nardos Finance Limited", src: "/image/brands/ac-nardos.svg" },
-] as const;
-
-const loop = [...brands, ...brands, ...brands];
 
 export function TrustedBrands() {
   return (
@@ -25,50 +14,7 @@ export function TrustedBrands() {
           for accounts, collections, transfers, and settlement.
         </p>
       </div>
-
-      <div className="relative mt-12 w-full overflow-hidden border-y border-black/10 [--logo-gap:2rem] [--logo-slot:9rem] sm:mt-14 sm:[--logo-gap:3rem] sm:[--logo-slot:13rem] dark:border-white/10">
-        <div className="brand-marquee-sharp py-6 sm:py-8">
-          <div className="brand-marquee flex w-max">
-            <BrandRow />
-            <BrandRow hidden />
-          </div>
-        </div>
-        <div
-          aria-hidden
-          className="brand-marquee-blur pointer-events-none absolute inset-0 overflow-hidden py-6 sm:py-8"
-        >
-          <div className="brand-marquee flex w-max">
-            <BrandRow hidden />
-            <BrandRow hidden />
-          </div>
-        </div>
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-linear-to-r from-white to-transparent sm:w-8 dark:from-black" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-linear-to-l from-white to-transparent sm:w-8 dark:from-black" />
-      </div>
     </section>
   );
 }
 
-function BrandRow({ hidden = false }: { hidden?: boolean }) {
-  return (
-    <ul
-      className="brand-logo-row flex shrink-0 items-center"
-      aria-hidden={hidden || undefined}
-    >
-      {loop.map((brand, index) => (
-        <li
-          key={`${brand.name}-${index}`}
-          className="brand-logo-slot flex h-14 shrink-0 items-center justify-center"
-        >
-          <Image
-            src={brand.src}
-            alt={hidden || index >= brands.length ? "" : brand.name}
-            width={160}
-            height={48}
-            className="h-10 w-auto max-w-38 object-contain opacity-70 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
-          />
-        </li>
-      ))}
-    </ul>
-  );
-}
