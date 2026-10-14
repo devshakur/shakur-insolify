@@ -60,7 +60,7 @@ export function InsolifyProductShowcase() {
           whileHover={reduceMotion ? undefined : { y: -6 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.55, delay: 0, ease: [0.22, 1, 0.36, 1] }}
-          className="group relative flex min-h-160 flex-col justify-between overflow-hidden rounded-4xl border border-black/10 bg-black/[0.04] p-6 shadow-sm transition-[background-color,border-color,box-shadow] duration-300 hover:border-black/30 hover:shadow-[0_22px_60px_-30px_rgba(0,0,0,0.25)] sm:p-7 dark:border-white/10 dark:bg-white/[0.04] dark:hover:border-white/30 dark:hover:shadow-[0_22px_60px_-30px_rgba(255,255,255,0.12)]"
+          className="group relative flex min-h-160 flex-col justify-between overflow-hidden rounded-4xl border border-black/10 bg-black/4 p-6 shadow-sm transition-[background-color,border-color,box-shadow] duration-300 hover:border-black/30 hover:shadow-[0_22px_60px_-30px_rgba(0,0,0,0.25)] sm:p-7 dark:border-white/10 dark:bg-white/4 dark:hover:border-white/30 dark:hover:shadow-[0_22px_60px_-30px_rgba(255,255,255,0.12)]"
         >
           
           {/* Card Header & Arrow */}
@@ -189,7 +189,7 @@ export function InsolifyProductShowcase() {
           whileHover={reduceMotion ? undefined : { y: -6 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.55, delay: reduceMotion ? 0 : 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="group relative flex min-h-160 flex-col justify-between overflow-hidden rounded-4xl border border-black/10 bg-black/[0.04] p-6 shadow-sm transition-[background-color,border-color,box-shadow] duration-300 hover:border-black/30 hover:shadow-[0_22px_60px_-30px_rgba(0,0,0,0.25)] sm:p-7 dark:border-white/10 dark:bg-white/[0.04] dark:hover:border-white/30 dark:hover:shadow-[0_22px_60px_-30px_rgba(255,255,255,0.12)]"
+          className="group relative flex min-h-160 flex-col justify-between overflow-hidden rounded-4xl border border-black/10 bg-black/4 p-6 shadow-sm transition-[background-color,border-color,box-shadow] duration-300 hover:border-black/30 hover:shadow-[0_22px_60px_-30px_rgba(0,0,0,0.25)] sm:p-7 dark:border-white/10 dark:bg-white/4 dark:hover:border-white/30 dark:hover:shadow-[0_22px_60px_-30px_rgba(255,255,255,0.12)]"
         >
           
           {/* Card Header & Arrow */}
@@ -337,9 +337,7 @@ export function InsolifyProductShowcase() {
           </div>
         </motion.article>
 
-        {/* =========================================================================
-            CARD 3: SETTLE AFRICA (Cross-Border Payments Rail)
-           ========================================================================= */}
+     
         {}
         <motion.article
           initial={{ opacity: 0, y: reduceMotion ? 0 : 28 }}
@@ -347,7 +345,7 @@ export function InsolifyProductShowcase() {
           whileHover={reduceMotion ? undefined : { y: -6 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.55, delay: reduceMotion ? 0 : 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="group relative flex min-h-160 flex-col justify-between overflow-hidden rounded-4xl border border-black/10 bg-black/[0.04] p-6 shadow-sm transition-[background-color,border-color,box-shadow] duration-300 hover:border-black/30 hover:shadow-[0_22px_60px_-30px_rgba(0,0,0,0.25)] sm:p-7 dark:border-white/10 dark:bg-white/[0.04] dark:hover:border-white/30 dark:hover:shadow-[0_22px_60px_-30px_rgba(255,255,255,0.12)]"
+          className="group relative flex min-h-160 flex-col justify-between overflow-hidden rounded-4xl border border-black/10 bg-black/4 p-6 shadow-sm transition-[background-color,border-color,box-shadow] duration-300 hover:border-black/30 hover:shadow-[0_22px_60px_-30px_rgba(0,0,0,0.25)] sm:p-7 dark:border-white/10 dark:bg-white/4 dark:hover:border-white/30 dark:hover:shadow-[0_22px_60px_-30px_rgba(255,255,255,0.12)]"
         >
           
           {/* Card Header & Arrow */}

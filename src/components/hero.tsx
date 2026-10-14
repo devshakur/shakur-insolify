@@ -28,7 +28,7 @@ export function Hero() {
         fill
         priority
         sizes="100vw"
-        className="pointer-events-none z-0 object-cover object-right-bottom select-none dark:brightness-[0.6] dark:saturate-125"
+        className="pointer-events-none z-0 object-cover object-bottom-right select-none dark:brightness-[0.6] dark:saturate-125"
       />
 
       {/* Dark mode overlays */}

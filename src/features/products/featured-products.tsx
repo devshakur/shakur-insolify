@@ -274,7 +274,7 @@ export function FeaturedProducts() {
                 className="flex flex-col items-start p-6 rounded-2xl border border-black/10 bg-white hover:border-black/20 transition-colors dark:border-white/15 dark:bg-black/50 dark:hover:border-white/30"
               >
                 {/* Icon Circle */}
-                <div className="h-16 w-16 rounded-full bg-black flex items-center justify-center mb-5 flex-shrink-0">
+                <div className="h-16 w-16 rounded-full bg-black flex items-center justify-center mb-5 shrink-0">
                   <Icon className="h-8 w-8 text-white" strokeWidth={1.5} />
                 </div>
 
@@ -284,7 +284,7 @@ export function FeaturedProducts() {
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm leading-6 text-[#5c5c5c] dark:text-white/70 text-left mb-4 flex-grow">
+                <p className="text-sm leading-6 text-[#5c5c5c] dark:text-white/70 text-left mb-4 grow">
                   {benefit.description}
                 </p>
 
