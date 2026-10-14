@@ -1,7 +1,3 @@
-
-
-
-
 "use client";
 
 import Link from "next/link";
@@ -69,9 +65,9 @@ export function ProblemSolutions() {
     if (!section) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const rings = [...section.querySelectorAll<SVGCircleElement>("[data-arc]")].filter(
-      (ring) => ring.getTotalLength() > 0
-    );
+    const rings = [
+      ...section.querySelectorAll<SVGCircleElement>("[data-arc]"),
+    ].filter((ring) => ring.getTotalLength() > 0);
     rings.forEach((ring) => {
       const length = ring.getTotalLength();
       const gap = length * 0.2;
@@ -90,7 +86,7 @@ export function ProblemSolutions() {
         });
         observer.disconnect();
       },
-      { threshold: 0.15 }
+      { threshold: 0.15 },
     );
     observer.observe(section);
     return () => observer.disconnect();
@@ -115,7 +111,10 @@ export function ProblemSolutions() {
                 The Infrastructure Problem
               </h2>
             </div>
-            <span aria-hidden="true" className="text-xl text-black/50 dark:text-white/70">
+            <span
+              aria-hidden="true"
+              className="text-xl text-black/50 dark:text-white/70"
+            >
               →
             </span>
           </div>
@@ -138,36 +137,48 @@ export function ProblemSolutions() {
         </article>
 
         {/* Right Column: Unified Solutions Displayed in Responsive Overlapping Circles */}
-        <div className="relative flex flex-col items-center lg:flex-row lg:justify-center">
-          {solutions.map((solution, index) => (
-            <article
-              key={solution.id}
-              className={`relative size-64 shrink-0 sm:size-72 xl:size-80 ${circlePlace[index]}`}
-            >
-              <svg
-                viewBox="0 0 100 100"
-                className="absolute inset-0 h-full w-full text-black dark:text-white"
-                aria-hidden="true"
+        <div className="relative">
+          <div className="mb-10 space-y-1 text-center lg:mb-8 lg:text-left">
+            <span className="text-xs font-semibold uppercase tracking-wider text-black/50 dark:text-white/50">
+              Unified Banking Stack
+            </span>
+            <h2 className="text-2xl font-medium tracking-tight sm:text-3xl">
+              The Insolify Advantage
+            </h2>
+          </div>
+          <div className="relative flex flex-col items-center lg:flex-row lg:justify-center">
+            {solutions.map((solution, index) => (
+              <article
+                key={solution.id}
+                className={`relative size-64 shrink-0 sm:size-72 xl:size-80 ${circlePlace[index]}`}
               >
-                <circle
-                  data-arc=""
-                  cx="50"
-                  cy="50"
-                  r="47"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="0.8"
-                  strokeLinecap="round"
-                  transform={`rotate(${solution.turn} 50 50)`}
-                />
-              </svg>
-              <div className={`relative flex h-full ${copyPlace[index]}`}>
-                <div className={`text-center ${index === 1 ? "w-[52%]" : index === 2 ? "w-full" : "w-[60%] lg:w-[54%]"}`}>
-                  <SolutionCopy solution={solution} />
+                <svg
+                  viewBox="0 0 100 100"
+                  className="absolute inset-0 h-full w-full text-black dark:text-white"
+                  aria-hidden="true"
+                >
+                  <circle
+                    data-arc=""
+                    cx="50"
+                    cy="50"
+                    r="47"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="0.8"
+                    strokeLinecap="round"
+                    transform={`rotate(${solution.turn} 50 50)`}
+                  />
+                </svg>
+                <div className={`relative flex h-full ${copyPlace[index]}`}>
+                  <div
+                    className={`text-center ${index === 1 ? "w-[52%]" : index === 2 ? "w-full" : "w-[60%] lg:w-[54%]"}`}
+                  >
+                    <SolutionCopy solution={solution} />
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -177,7 +188,9 @@ export function ProblemSolutions() {
 function SolutionCopy({ solution }: { solution: (typeof solutions)[number] }) {
   return (
     <>
-      <h3 className={`font-semibold tracking-tight ${solution.id === "settle" ? "text-xs sm:text-sm" : "text-sm sm:text-base"}`}>
+      <h3
+        className={`font-semibold tracking-tight ${solution.id === "settle" ? "text-xs sm:text-sm" : "text-sm sm:text-base"}`}
+      >
         <Link
           href={solution.href}
           className="underline decoration-black/30 underline-offset-4 hover:decoration-black dark:decoration-white/30 dark:hover:decoration-white"
@@ -185,7 +198,9 @@ function SolutionCopy({ solution }: { solution: (typeof solutions)[number] }) {
           {solution.name}
         </Link>
       </h3>
-      <p className={`mt-2 text-[#5c5c5c] dark:text-white/70 ${solution.id === "settle" ? "text-[10px] leading-4 sm:text-[11px]" : "text-[11px] leading-4 sm:text-xs sm:leading-5"}`}>
+      <p
+        className={`mt-2 text-[#5c5c5c] dark:text-white/70 ${solution.id === "settle" ? "text-[10px] leading-4 sm:text-[11px]" : "text-[11px] leading-4 sm:text-xs sm:leading-5"}`}
+      >
         {solution.body}
         {solution.id === "settle" ? (
           <>

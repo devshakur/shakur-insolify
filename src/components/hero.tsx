@@ -87,11 +87,11 @@ export function Hero() {
             <div className="mb-14 flex flex-col items-stretch space-y-4 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-5">
               <Link
                 href="/contact"
-                className="group inline-flex items-center justify-center rounded-full border border-black/15 bg-white/60 px-7 py-3.5 text-sm font-medium text-black backdrop-blur-lg transition-colors hover:bg-white/90 dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+                className="group inline-flex items-center justify-center rounded-full border border-white/15 bg-black px-7 py-3.5 text-sm font-medium text-white backdrop-blur-lg transition-colors hover:bg-white/90 dark:border-white/20 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
               >
                 <span>Contact Sales</span>
                 <svg
-                  className="ml-2 h-4 w-4 text-zinc-500 transition-transform group-hover:translate-x-1 dark:text-zinc-400"
+                  className="ml-2 h-4 w-4 text-white transition-transform group-hover:translate-x-1 dark:text-zinc-400"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"

@@ -294,3 +294,31 @@ body {
     animation: none;
   }
 }
+
+.customer-marquee {
+  animation: customer-marquee 40s linear infinite;
+}
+
+.customer-marquee-window {
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 4rem, #000 calc(100% - 4rem), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 4rem, #000 calc(100% - 4rem), transparent 100%);
+}
+
+.customer-marquee-window:hover .customer-marquee {
+  animation-play-state: paused;
+}
+
+@keyframes customer-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .customer-marquee {
+    animation: none;
+  }
+}
