@@ -51,26 +51,20 @@ export function SettleMethods() {
           </p>
         </div>
 
-        <ul className="mt-10 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-          {methods.map((method) => (
+        <ul className="mt-10 flex flex-col">
+          {methods.map((method, i) => (
             <li
               key={method.id}
-              className="rounded-3xl border border-[#eeeef2] bg-[#f8f8fa] p-5 dark:border-white/10 dark:bg-[#1c1c22]"
+              className={`flex flex-col gap-4 border-t border-[#eeeef2] py-6 sm:flex-row sm:items-baseline sm:gap-10 dark:border-white/10 ${
+                i === methods.length - 1 ? "border-b" : ""
+              }`}
             >
-              <h3 className="text-sm font-semibold text-[#111] dark:text-white">{method.name}</h3>
-              <p className="mt-2 text-xs leading-5 text-[#6B7280] dark:text-[#9CA3AF]">
-                {method.description}
+              <h3 className="shrink-0 text-base font-semibold text-[#111] sm:w-48 dark:text-white">
+                {method.name}
+              </h3>
+              <p className="text-sm leading-6 text-[#6B7280] dark:text-[#9CA3AF]">
+                {method.description} {method.tags.slice(0, 3).join(", ")}.
               </p>
-              <div className="mt-4 flex flex-wrap gap-1.5">
-                {method.tags.slice(0, 3).map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full bg-white px-2.5 py-1 text-[11px] text-[#6d6d6d] dark:bg-white/10 dark:text-[#c8c8c8]"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
             </li>
           ))}
         </ul>
@@ -79,31 +73,25 @@ export function SettleMethods() {
           <h3 className="text-[1.35rem] font-semibold tracking-tight text-[#111] dark:text-white">
             How a transfer works
           </h3>
-          <ol className="mt-6 grid gap-3 lg:grid-cols-3">
+          <ol className="relative mt-8 flex flex-col gap-10 border-l border-[#eeeef2] pl-8 dark:border-white/10 lg:flex-row lg:gap-6 lg:border-l-0 lg:border-t lg:pt-8 lg:pl-0">
             {steps.map((step) => (
-              <li
-                key={step.n}
-                className="rounded-3xl border border-[#eeeef2] px-5 py-5 dark:border-white/10"
-              >
-                <p className="text-[11px] font-medium tracking-[0.18em] text-[#8a8a8a] uppercase">
-                  {step.n}
-                </p>
-                <p className="mt-3 text-sm font-semibold text-[#111] dark:text-white">{step.title}</p>
+              <li key={step.n} className="relative flex-1">
+                <span className="absolute top-0 -left-[2.55rem] flex size-6 items-center justify-center rounded-full bg-[#111] text-[10px] font-semibold text-white lg:-top-[2.55rem] lg:left-0 dark:bg-white dark:text-[#111]">
+                  {step.n.replace("0", "")}
+                </span>
+                <p className="text-sm font-semibold text-[#111] dark:text-white">{step.title}</p>
                 <p className="mt-2 text-sm leading-6 text-[#6B7280] dark:text-[#9CA3AF]">{step.body}</p>
               </li>
             ))}
           </ol>
         </div>
 
-        <div className="mt-10 grid gap-3 lg:grid-cols-3">
+        <div className="mt-14 flex flex-col gap-4 sm:flex-row sm:gap-10">
           {trust.map((item) => (
-            <article
-              key={item.title}
-              className="rounded-3xl bg-[#f8f8fa] px-5 py-5 dark:bg-[#1c1c22]"
-            >
+            <div key={item.title} className="flex-1">
               <h3 className="text-sm font-semibold text-[#111] dark:text-white">{item.title}</h3>
               <p className="mt-2 text-sm leading-6 text-[#6B7280] dark:text-[#9CA3AF]">{item.body}</p>
-            </article>
+            </div>
           ))}
         </div>
 

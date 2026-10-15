@@ -20,7 +20,7 @@ const faqs = [
     id: "languages",
     question: "Which languages does Safi support?",
     answer:
-      "Safi can work across 50+ languages, including real-time translation for support and internal teams.",
+      "Safi supports multiple languages with real-time translation for support and internal teams — ask sales for the current list.",
   },
   {
     id: "connect",

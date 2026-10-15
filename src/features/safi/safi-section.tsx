@@ -4,9 +4,9 @@ import { getProduct } from "@/features/products/products";
 import { SafiDemo } from "@/features/products/safi-demo";
 
 const stats = [
-  { value: "1M+", label: "Conversations" },
-  { value: "99.9%", label: "Uptime" },
-  { value: "50+", label: "Languages" },
+  { value: "24/7", label: "Availability" },
+  { value: "Multi", label: "Languages" },
+  { value: "Encrypted", label: "Data handling" },
 ] as const;
 
 export function SafiSection() {
