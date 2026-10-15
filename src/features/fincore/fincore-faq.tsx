@@ -20,7 +20,7 @@ const faqs = [
     id: "deploy",
     question: "How long does deployment take?",
     answer:
-      "Typical go-live is 4–6 weeks, depending on data migration, licensing, and the modules you start with.",
+      "It depends on data migration, licensing, and the modules you start with — talk to sales for a timeline specific to your rollout.",
   },
   {
     id: "license",

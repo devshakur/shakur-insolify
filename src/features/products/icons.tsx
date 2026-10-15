@@ -55,9 +55,9 @@ export function NodesIcon() {
 }
 
 const toneClass = {
-  blue: "bg-sky-500/15 text-sky-300",
-  gold: "bg-[#D4AF37]/15 text-[#E2B857]",
-  red: "bg-rose-500/15 text-rose-300",
+  blue: "bg-[#f2f2f4] text-[#111] dark:bg-[#2a2a30] dark:text-white",
+  gold: "bg-[#f2f2f4] text-[#111] dark:bg-[#2a2a30] dark:text-white",
+  red: "bg-[#f2f2f4] text-[#111] dark:bg-[#2a2a30] dark:text-white",
 } as const;
 
 export function GlyphIcon({
