@@ -23,7 +23,7 @@ export function Hero() {
     <section className="relative flex flex-col overflow-hidden lg:min-h-[calc(100svh-4rem)] bg-white font-sans text-[#171717] selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black dark:bg-black dark:text-white">
       {/* Background image */}
       <Image
-        src="/image/herobanner01.png"
+        src="/image/hero_banner01.png"
         alt=""
         fill
         priority
@@ -139,26 +139,26 @@ export function Hero() {
 
       <div className="relative z-20 border-t border-black/10 bg-white/30 py-6 backdrop-blur-md dark:border-white/10 dark:bg-black/30">
         <div className="mx-auto max-w-7xl px-6">
-          <p className="mb-5 text-center text-xs font-medium tracking-widest text-zinc-600 uppercase md:text-left dark:text-zinc-400">
+          <p className="mb-5 text-center text-xs font-medium tracking-widest text-white uppercase md:text-left dark:text-zinc-400">
             POWERING LEADING INSTITUTIONAL BANKS, MFBs, FINTECHS & PAYMENT
             GATEWAYS ACROSS AFRICA
           </p>
           <div className="grid grid-cols-2 items-center justify-items-center gap-6 opacity-80 sm:grid-cols-4">
-            <div className="flex items-center space-x-2 text-sm font-medium tracking-tight text-zinc-700 transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white">
-              <div className="h-3.5 w-3.5 rounded-sm bg-black dark:bg-white" />
-              <span>INSTITUTIONAL BANKS</span>
-            </div>
-            <div className="flex items-center space-x-2 text-sm font-medium tracking-tight text-zinc-700 transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white">
-              <div className="h-3.5 w-3.5 rounded-full bg-black dark:bg-white" />
-              <span>MICROFINANCE BANKS</span>
-            </div>
-            <div className="flex items-center space-x-2 text-sm font-medium tracking-tight text-zinc-700 transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white">
+          <div className="flex items-center space-x-2 text-sm font-medium tracking-tight text-white transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white">
               <div className="h-3.5 w-3.5 rotate-45 transform bg-black dark:bg-white" />
-              <span>AGILE FINTECHS</span>
+              <span>Institutional Banks</span>
             </div>
-            <div className="flex items-center space-x-2 text-sm font-medium tracking-tight text-zinc-700 transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white">
-              <div className="h-3.5 w-3.5 rotate-12 rounded-sm bg-black dark:bg-white" />
-              <span>PAYMENT GATEWAYS</span>
+            <div className="flex items-center space-x-2 text-sm font-medium tracking-tight text-white transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white">
+              <div className="h-3.5 w-3.5 rotate-45 transform bg-black dark:bg-white" />
+              <span>Microfinance Banks</span>
+            </div>
+            <div className="flex items-center space-x-2 text-sm font-medium tracking-tight text-white transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white">
+              <div className="h-3.5 w-3.5 rotate-45 transform bg-black dark:bg-white" />
+              <span>Agile Fintechs</span>
+            </div>
+            <div className="flex items-center space-x-2 text-sm font-medium tracking-tight text-white transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white">
+              <div className="h-3.5 w-3.5 rotate-45 transform bg-black dark:bg-white" />
+              <span>Payment Infrastructure</span>
             </div>
           </div>
         </div>

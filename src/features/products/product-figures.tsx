@@ -3,11 +3,12 @@
 import Image from "next/image";
 
 const customers = [
-  { name: "MicroBiz Bank LTD", src: "/image/brands/microbiz.png" },
-  { name: "Peace Microfinance Bank", src: "/image/brands/peace.png" },
-  { name: "FidFund MicroFinance Bank", src: "/image/brands/fidfund.png" },
-  { name: "Wapia", src: "/image/brands/wapfi.png" },
-  { name: "AC-Nardos Finance Limited", src: "/image/brands/ac-nardos.svg" },
+  { name: "MicroBiz Bank LTD",         src: "/image/brands/microbiz.png" },
+  { name: "Peace Microfinance Bank",   src: "/image/brands/peace.jpg" },
+   { name: "FidFund MicroFinance Bank", src: "/image/brands/fidfundslogo.png" },
+  { name: "Wapia",                     src: "/image/brands/wapfi.png" },
+  { name: "Abucoop",                   src: "/image/brands/Abucoop.png" },
+  { name: "Pillar",                    src: "/image/brands/pillar.png" },
 ] as const;
 
 // Each half of the track must be wider than the viewport so the loop never shows a gap.
