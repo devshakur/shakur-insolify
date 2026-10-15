@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
+import { ArrowRight } from "lucide-react";
 
 const featured = [
   [
@@ -23,11 +24,6 @@ const featured = [
       href: "/settle",
       title: "Settle Africa",
       detail: "Local and cross-border payments across Africa",
-    },
-    {
-      href: "/tverify",
-      title: "TVerify",
-      detail: "Confirm a payment from the receipt",
     },
   ],
 ] as const;
@@ -355,24 +351,74 @@ function MenuArrow() {
   );
 }
 
-function TextLink({ href, external, children }: { href: string; external?: boolean; children: string }) {
-  const className =
-    "text-[13px] text-[#6d6d6d] transition-colors hover:text-black focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-[#b5b5b5] dark:hover:text-white dark:focus-visible:ring-offset-black";
+// function TextLink({ href, external, children }: { href: string; external?: boolean; children: string }) {
+//   const className =
+//     "text-[13px] text-[#6d6d6d] transition-colors hover:text-black focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-[#b5b5b5] dark:hover:text-white dark:focus-visible:ring-offset-black";
+
+//   if (external) {
+//     return (
+//       <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+//         {children}
+//       </a>
+//     );
+//   }
+
+//   return (
+//     <Link href={href} className={className}>
+//       {children}
+//     </Link>
+//   );
+// }
+
+
+
+function TextLink({ 
+  href, 
+  external, 
+  children,
+  variant = "default",
+  showArrow = false,
+}: { 
+  href: string; 
+  external?: boolean; 
+  children: string;
+  variant?: "default" | "subtle" | "emphasis";
+  showArrow?: boolean;
+}) {
+  const baseClassName =
+    "inline-flex items-center gap-1.5 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black";
+
+  const variantClassName = {
+    default: "text-sm font-medium text-black/80 hover:text-black dark:text-white/80 dark:hover:text-white focus-visible:ring-black dark:focus-visible:ring-white",
+    subtle: "text-xs font-medium text-black/60 hover:text-black/80 dark:text-white/60 dark:hover:text-white/80 focus-visible:ring-black/50 dark:focus-visible:ring-white/50",
+    emphasis: "text-sm font-semibold text-black hover:gap-3 dark:text-white focus-visible:ring-black dark:focus-visible:ring-white",
+  };
+
+  const className = `${baseClassName} ${variantClassName[variant]}`;
+
+  const linkContent = (
+    <>
+      {children}
+      {showArrow && <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />}
+    </>
+  );
 
   if (external) {
     return (
       <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
-        {children}
+        {linkContent}
       </a>
     );
   }
 
   return (
     <Link href={href} className={className}>
-      {children}
+      {linkContent}
     </Link>
   );
 }
+
+export default TextLink;
 
 function MoonIcon() {
   return (

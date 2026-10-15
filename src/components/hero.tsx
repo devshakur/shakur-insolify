@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const HEADLINE_PREFIX = "Better banking starts here — empowering";
+const HEADLINE_PREFIX = "Better banking starts here, empowering";
 const AUDIENCES = ["Banks", "Microfinance Banks", "Fintechs"];
 const HEADLINE_SUFFIX = "with smarter, faster, and more reliable technology.";
 const ROTATE_INTERVAL_MS = 3000;
@@ -45,7 +45,7 @@ export function Hero() {
           <div className="relative z-10 max-w-3xl">
             <div className="mb-7 inline-flex items-center space-x-3 rounded-full border border-black/15 bg-white/60 px-4 py-2 backdrop-blur-xl dark:border-white/20 dark:bg-white/10">
               <span className="text-xs font-normal text-zinc-700 sm:text-sm dark:text-zinc-200">
-                Insolify Platform 2.0: Next-gen core infrastructure for banks &
+                Insolify Next gen core infrastructure for banks &
                 fintechs
               </span>
             </div>

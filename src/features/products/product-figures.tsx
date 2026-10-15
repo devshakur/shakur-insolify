@@ -11,7 +11,7 @@ const customers = [
   { name: "Pillar",                    src: "/image/brands/pillar.png" },
 ] as const;
 
-// Each half of the track must be wider than the viewport so the loop never shows a gap.
+
 const half = [...customers, ...customers];
 
 export function ProductFigures() {
@@ -27,7 +27,7 @@ export function ProductFigures() {
             with Insolify
           </span>{" "}
           <span className="text-[#888888]">
-            — one platform for accounts, collections, transfers, and
+             one platform for accounts, collections, transfers, and
             settlement.
           </span>
         </h2>
