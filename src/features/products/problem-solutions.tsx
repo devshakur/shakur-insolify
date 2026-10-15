@@ -5,19 +5,19 @@ import { useEffect, useRef } from "react";
 
 const ctoProblems = [
   {
-    title: "Monolithic & Rigid Core Banking Infrastructure",
+    title: "Monolithic Core Banking Infrastructure",
     description:
-      "Legacy core systems lock you into closed databases and rigid schemas. Deploying a new digital channel or product takes months of custom integration, while real-time GL reconciliation remains error-prone.",
+      "Legacy systems lock you into rigid schemas. New channels take months to integrate and reconciliation stays error-prone.",
   },
   {
-    title: "Siloed Intelligence, Risk, & Compliance Engines",
+    title: "Siloed Risk & Compliance Engines",
     description:
-      "Fraud detection, AML screening, and customer support run on fragmented external tools. Operations teams waste time manual-checking transactions across disjointed dashboards without unified account telemetry.",
+      "Fraud detection and AML run on disconnected tools. Teams lose time checking transactions across fragmented dashboards.",
   },
   {
-    title: "Externalized Cross-Border & Payment Rails",
+    title: "Externalized Payment Rails",
     description:
-      "Regional transfers and mobile money integrations sit outside the core ledger. Settlement tracking is disconnected, leading to delayed liquidity updates and complex multi-currency ledger matching.",
+      "Cross-border transfers sit outside the core ledger, causing delayed liquidity updates and complex multi-currency matching.",
   },
 ];
 
@@ -26,21 +26,21 @@ const solutions = [
     id: "fincore",
     name: "Fincore Engine",
     href: "/fincore",
-    body: "Next-gen API-first core banking engine. Event-driven architecture powering real-time multi-currency ledgers, automated reconciliation, and modular orchestration across all banking channels.",
+    body: "API-first core banking engine with real-time multi-currency ledgers, automated reconciliation, and modular channel orchestration.",
     turn: 210,
   },
   {
     id: "safi",
     name: "Safi AI Platform",
     href: "/safi",
-    body: "Native AI risk & operations engine directly wired into core ledgers. Real-time transaction fraud detection, automated AML compliance, and multi-lingual customer support assistant.",
+    body: "AI risk engine wired into the core ledger. Real-time fraud detection, automated AML compliance, and multi-lingual support.",
     turn: 20,
   },
   {
     id: "settle",
     name: "Settle Africa Rail",
     href: "/settle",
-    body: "Low-latency regional and cross-border payment rails directly embedded beside the core. Instant mobile money, cash pickup, and pan-African liquidity settlement with built-in compliance.",
+    body: "Cross-border rails embedded beside the core. Instant mobile money, cash pickup, and pan-African settlement with built-in compliance.",
     turn: 200,
   },
 ] as const;
