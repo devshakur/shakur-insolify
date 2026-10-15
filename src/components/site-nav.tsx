@@ -105,8 +105,10 @@ export function SiteNav() {
               aria-controls="products-menu"
               onMouseEnter={() => setProductsOpen(true)}
               onClick={() => setProductsOpen((value) => !value)}
-              className={`text-[13px] transition-colors focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black ${
-                productsOpen ? "text-black dark:text-white" : "text-[#6d6d6d] hover:text-black dark:text-[#b5b5b5] dark:hover:text-white"
+              className={`text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black ${
+                productsOpen
+                  ? "text-black dark:text-white"
+                  : "text-black/80 hover:text-black dark:text-white/80 dark:hover:text-white"
               }`}
             >
               Products
@@ -351,24 +353,7 @@ function MenuArrow() {
   );
 }
 
-// function TextLink({ href, external, children }: { href: string; external?: boolean; children: string }) {
-//   const className =
-//     "text-[13px] text-[#6d6d6d] transition-colors hover:text-black focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-[#b5b5b5] dark:hover:text-white dark:focus-visible:ring-offset-black";
 
-//   if (external) {
-//     return (
-//       <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
-//         {children}
-//       </a>
-//     );
-//   }
-
-//   return (
-//     <Link href={href} className={className}>
-//       {children}
-//     </Link>
-//   );
-// }
 
 
 
