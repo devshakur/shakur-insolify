@@ -9,7 +9,7 @@ const benefits = [
     icon: Clock,
     title: "Launch in weeks, not months",
     description:
-      "Bring your financial products to market faster with Insolify’s ready-to-deploy cloud banking platform. Skip lengthy development cycles and focus on serving customers, growing your business, and capturing new opportunities.",
+      "Bring your financial products to market faster with Insolify’s ready to deploy cloud banking platform. Skip lengthy development cycles and focus on serving customers, growing your business, and capturing new opportunities.",
     href: "/benefits/go-live",
   },
   {
