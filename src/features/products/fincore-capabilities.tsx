@@ -114,7 +114,7 @@ const fincoreModules: Record<string, ModuleDetail[]> = {
       title: "Digital & Mobile Channels",
       tagline: "White-label web & mobile applications",
       description:
-        "Ready-to-deploy web and mobile banking interfaces engineered with high security, biometric login, corporate multi-sign approvals, and transfer limits.",
+        "Ready to deploy web and mobile banking interfaces engineered with high security, biometric login, corporate multi-sign approvals, and transfer limits.",
       highlights: [
         "Multi-tier approval workflows for corporate clients",
         "Biometric authentication & hardware token MFA",

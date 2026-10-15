@@ -152,14 +152,14 @@ function ModuleRow({
         onClick={module.included ? undefined : onToggle}
         className={`flex w-full flex-col rounded-[1.6rem] px-5 py-5 text-left transition-colors sm:flex-row sm:items-start sm:gap-5 ${
           selected
-            ? "border border-transparent bg-[#eef0ff] dark:bg-[#1d1b2c]"
+            ? "border border-black bg-black/5 dark:border-white dark:bg-white/10"
             : "border border-[#eeeef2] bg-[#fafafa] hover:bg-[#f4f4f7] dark:border-white/8 dark:bg-[#18181d] dark:hover:bg-[#1c1c22]"
         } ${module.included ? "cursor-default" : ""}`}
       >
         <span
           className={`mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full border ${
             selected
-              ? "border-[#7b61ff] bg-[#7b61ff] text-white"
+              ? "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black"
               : "border-[#d5d5dc] bg-white text-transparent dark:border-white/20 dark:bg-transparent"
           }`}
         >
@@ -172,7 +172,7 @@ function ModuleRow({
               {module.name}
             </span>
             {module.included ? (
-              <span className="rounded-full bg-white px-2 py-0.5 text-[11px] font-medium text-[#7b61ff] dark:bg-white/10">
+              <span className="rounded-full bg-white px-2 py-0.5 text-[11px] font-medium text-black dark:bg-white/10 dark:text-white">
                 Included
               </span>
             ) : null}

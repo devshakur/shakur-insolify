@@ -11,7 +11,7 @@ const customers = [
   { name: "Pillar",                    src: "/image/brands/pillar.png" },
 ] as const;
 
-// Each half of the track must be wider than the viewport so the loop never shows a gap.
+
 const half = [...customers, ...customers];
 
 export function ProductFigures() {
@@ -20,14 +20,14 @@ export function ProductFigures() {
       aria-label="Our customers"
       className="bg-white px-4 py-14 text-black sm:px-6 sm:py-16 lg:px-8 dark:bg-black dark:text-white"
     >
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+      <div className="mx-auto grid w-full  items-center gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
         <h2 className="max-w-xl text-2xl leading-snug font-semibold tracking-tight sm:text-3xl">
           <span className="text-black dark:text-white">
             Join the banks and microfinance banks across Africa that run better
             with Insolify
           </span>{" "}
           <span className="text-[#888888]">
-            — one platform for accounts, collections, transfers, and
+             one platform for accounts, collections, transfers, and
             settlement.
           </span>
         </h2>
