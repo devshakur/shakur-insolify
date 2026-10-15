@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { NodesIcon } from "@/features/products/icons";
-import { getProduct } from "@/features/products/products";
 import { getProductModules } from "@/features/pricing/modules";
 
 const stats = [
@@ -10,7 +9,7 @@ const stats = [
 ] as const;
 
 export function FincoreSection() {
-  const product = getProduct("fincore");
+ 
 
   return (
     <section id="fincore" className="px-4 pb-8 sm:px-6 lg:px-10">
@@ -65,10 +64,7 @@ export function FincoreSection() {
   );
 }
 
-// One core, twelve modules — drawn as a wheel instead of a fake dashboard,
-// since "twelve modules around one core" is literally what Fincore is.
-// Dots sit on the guide circle; labels sit outside it, aligned away from
-// the center so left-half and right-half text never crowd the middle.
+
 function FincoreHub() {
   const modules = getProductModules("fincore");
   const dotRadius = 36;

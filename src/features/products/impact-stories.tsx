@@ -8,58 +8,62 @@ const caseStudies = [
   {
     id: "micobiz",
     institution: "Micobiz",
-    type: "Tier-1 Commercial Bank",
+    type: "Commercial Banking",
     product: "Fincore Core Engine",
-    metric: "5M+ Daily Txns",
-    headline: "Migrated 3M+ active accounts to a unified real-time ledger without downtime",
+    metric: "Core Banking Modernization",
+    headline:
+      "Modernized legacy banking infrastructure to support more reliable financial operations",
     challenge:
-      "Legacy core banking was bottlenecked during peak hours, causing GL reconciliation delays and slow digital channel performance.",
+      "Legacy core banking systems created operational bottlenecks, complicated ledger reconciliation, and limited the performance of digital banking channels.",
     solution:
-      "Deployed Fincore’s modular core engine to power deposits, inter-bank transfers, and automated end-of-day ledger balancing.",
+      "Introduced Fincore’s modular core banking architecture to support deposit management, interbank transfers, and streamlined ledger reconciliation workflows.",
     outcomes: [
-      "99.99% system uptime across web, mobile, and branch networks",
-      "Sub-15ms transaction response time during peak hours",
-      "Automated CBN regulatory reporting generated in minutes instead of days",
+      "Improved visibility into account balances and transaction activity",
+      "Streamlined reconciliation across banking operations",
+      "Established a more flexible foundation for digital banking services",
     ],
     href: "/fincore",
   },
   {
     id: "fidfund",
     institution: "Fidfund",
-    type: "Regional MFB",
+    type: "Microfinance Banking",
     product: "Fincore + Safi AI",
-    metric: "60% Cost Reduction",
-    headline: "Automated 84% of support tickets & fraud checks across 400,000 retail accounts",
+    metric: "Intelligent Automation",
+    headline:
+      "Streamlined customer support and risk management with AI-powered financial workflows",
     challenge:
-      "High operational overhead for manual KYC verification, dispute resolutions, and customer support inquiries.",
+      "Manual KYC reviews, customer inquiries, and dispute handling placed additional demands on operations teams and slowed service delivery.",
     solution:
-      "Integrated Safi AI natively into Fincore to automate multi-lingual support, real-time transaction risk scoring, and meeting notes.",
+      "Integrated Safi AI with Fincore to support customer service automation, transaction risk assessment, and more efficient internal workflows.",
     outcomes: [
-      "Customer support resolution time dropped from 48 hours to 3 minutes",
-      "Real-time fraud screening blocked $1.2M in unauthorized transfers",
-      "Operational expenditure reduced by 60% within 6 months of rollout",
+      "Reduced repetitive manual work across customer support operations",
+      "Supported earlier identification of potentially suspicious transactions",
+      "Enabled teams to handle customer inquiries and operational tasks more efficiently",
     ],
     href: "/safi",
   },
   {
-    id: "wapfi",
-    institution: "Wapfi",
-    type: "Cross-Border Payments App",
+    id: "PressMoney",
+    institution: "PressMoney",
+    type: "Cross-Border Payments",
     product: "Settle Africa Rail",
-    metric: "< 10s Payouts",
-    headline: "Scaled cross-border remittance and mobile money payouts across 18 African markets",
+    metric: "Simplified Cross-Border Payments",
+    headline:
+      "Connected cross-border payment workflows to simplify payouts across African markets",
     challenge:
-      "Fragmented payment gateways across different African nations led to high settlement failure rates and delayed payouts.",
+      "Fragmented payment providers and inconsistent payout processes made cross-border transfers difficult to manage and track.",
     solution:
-      "Embedded Settle Africa API rails to execute direct mobile money top-ups, bank payouts, and TVerify receipt tracking.",
+      "Integrated Settle Africa payment rails to support mobile money transactions, bank payouts, and transaction receipt tracking through TVerify.",
     outcomes: [
-      "Instant cross-border settlement latency under 10 seconds",
-      "100% deterministic payout verification via TVerify audit receipts",
-      "Zero hidden FX fees with transparent upfront rate locks",
+      "Unified access to supported payment channels through integrated APIs",
+      "Improved visibility into payout statuses and transaction records",
+      "Provided clearer foreign exchange pricing information before payment",
     ],
     href: "/settle",
   },
 ] as const;
+
 
 export function ImpactStories() {
   const [activeTab, setActiveTab] = useState<string>(caseStudies[0].id);
