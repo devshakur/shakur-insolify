@@ -48,25 +48,27 @@ export function PricingSection() {
 
   return (
     <section id="pricing" className="px-4 pb-8 sm:px-6 lg:px-10">
-      <div className="rounded-4xl bg-white px-5 py-14 shadow-[0_24px_80px_rgba(20,16,40,0.04)] sm:rounded-[2.75rem] sm:px-10 sm:py-16 lg:px-16 lg:py-20 dark:bg-[#141418] dark:shadow-none">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#8b8b93] dark:text-[#9A9AA3]">
+      <div className="relative overflow-hidden rounded-4xl bg-black px-5 pt-14 pb-36 text-white sm:rounded-[2.75rem] sm:px-10 sm:pt-16 sm:pb-40 lg:px-16 dark:bg-white dark:text-black">
+        <PricingBackdrop />
+
+        <div className="relative z-10 mx-auto max-w-3xl text-center">
+          <p className="inline-flex items-center gap-1.5 text-[13px] font-medium text-white/60 dark:text-black/60">
             <SparkIcon />
             Pricing
           </p>
-          <h1 className="mx-auto mt-4 max-w-xl text-balance text-[1.85rem] leading-[1.15] font-semibold tracking-tight text-[#111] sm:text-4xl lg:text-5xl dark:text-white">
-            Curated Pricing Structure
+          <h1 className="mx-auto mt-4 max-w-xl text-balance text-[1.85rem] leading-[1.15] font-semibold tracking-tight sm:text-4xl lg:text-5xl">
+            Simple, transparent pricing
           </h1>
-          <p className="mx-auto mt-4 max-w-lg text-sm leading-6 text-[#8a8a8a] sm:text-[15px] dark:text-[#9CA3AF]">
+          <p className="mx-auto mt-4 max-w-lg text-sm leading-6 text-white/65 sm:text-[15px] dark:text-black/65">
             {catalog.blurb}
           </p>
         </div>
 
-        <div className="mt-10 flex justify-center">
+        <div className="relative z-10 mt-9 flex justify-center">
           <div
             role="tablist"
             aria-label="Pricing products"
-            className="inline-flex max-w-full items-center gap-1.5 overflow-x-auto"
+            className="inline-flex max-w-full items-center gap-1 overflow-x-auto rounded-full border border-white/20 bg-white p-1 dark:border-black/20 dark:bg-black"
             onKeyDown={(event) => {
               const index = pricingProductIds.indexOf(active);
               const next =
@@ -96,10 +98,10 @@ export function PricingSection() {
                   aria-controls="pricing-plans"
                   tabIndex={selected ? 0 : -1}
                   onClick={() => selectProduct(product.id)}
-                  className={`inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium transition-colors ${
+                  className={`inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                     selected
-                      ? "bg-[#111] text-white dark:bg-white dark:text-[#111]"
-                      : "bg-[#f2f2f4] text-[#111] hover:bg-[#e8e8ec] dark:bg-[#2a2a30] dark:text-white dark:hover:bg-[#33333a]"
+                      ? "bg-black text-white dark:bg-white dark:text-black"
+                      : "text-black/60 hover:bg-black/5 hover:text-black dark:text-white/60 dark:hover:bg-white/10 dark:hover:text-white"
                   }`}
                 >
                   <ToggleMark id={product.id} />
@@ -110,11 +112,14 @@ export function PricingSection() {
           </div>
         </div>
 
+      </div>
+
+      <div className="relative z-20 mx-auto -mt-28 max-w-5xl px-3 sm:-mt-32 sm:px-6">
         <div
           role="tabpanel"
           id="pricing-plans"
           aria-labelledby={`pricing-tab-${active}`}
-          className="mx-auto mt-12 grid max-w-5xl items-stretch gap-4 lg:mt-14 lg:grid-cols-3 lg:gap-5"
+          className="grid items-stretch gap-5 lg:grid-cols-3"
         >
           {catalog.plans.map((plan) => (
             <PricingCard
@@ -127,11 +132,13 @@ export function PricingSection() {
           ))}
         </div>
 
-        <ModuleBuilder
-          productId={active}
-          selectedIds={selectedIds}
-          onToggle={toggleModule}
-        />
+        <div className="mt-10 rounded-4xl bg-white px-2 py-1 shadow-[0_24px_80px_rgba(0,0,0,0.08)] sm:px-6 dark:bg-black dark:shadow-[0_24px_80px_rgba(255,255,255,0.04)]">
+          <ModuleBuilder
+            productId={active}
+            selectedIds={selectedIds}
+            onToggle={toggleModule}
+          />
+        </div>
       </div>
     </section>
   );
@@ -152,33 +159,36 @@ function PricingCard({
 
   return (
     <article
-      className={`relative flex cursor-pointer flex-col rounded-[1.75rem] px-6 pt-8 pb-7 sm:px-7 ${
+      className={`group relative flex cursor-pointer flex-col rounded-3xl border bg-white px-6 pt-7 pb-7 text-black shadow-[0_18px_50px_rgba(0,0,0,0.10)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_26px_70px_rgba(0,0,0,0.16)] sm:px-7 dark:bg-black dark:text-white dark:shadow-[0_18px_50px_rgba(255,255,255,0.06)] ${
         recommended
-          ? "bg-[#eef0ff] dark:bg-[#1d1b2c]"
-          : "border border-[#eeeef2] bg-white dark:border-white/8 dark:bg-[#18181d]"
-      } ${applied ? "ring-2 ring-[#7b61ff] ring-offset-2 ring-offset-white dark:ring-offset-[#141418]" : ""}`}
+          ? "border-black dark:border-white"
+          : "border-black/10 dark:border-white/15"
+      } ${applied ? "ring-2 ring-black ring-offset-2 ring-offset-white dark:ring-white dark:ring-offset-black" : ""}`}
       onClick={onApply}
     >
-      <p
-        className={`mb-4 inline-flex items-center gap-1.5 text-[13px] font-medium ${
-          recommended ? "text-[#7b61ff]" : "invisible max-lg:hidden"
-        }`}
-      >
-        <SparkIcon />
-        Most Recommended
-      </p>
+      <div className="mb-5 flex min-h-8 items-center justify-between gap-3">
+        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-black text-xs font-semibold text-white transition-transform duration-300 group-hover:scale-110 dark:bg-white dark:text-black">
+          {plan.id === "starter" ? "01" : plan.id === "growth" ? "02" : "03"}
+        </span>
+        {recommended ? (
+          <span className="inline-flex items-center gap-1.5 text-[12px] font-medium">
+            <SparkIcon />
+            Most Recommended
+          </span>
+        ) : null}
+      </div>
 
-      <h2 className="text-[1.65rem] leading-none font-semibold tracking-tight text-[#111] dark:text-white">
+      <h2 className="text-[1.65rem] leading-none font-semibold tracking-tight">
         {plan.name}
       </h2>
-      <p className="mt-4 text-[2rem] leading-none font-semibold tracking-tight text-[#111] sm:text-[2.15rem] dark:text-white">
+      <p className="mt-4 text-[2rem] leading-none font-semibold tracking-tight sm:text-[2.15rem]">
         {formatPrice(plan.yearly, currency)}
-        <span className="text-[1.05rem] font-medium text-[#8a8a8a] dark:text-[#9CA3AF]">
+        <span className="text-[1.05rem] font-medium text-black/50 dark:text-white/50">
           /yr
         </span>
       </p>
       {plan.setup > 0 ? (
-        <p className="mt-2 text-sm text-[#8a8a8a] dark:text-[#9CA3AF]">
+        <p className="mt-2 text-sm text-black/50 dark:text-white/50">
           {formatPrice(plan.setup, currency)} one-time setup
         </p>
       ) : (
@@ -186,7 +196,7 @@ function PricingCard({
           No setup fee
         </p>
       )}
-      <p className="mt-4 min-h-12 text-sm leading-6 text-[#8a8a8a] dark:text-[#9CA3AF]">
+      <p className="mt-4 min-h-12 text-sm leading-6 text-black/60 dark:text-white/60">
         {plan.description}
       </p>
 
@@ -197,8 +207,8 @@ function PricingCard({
         onClick={(event) => event.stopPropagation()}
         className={`mt-6 inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-medium transition-colors ${
           recommended
-            ? "bg-[#7b61ff] text-white hover:bg-[#6a4ff0]"
-            : "border border-[#ececf1] bg-[#f7f7f9] text-[#111] hover:bg-[#f0f0f3] dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+            ? "bg-black text-white hover:bg-black/80 dark:bg-white dark:text-black dark:hover:bg-white/80"
+            : "border border-black/15 bg-white text-black hover:bg-black hover:text-white dark:border-white/20 dark:bg-black dark:text-white dark:hover:bg-white dark:hover:text-black"
         }`}
       >
         {plan.cta}
@@ -208,7 +218,7 @@ function PricingCard({
         {plan.features.map((feature) => (
           <li
             key={feature}
-            className="flex items-start gap-3 text-sm text-[#6d6d6d] dark:text-[#C8C8C8]"
+            className="flex items-start gap-3 text-sm text-black/65 dark:text-white/65"
           >
             <CheckIcon />
             <span>{feature}</span>
@@ -268,9 +278,23 @@ function CheckIcon() {
       viewBox="0 0 18 18"
       fill="none"
       aria-hidden
-      className="mt-0.5 shrink-0 text-[#c5c5cc] dark:text-[#6B6B73]"
+      className="mt-0.5 shrink-0 text-black/35 dark:text-white/35"
     >
       <circle cx="9" cy="9" r="7.15" stroke="currentColor" strokeWidth="1.4" />
+      <path d="m6 9 2 2 4-4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
+  );
+}
+
+function PricingBackdrop() {
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="absolute -bottom-10 -left-10 h-48 w-24 rounded-t-3xl bg-white/8 dark:bg-black/8" />
+      <div className="absolute -bottom-8 left-12 h-36 w-24 rounded-t-3xl bg-white/8 dark:bg-black/8" />
+      <div className="absolute -bottom-6 left-32 h-24 w-24 rounded-t-3xl bg-white/8 dark:bg-black/8" />
+      <div className="absolute -right-10 -bottom-10 h-48 w-24 rounded-t-3xl bg-white/8 dark:bg-black/8" />
+      <div className="absolute right-12 -bottom-8 h-36 w-24 rounded-t-3xl bg-white/8 dark:bg-black/8" />
+      <div className="absolute right-32 -bottom-6 h-24 w-24 rounded-t-3xl bg-white/8 dark:bg-black/8" />
+    </div>
   );
 }
