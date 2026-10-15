@@ -41,7 +41,7 @@ export function InsolifyProductShowcase() {
 
   return (
     <section className="bg-white px-4 py-16 text-black sm:px-6 sm:py-20 lg:px-8 dark:bg-black dark:text-white">
-      <div className="mx-auto w-full max-w-7xl">
+      <div className="mx-auto w-full ">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: rise }}

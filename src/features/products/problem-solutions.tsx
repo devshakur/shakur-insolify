@@ -99,7 +99,7 @@ export function ProblemSolutions() {
       className="relative overflow-hidden bg-white px-4 py-12 text-black sm:px-6 sm:py-20 lg:px-8 dark:bg-black dark:text-white"
     >
       <Contours />
-      <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-[minmax(18rem,0.82fr)_minmax(0,1.45fr)] lg:gap-8">
+      <div className="relative mx-auto grid w-full  items-center gap-12 lg:grid-cols-[minmax(18rem,0.82fr)_minmax(0,1.45fr)] lg:gap-8">
         {/* Left Column: CTO Pain Points */}
         <article className="relative z-10 w-full rounded-3xl border border-black/10 bg-white/80 p-6 backdrop-blur-md sm:p-8 dark:border-white/15 dark:bg-black/80">
           <div className="flex items-center justify-between gap-4">

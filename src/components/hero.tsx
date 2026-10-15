@@ -41,7 +41,7 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 z-0 hidden bg-linear-to-r from-black/80 via-black/30 to-transparent dark:block"
       />
       <div className="relative z-10 flex flex-1">
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl items-start px-6 pt-8 pb-12 sm:pt-12 sm:pb-16 lg:items-center lg:py-20">
+        <div className="relative z-10 mx-auto flex w-full  items-start px-6 pt-8 pb-12 sm:pt-12 sm:pb-16 lg:items-center lg:py-20">
           <div className="relative z-10 max-w-3xl">
             <div className="mb-7 inline-flex items-center space-x-3 rounded-full border border-black/15 bg-white/60 px-4 py-2 backdrop-blur-xl dark:border-white/20 dark:bg-white/10">
               <span className="text-xs font-normal text-zinc-700 sm:text-sm dark:text-zinc-200">
@@ -138,7 +138,7 @@ export function Hero() {
       </div>
 
       <div className="relative z-20 border-t border-black/10 bg-white/30 py-6 backdrop-blur-md dark:border-white/10 dark:bg-black/30">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto  px-6">
           <p className="mb-5 text-center text-xs font-medium tracking-widest text-white uppercase md:text-left dark:text-zinc-400">
             POWERING LEADING INSTITUTIONAL BANKS, MFBs, FINTECHS & PAYMENT
             GATEWAYS ACROSS AFRICA
