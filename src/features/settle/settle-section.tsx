@@ -4,9 +4,9 @@ import { getProduct } from "@/features/products/products";
 import { SettlePreview } from "@/features/settle/settle-preview";
 
 const stats = [
-  { value: "130+", label: "Countries" },
+  { value: "Pan-African", label: "Coverage" },
   { value: "4", label: "Payout rails" },
-  { value: "46%", label: "Cheaper than banks" },
+  { value: "Lower fees", label: "Vs. banks" },
 ] as const;
 
 export function SettleSection() {

@@ -64,20 +64,20 @@ export function FincoreModules() {
           ))}
         </ul>
 
-        <div className="mt-12 grid gap-3 lg:grid-cols-3">
-          {pillars.map((pillar) => (
+        <div className="mt-14 flex flex-col gap-4">
+          {pillars.map((pillar, i) => (
             <article
               key={pillar.title}
-              className="rounded-3xl border border-[#eeeef2] px-5 py-5 dark:border-white/10"
+              className={`flex flex-col gap-4 border-l-2 border-[#111] py-1 pl-6 dark:border-white sm:flex-row sm:items-baseline sm:gap-10 ${
+                i % 2 === 1 ? "sm:pl-16" : ""
+              }`}
             >
-              <h3 className="text-sm font-semibold text-[#111] dark:text-white">{pillar.title}</h3>
-              <ul className="mt-4 space-y-2">
-                {pillar.items.map((item) => (
-                  <li key={item} className="text-sm text-[#6B7280] dark:text-[#9CA3AF]">
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              <h3 className="shrink-0 text-base font-semibold text-[#111] sm:w-56 dark:text-white">
+                {pillar.title}
+              </h3>
+              <p className="text-sm leading-6 text-[#6B7280] dark:text-[#9CA3AF]">
+                {pillar.items.join(", ")}
+              </p>
             </article>
           ))}
         </div>
