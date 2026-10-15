@@ -199,7 +199,7 @@ export function FincoreCapabilities() {
       id="capabilities"
       className="bg-white px-4 py-5 text-black sm:px-6 sm:py-24 lg:px-8 dark:bg-black dark:text-white"
     >
-      <div className="mx-auto w-full max-w-7xl">
+      <div className="mx-auto w-full">
         {/* Header */}
         <div className="flex flex-col gap-4 border-b border-black/10 pb-8 lg:flex-row lg:items-end lg:justify-between dark:border-white/15">
           <div>

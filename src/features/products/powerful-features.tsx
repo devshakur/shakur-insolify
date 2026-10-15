@@ -51,7 +51,7 @@ export function PowerfulFeatures() {
       aria-label="Platform Features"
       className="bg-white px-4 py-3 text-black sm:px-6 sm:py-5 lg:px-8 dark:bg-black dark:text-white"
     >
-      <div className="mx-auto w-full max-w-6xl">
+      <div className="mx-auto w-full ">
         <div className="flex flex-col gap-2 border-b border-black/10 pb-6 sm:flex-row sm:items-end sm:justify-between dark:border-white/10">
           <div>
             <p className="text-[11px] font-semibold tracking-[0.18em] text-[#6d6d6d] uppercase dark:text-white/50">
