@@ -43,49 +43,49 @@ export function FeaturedProducts() {
     <section className="scroll-mt-20 bg-white px-4 py-16 text-black sm:px-6 sm:py-20 lg:px-8 dark:bg-black dark:text-white">
       <div className="mx-auto w-full">
         {/* Header Section */}
-        <div className="flex flex-col items-center justify-center text-center mb-12">
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight mb-8">
+        <div className="mb-12 flex flex-col items-center justify-center text-center">
+          <h2 className="mb-8 text-4xl font-bold tracking-tight sm:text-5xl">
             Here&apos;s why Insolify should be your
             <br />
             banking technology partner
           </h2>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-black/20 bg-white text-black hover:border-black/40 transition-colors dark:border-white/30 dark:bg-black dark:text-white dark:hover:border-white/50"
+            className="inline-flex items-center gap-2 rounded-full border border-black/20 bg-white px-6 py-3 text-black transition-colors hover:border-black/40 dark:border-white/30 dark:bg-black dark:text-white dark:hover:border-white/50"
           >
             Get in touch
             <span className="text-lg">→</span>
           </Link>
         </div>
 
-        {/* Benefits Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
+        {/* Horizontal slider on mobile, grid from tablet upward */}
+        <div className="scrollbar-hide -mx-4 mt-16 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-5 md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-4">
           {benefits.map((benefit) => {
             const Icon = benefit.icon;
             return (
               <div
                 key={benefit.id}
-                className="flex flex-col items-start p-6 rounded-2xl border border-black/10 bg-white hover:border-black/20 transition-colors dark:border-white/15 dark:bg-black/50 dark:hover:border-white/30"
+                className="flex min-h-96 flex-none basis-[86%] snap-center flex-col items-start rounded-2xl border border-black/10 bg-white p-6 transition-colors hover:border-black/20 sm:basis-[62%] md:min-h-0 md:basis-auto dark:border-white/15 dark:bg-black/50 dark:hover:border-white/30"
               >
                 {/* Icon Circle */}
-                <div className="h-16 w-16 rounded-full bg-black flex items-center justify-center mb-5 shrink-0">
+                <div className="mb-5 flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-black">
                   <Icon className="h-8 w-8 text-white" strokeWidth={1.5} />
                 </div>
 
                 {/* Title */}
-                <h3 className="text-lg font-bold tracking-tight mb-3 text-left">
+                <h3 className="mb-3 text-left text-lg font-bold tracking-tight">
                   {benefit.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm leading-6 text-[#5c5c5c] dark:text-white/70 text-left mb-4 grow">
+                <p className="mb-4 grow text-left text-sm leading-6 text-[#5c5c5c] dark:text-white/70">
                   {benefit.description}
                 </p>
 
                 {/* Link */}
                 <Link
                   href={benefit.href}
-                  className="text-xs font-semibold text-black underline decoration-black/20 underline-offset-3 hover:decoration-black transition-colors dark:text-white dark:decoration-white/30 dark:hover:decoration-white"
+                  className="text-xs font-semibold text-black underline decoration-black/20 underline-offset-3 transition-colors hover:decoration-black dark:text-white dark:decoration-white/30 dark:hover:decoration-white"
                 >
                   Learn more →
                 </Link>
@@ -93,6 +93,9 @@ export function FeaturedProducts() {
             );
           })}
         </div>
+        <p className="mt-1 text-center text-[10px] font-medium tracking-wide text-black/40 md:hidden dark:text-white/40">
+          Swipe to explore all benefits
+        </p>
       </div>
     </section>
   );

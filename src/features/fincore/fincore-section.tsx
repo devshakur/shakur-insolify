@@ -1,63 +1,156 @@
+"use client";
+
 import Link from "next/link";
-import { NodesIcon } from "@/features/products/icons";
-import { getProductModules } from "@/features/pricing/modules";
+import { motion, type Variants } from 'framer-motion';
+import { ShieldCheck, Target, Zap, Building2, Server, Key, CreditCard, MapPin } from 'lucide-react';
+import React from "react";
+// A generic hexagon container to match the target image style
+const HexNode = ({ icon: Icon, label, status = null, isLarge = false }: {
+  icon: React.ElementType;
+  label: string;
+  status?: 'NEW' | 'LIVE' | null;
+  isLarge?: boolean;
+}) => (
+  <div className={`relative flex flex-col items-center justify-center text-center ${isLarge ? 'w-24 h-28' : 'w-16 h-20'}`}>
+    {/* Hexagon Shape via clip-path */}
+    <div className="absolute inset-0 border border-black/15 bg-white transition-colors group-hover:border-black/45 dark:border-white/15 dark:bg-black dark:group-hover:border-white/45" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }} />
+    
+    {/* Content */}
+    <div className="relative z-10 flex flex-col items-center p-2">
+      <div className={`flex items-center justify-center rounded-lg border border-black/15 bg-black/5 text-black dark:border-white/15 dark:bg-white/10 dark:text-white ${isLarge ? 'p-3 mb-2' : 'p-2 mb-1'}`}>
+        <Icon className={isLarge ? "w-6 h-6" : "w-4 h-4"} />
+      </div>
+      <p className={`font-medium tracking-tight text-black dark:text-white ${isLarge ? 'text-xs' : 'text-[9px]'} leading-tight`}>{label}</p>
+      {status && (
+        <span className="absolute -top-2 -right-2 rounded bg-black px-1.5 py-0.5 text-[8px] font-bold text-white uppercase dark:bg-white dark:text-black">
+          {status}
+        </span>
+      )}
+    </div>
+  </div>
+);
 
-const stats = [
-  { value: "12", label: "Modules" },
-  { value: "Per module", label: "Pricing" },
-  { value: "Phased", label: "Rollout" },
-] as const;
+// The main service groups matching the diagram
+const CoreAccounts = () => (
+  <div className="relative flex flex-col items-center group">
+    <div className="flex gap-3 mb-4">
+      <HexNode icon={Server} label="Accounts" status="LIVE" />
+      <HexNode icon={Server} label="Ledger" status="NEW" />
+    </div>
+    <HexNode icon={Building2} label="Fincore Engine" isLarge />
+  </div>
+);
 
-export function FincoreSection() {
- 
+// The animated visual centerpiece
+const FincoreDiagramHub = () => {
+  const groups = [
+    { title: "Digital", nodes: [{ icon: Building2, label: "Digital Banking" }, { icon: Key, label: "Fintech API" }, { icon: MapPin, label: "Agency Banking" }] },
+    { title: "Agency", nodes: [{ icon: CreditCard, label: "Card Issuing" }, { icon: Target, label: "POS Management" }, { icon: Target, label: "USSD Banking" }] },
+    { title: "Payments", nodes: [{ icon: Zap, label: "Agency Banking" }, { icon: ShieldCheck, label: "Payments Risk" }, { icon: Target, label: "Payments Risk" }] }
+  ];
 
   return (
-    <section id="fincore" className="px-4 pb-8 sm:px-6 lg:px-10">
-      <div className="rounded-4xl bg-white px-5 py-12 shadow-[0_24px_80px_rgba(20,16,40,0.04)] sm:rounded-[2.75rem] sm:px-10 sm:py-16 lg:px-14 lg:py-16 dark:bg-[#141418] dark:shadow-none">
-        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-16">
-          <div>
-            <p className="inline-flex items-center gap-2 text-[15px] font-semibold tracking-tight text-[#111] dark:text-white">
-              <span className="inline-flex size-8 items-center justify-center rounded-full bg-[#111] text-white dark:bg-white dark:text-[#111]">
-                <NodesIcon />
-              </span>
-              Fincore
-            </p>
-            <h1 className="mt-6 max-w-xl text-[2.15rem] leading-[1.08] font-semibold tracking-tight text-[#111] sm:text-5xl dark:text-white">
-              A modern core for financial institutions
+    <div className="relative grid min-h-112 grid-cols-[7rem_minmax(0,1fr)] items-center gap-8 py-5 sm:grid-cols-[8rem_minmax(0,1fr)]">
+      
+      {/* 1. Left: Core Accounts */}
+      <div className="relative z-10">
+        <CoreAccounts />
+      </div>
+
+      {/* 2. Middle: Infinite Electrical Lines */}
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <AnimatedElectricalLines />
+      </div>
+
+      {/* 3. Right: Service Groups */}
+      <div className="relative z-10 flex flex-col gap-6 pl-4 sm:pl-8">
+        {groups.map((group, idx) => (
+          <div key={idx} className="rounded-xl border border-black/15 bg-white/90 p-4 shadow-sm backdrop-blur-sm dark:border-white/15 dark:bg-black/90">
+            <h4 className="mb-3 pl-1 text-[11px] font-bold tracking-widest text-black/50 uppercase dark:text-white/50">{group.title}</h4>
+            <div className="flex flex-wrap gap-3">
+              {group.nodes.map((node, nIdx) => (
+                <HexNode key={nIdx} icon={node.icon} label={node.label} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+
+const defaultStats = [
+  { label: 'Ledger Latency', value: '<15ms' },
+  { label: 'SLA Uptime', value: '99.9%' },
+  { label: 'Core Modules', value: '12' },
+  // { label: 'Certified', value: 'ISO 27001' },
+];
+
+export function FincoreSection({ stats = defaultStats }) {
+  return (
+    <section id="fincore" className="px-4 pb-12 antialiased selection:bg-black selection:text-white sm:px-6 lg:px-10 dark:selection:bg-white dark:selection:text-black">
+      <div className="rounded-3xl border border-black/10 bg-white p-8 text-black shadow-2xl backdrop-blur-sm sm:rounded-[2.5rem] sm:p-12 lg:p-16 dark:border-white/10 dark:bg-black dark:text-white">
+        
+        <div className="mb-12 flex items-center justify-between border-b border-black/10 pb-8 dark:border-white/10">
+          <h2 className="text-xl font-bold tracking-tight">Overview</h2>
+          <Link
+            href="mailto:sales@insolify.com?subject=Fincore%20demo"
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-black px-5 text-sm font-semibold text-white shadow-lg transition-all hover:bg-black/80 dark:bg-white dark:text-black dark:hover:bg-white/80"
+          >
+            Request Demo
+          </Link>
+        </div>
+
+        {/* Content Grid */}
+        <div className="grid items-center gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20">
+          
+          {/* Left Column: Text & Stats */}
+          <div className="space-y-8">
+            <h1 className="text-4xl leading-[1.05] font-extrabold tracking-tighter sm:text-5xl lg:text-6xl">
+              Fincore. Modular.<br /> Scalable. Interoperable.
             </h1>
-            <p className="mt-5 max-w-md text-sm leading-7 text-[#6B7280] sm:text-[15px] dark:text-[#9CA3AF]">
-              A modular, scalable core banking system — 12 deployable modules
-              covering accounts, lending, cards, and digital and agency banking.
+            
+            <p className="max-w-xl text-base leading-relaxed text-black/60 dark:text-white/60">
+              A modern core engine with 12 micro-services, designed to decouple primitives 
+              and accelerate financial innovation. Plug-and-play across accounts, payments, and risk.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-2.5">
+            
+            <div className="flex flex-wrap items-center gap-3 pt-4">
               <Link
                 href="mailto:sales@insolify.com?subject=Fincore%20demo"
-                className="inline-flex h-11 items-center gap-2 rounded-full bg-[#111] px-5 text-sm font-medium text-white transition-colors hover:bg-black dark:bg-white dark:text-[#111] dark:hover:bg-[#e8e8e8]"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-black px-6 text-sm font-bold text-white shadow-xl transition-all hover:bg-black/80 dark:bg-white dark:text-black dark:hover:bg-white/80"
               >
                 Request a demo
-                <ArrowIcon />
+                <Zap className="w-4 h-4" />
               </Link>
-              <Link
-                href="#fincore-modules"
-                className="inline-flex h-11 items-center gap-2 rounded-full bg-[#f2f2f4] px-5 text-sm font-medium text-[#111] transition-colors hover:bg-[#e8e8ec] dark:bg-[#2a2a30] dark:text-white dark:hover:bg-[#33333a]"
-              >
-                View modules
-                <ArrowIcon />
-              </Link>
+             
             </div>
-            <dl className="mt-12 grid max-w-md grid-cols-3 gap-4 border-t border-[#eeeef2] pt-8 dark:border-white/10">
-              {stats.map((stat) => (
-                <div key={stat.label}>
-                  <dt className="text-[11px] text-[#8a8a8a] dark:text-[#9CA3AF]">{stat.label}</dt>
-                  <dd className="mt-1 text-xl font-semibold tracking-tight text-[#111] sm:text-2xl dark:text-white">
-                    {stat.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+            
+            {/* Stats: New layout matching the 'Value Strip' from image */}
+            <div className="border-t border-black/10 pt-10 dark:border-white/10">
+              <h4 className="mb-6 pl-1 text-xs font-bold tracking-widest text-black/50 uppercase dark:text-white/50">Performance & Compliance</h4>
+              <dl className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4">
+                {stats.map((stat) => (
+                  <div key={stat.label}>
+                    <dt className="text-xs font-medium text-black/55 dark:text-white/55">{stat.label}</dt>
+                    <dd className="mt-1.5 font-mono text-3xl font-extrabold tracking-tight">
+                      {stat.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </div>
 
-          <FincoreHub />
+
+          <div className="relative h-full w-full overflow-hidden rounded-3xl border border-black/10 bg-black/2.5 p-4 dark:border-white/10 dark:bg-white/[0.035]">
+            
+            <div className="pointer-events-none absolute inset-0 rounded-full bg-black/5 blur-[120px] dark:bg-white/5" />
+            
+            <FincoreDiagramHub />
+          </div>
+
         </div>
       </div>
     </section>
@@ -65,80 +158,77 @@ export function FincoreSection() {
 }
 
 
-function FincoreHub() {
-  const modules = getProductModules("fincore");
-  const dotRadius = 36;
-  const labelRadius = 47;
+
+const AnimatedElectricalLines = () => {
+  const destinations = [16.5, 50, 83.5];
+
+  const pathVariants: Variants = {
+    hidden: { pathLength: 0, opacity: 0 },
+    visible: {
+      pathLength: 1,
+      opacity: [0, 0.85, 0.85, 0],
+      transition: {
+        pathLength: {
+          duration: 1.8,
+          ease: "easeInOut",
+          repeat: Infinity,
+          repeatDelay: 0.8,
+        },
+        opacity: {
+          duration: 2.6,
+          times: [0, 0.12, 0.78, 1],
+          repeat: Infinity,
+          repeatDelay: 0.8,
+        },
+      },
+    },
+  };
 
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[34rem] py-6">
-      <svg
-        viewBox="0 0 100 100"
-        className="absolute inset-0 h-full w-full text-[#e9e9ee] dark:text-white/10"
-        aria-hidden
-      >
-        <circle cx="50" cy="50" r={dotRadius} fill="none" stroke="currentColor" strokeWidth="0.4" />
-        {modules.map((_, i) => {
-          const angle = (i / modules.length) * 2 * Math.PI - Math.PI / 2;
-          const x = 50 + dotRadius * Math.cos(angle);
-          const y = 50 + dotRadius * Math.sin(angle);
-          return (
-            <line key={`spoke-${i}`} x1="50" y1="50" x2={x} y2={y} stroke="currentColor" strokeWidth="0.35" />
-          );
-        })}
-        {modules.map((_, i) => {
-          const angle = (i / modules.length) * 2 * Math.PI - Math.PI / 2;
-          const x = 50 + dotRadius * Math.cos(angle);
-          const y = 50 + dotRadius * Math.sin(angle);
-          return (
-            <circle key={`dot-${i}`} cx={x} cy={y} r="1.1" className="fill-[#111] dark:fill-white" />
-          );
-        })}
-      </svg>
+    <svg
+      viewBox="0 0 100 100"
+      preserveAspectRatio="none"
+      fill="none"
+      aria-hidden
+      className="h-full w-full text-black dark:text-white"
+    >
+      <defs>
+        <filter id="fincore-line-glow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="1.2" result="lineBlur" />
+          <feMerge>
+            <feMergeNode in="lineBlur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
 
-      {/* Core */}
-      <div className="absolute top-1/2 left-1/2 flex size-24 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-1 rounded-full bg-[#111] text-center text-white shadow-[0_12px_40px_rgba(17,17,17,0.25)] dark:bg-white dark:text-[#111]">
-        <NodesIcon />
-        <span className="text-[11px] leading-tight font-semibold tracking-tight">
-          Core
-          <br />
-          Banking
-        </span>
-      </div>
+      {destinations.map((destination, index) => {
+        const path = `M 18 50 C 31 50, 32 ${destination}, 48 ${destination}`;
 
-      {/* Module labels — anchored outside the dot, aligned away from center */}
-      {modules.map((module, i) => {
-        const angle = (i / modules.length) * 2 * Math.PI - Math.PI / 2;
-        const cos = Math.cos(angle);
-        const x = 50 + labelRadius * cos;
-        const y = 50 + labelRadius * Math.sin(angle);
-        const align = cos > 0.25 ? "items-start text-left" : cos < -0.25 ? "items-end text-right" : "items-center text-center";
         return (
-          <div
-            key={module.id}
-            className={`absolute flex w-24 -translate-x-1/2 -translate-y-1/2 flex-col ${align}`}
-            style={{ left: `${x}%`, top: `${y}%` }}
-          >
-            <span className="text-[11px] leading-tight font-medium text-[#6B7280] dark:text-[#9CA3AF]">
-              {module.name}
-            </span>
-          </div>
+          <React.Fragment key={destination}>
+            <path
+              d={path}
+              stroke="currentColor"
+              strokeWidth="0.45"
+              strokeOpacity="0.18"
+              vectorEffect="non-scaling-stroke"
+            />
+            <motion.path
+              d={path}
+              stroke="currentColor"
+              strokeWidth="1.35"
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+              filter="url(#fincore-line-glow)"
+              variants={pathVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ delay: index * 0.22 }}
+            />
+          </React.Fragment>
         );
       })}
-    </div>
-  );
-}
-
-function ArrowIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-      <path
-        d="M3 7h8M8 4l3 3-3 3"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
     </svg>
   );
-}
+};
