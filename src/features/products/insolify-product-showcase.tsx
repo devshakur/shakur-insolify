@@ -9,7 +9,7 @@ import {
   useReducedMotion,
   useTransform,
 } from "framer-motion";
-import { ArrowRight, Layers, Shield, Globe } from "lucide-react";
+import { ArrowRight, Layers, Shield, Globe, Cloud } from "lucide-react";
 import { useState } from "react";
 
 const products = [
@@ -36,6 +36,13 @@ const products = [
     description:
       "Instant Pan-African settlement rails with zero friction across 54 African markets and all local channels.",
     href: "/settle",
+  },
+  {id: "skynet",
+    icon: Cloud,
+    title: "Skynet",
+    description:
+      "Cloud compute, GPU infrastructure, and provisioning for modern Digital services.",
+    href: "/skynet",
   },
 ] as const;
 
@@ -143,7 +150,7 @@ export function InsolifyProductShowcase() {
         </div>
 
         {/* Desktop cards grid */}
-        <div className="hidden gap-6 md:grid md:grid-cols-3">
+        <div className="hidden gap-6 md:grid md:grid-cols-4">
           {products.map((product, index) => {
             const Icon = product.icon;
             return (

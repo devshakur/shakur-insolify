@@ -1,234 +1,277 @@
 "use client";
 
 import Link from "next/link";
-import { motion, type Variants } from 'framer-motion';
-import { ShieldCheck, Target, Zap, Building2, Server, Key, CreditCard, MapPin } from 'lucide-react';
-import React from "react";
-// A generic hexagon container to match the target image style
-const HexNode = ({ icon: Icon, label, status = null, isLarge = false }: {
-  icon: React.ElementType;
-  label: string;
-  status?: 'NEW' | 'LIVE' | null;
-  isLarge?: boolean;
-}) => (
-  <div className={`relative flex flex-col items-center justify-center text-center ${isLarge ? 'w-24 h-28' : 'w-16 h-20'}`}>
-    {/* Hexagon Shape via clip-path */}
-    <div className="absolute inset-0 border border-black/15 bg-white transition-colors group-hover:border-black/45 dark:border-white/15 dark:bg-black dark:group-hover:border-white/45" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }} />
-    
-    {/* Content */}
-    <div className="relative z-10 flex flex-col items-center p-2">
-      <div className={`flex items-center justify-center rounded-lg border border-black/15 bg-black/5 text-black dark:border-white/15 dark:bg-white/10 dark:text-white ${isLarge ? 'p-3 mb-2' : 'p-2 mb-1'}`}>
-        <Icon className={isLarge ? "w-6 h-6" : "w-4 h-4"} />
-      </div>
-      <p className={`font-medium tracking-tight text-black dark:text-white ${isLarge ? 'text-xs' : 'text-[9px]'} leading-tight`}>{label}</p>
-      {status && (
-        <span className="absolute -top-2 -right-2 rounded bg-black px-1.5 py-0.5 text-[8px] font-bold text-white uppercase dark:bg-white dark:text-black">
-          {status}
-        </span>
-      )}
-    </div>
-  </div>
+import { motion } from "framer-motion";
+
+// --- Icons ---
+const LedgerIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+  </svg>
 );
 
-// The main service groups matching the diagram
-const CoreAccounts = () => (
-  <div className="relative flex flex-col items-center group">
-    <div className="flex gap-3 mb-4">
-      <HexNode icon={Server} label="Accounts" status="LIVE" />
-      <HexNode icon={Server} label="Ledger" status="NEW" />
-    </div>
-    <HexNode icon={Building2} label="Fincore Engine" isLarge />
-  </div>
+const AccountsIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
+    <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
+    <path d="M18 12a2 2 0 0 0 0 4h4v-4Z" />
+  </svg>
 );
 
-// The animated visual centerpiece
-const FincoreDiagramHub = () => {
-  const groups = [
-    { title: "Digital", nodes: [{ icon: Building2, label: "Digital Banking" }, { icon: Key, label: "Fintech API" }, { icon: MapPin, label: "Agency Banking" }] },
-    { title: "Agency", nodes: [{ icon: CreditCard, label: "Card Issuing" }, { icon: Target, label: "POS Management" }, { icon: Target, label: "USSD Banking" }] },
-    { title: "Payments", nodes: [{ icon: Zap, label: "Agency Banking" }, { icon: ShieldCheck, label: "Payments Risk" }, { icon: Target, label: "Payments Risk" }] }
-  ];
+const ChannelsIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+    <line x1="8" y1="21" x2="16" y2="21" />
+    <line x1="12" y1="17" x2="12" y2="21" />
+  </svg>
+);
 
-  return (
-    <div className="relative grid min-h-112 grid-cols-[7rem_minmax(0,1fr)] items-center gap-8 py-5 sm:grid-cols-[8rem_minmax(0,1fr)]">
-      
-      {/* 1. Left: Core Accounts */}
-      <div className="relative z-10">
-        <CoreAccounts />
-      </div>
+const ConnectivityIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+  </svg>
+);
 
-      {/* 2. Middle: Infinite Electrical Lines */}
-      <div className="pointer-events-none absolute inset-0 z-0">
-        <AnimatedElectricalLines />
-      </div>
+const ShieldIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    <path d="m9 12 2 2 4-4" />
+  </svg>
+);
 
-      {/* 3. Right: Service Groups */}
-      <div className="relative z-10 flex flex-col gap-6 pl-4 sm:pl-8">
-        {groups.map((group, idx) => (
-          <div key={idx} className="rounded-xl border border-black/15 bg-white/90 p-4 shadow-sm backdrop-blur-sm dark:border-white/15 dark:bg-black/90">
-            <h4 className="mb-3 pl-1 text-[11px] font-bold tracking-widest text-black/50 uppercase dark:text-white/50">{group.title}</h4>
-            <div className="flex flex-wrap gap-3">
-              {group.nodes.map((node, nIdx) => (
-                <HexNode key={nIdx} icon={node.icon} label={node.label} />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-
-const defaultStats = [
-  { label: 'Ledger Latency', value: '<15ms' },
-  { label: 'SLA Uptime', value: '99.9%' },
-  { label: 'Core Modules', value: '12' },
-  // { label: 'Certified', value: 'ISO 27001' },
+// --- Data ---
+const capabilities = [
+  {
+    title: "Accounting & Ledger",
+    description: "Real-time journals and general ledger for all financial operations.",
+    icon: <LedgerIcon />,
+  },
+  {
+    title: "Accounts & Lending",
+    description: "Savings, current accounts, fixed deposits, and complete lending workflows.",
+    icon: <AccountsIcon />,
+  },
+  {
+    title: "Digital Channels",
+    description: "Internet, mobile, USSD, and SMS banking channels.",
+    icon: <ChannelsIcon />,
+  },
+  {
+    title: "Interbank & Cards",
+    description: "NIBSS, Interswitch, eTranzact connectivity, plus ATM, POS, and agency banking.",
+    icon: <ConnectivityIcon />,
+  },
 ];
 
-export function FincoreSection({ stats = defaultStats }) {
+const stats = [
+  { value: "50x", label: "Faster transactions" },
+  { value: "24/7", label: "Real-time posting" },
+  { value: "99.99%", label: "Uptime design target" },
+  { value: "1-click", label: "Migration start" },
+];
+
+export function FincoreSection() {
   return (
-    <section id="fincore" className="px-4 pb-12 antialiased selection:bg-black selection:text-white sm:px-6 lg:px-10 dark:selection:bg-white dark:selection:text-black">
-      <div className="rounded-3xl border border-black/10 bg-white p-8 text-black shadow-2xl backdrop-blur-sm sm:rounded-[2.5rem] sm:p-12 lg:p-16 dark:border-white/10 dark:bg-black dark:text-white">
+    <div className="bg-white text-black dark:bg-[#0a0a0a] dark:text-white">
+      
+      {/* ================= HERO ================= */}
+      <section className="relative overflow-hidden pt-20 pb-24 sm:pt-28 sm:pb-32">
+        {/* Subtle background glow */}
+        <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-[#EFB338]/10 blur-[120px] dark:bg-[#EFB338]/5" />
         
-        <div className="mb-12 flex items-center justify-between border-b border-black/10 pb-8 dark:border-white/10">
-          <h2 className="text-xl font-bold tracking-tight">Overview</h2>
-          <Link
-            href="mailto:sales@insolify.com?subject=Fincore%20demo"
-            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-black px-5 text-sm font-semibold text-white shadow-lg transition-all hover:bg-black/80 dark:bg-white dark:text-black dark:hover:bg-white/80"
+        <div className="mx-auto max-w-4xl px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
           >
-            Request Demo
-          </Link>
-        </div>
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#EFB338]/30 bg-[#EFB338]/10 px-4 py-1.5 text-sm font-medium text-black dark:text-[#EFB338]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#EFB338]" />
+              FinCore
+            </span>
+          </motion.div>
 
-        {/* Content Grid */}
-        <div className="grid items-center gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20">
-          
-          {/* Left Column: Text & Stats */}
-          <div className="space-y-8">
-            <h1 className="text-4xl leading-[1.05] font-extrabold tracking-tighter sm:text-5xl lg:text-6xl">
-              Fincore. Modular.<br /> Scalable. Interoperable.
-            </h1>
-            
-            <p className="max-w-xl text-base leading-relaxed text-black/60 dark:text-white/60">
-              A modern core engine with 12 micro-services, designed to decouple primitives 
-              and accelerate financial innovation. Plug-and-play across accounts, payments, and risk.
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="mt-6 text-balance text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl"
+          >
+            The financial platform <br className="hidden sm:block" />
+            institutions run on.
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-neutral-600 dark:text-neutral-400 sm:text-xl"
+          >
+            A comprehensive core banking platform for banks, fintechs, and lenders. Move from batch-bound legacy processing to real-time posting.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
+          >
+            <Link
+              href="/contact"
+              className="w-full rounded-full bg-black px-8 py-3.5 text-sm font-medium text-white transition-opacity hover:opacity-80 sm:w-auto dark:bg-white dark:text-black dark:hover:bg-neutral-200"
+            >
+              Talk to our team
+            </Link>
+            <Link
+              href="#capabilities"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-black/15 px-8 py-3.5 text-sm font-medium text-black transition-colors hover:border-black/30 sm:w-auto dark:border-white/20 dark:text-white dark:hover:border-white/40"
+            >
+              Explore capabilities
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ================= CAPABILITIES ================= */}
+      <section id="capabilities" className="border-t border-black/5 bg-neutral-50/50 py-20 sm:py-24 dark:border-white/5 dark:bg-[#0f0f0f]">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+              A connected platform for financial operations.
+            </h2>
+            <p className="mt-4 text-neutral-600 dark:text-neutral-400">
+              Bring essential institution operations and customer channels together on one foundation.
             </p>
-            
-            <div className="flex flex-wrap items-center gap-3 pt-4">
-              <Link
-                href="mailto:sales@insolify.com?subject=Fincore%20demo"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-black px-6 text-sm font-bold text-white shadow-xl transition-all hover:bg-black/80 dark:bg-white dark:text-black dark:hover:bg-white/80"
+          </div>
+
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {capabilities.map((cap, index) => (
+              <motion.div
+                key={cap.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="flex flex-col rounded-2xl border border-black/5 bg-white p-6 shadow-sm transition-all hover:border-[#EFB338]/50 hover:shadow-md dark:border-white/5 dark:bg-[#111111] dark:hover:border-[#EFB338]/50"
               >
-                Request a demo
-                <Zap className="w-4 h-4" />
-              </Link>
-             
-            </div>
-            
-            {/* Stats: New layout matching the 'Value Strip' from image */}
-            <div className="border-t border-black/10 pt-10 dark:border-white/10">
-              <h4 className="mb-6 pl-1 text-xs font-bold tracking-widest text-black/50 uppercase dark:text-white/50">Performance & Compliance</h4>
-              <dl className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4">
-                {stats.map((stat) => (
-                  <div key={stat.label}>
-                    <dt className="text-xs font-medium text-black/55 dark:text-white/55">{stat.label}</dt>
-                    <dd className="mt-1.5 font-mono text-3xl font-extrabold tracking-tight">
-                      {stat.value}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#EFB338]/10 text-[#EFB338]">
+                  {cap.icon}
+                </div>
+                <h3 className="text-lg font-semibold tracking-tight">{cap.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
+                  {cap.description}
+                </p>
+              </motion.div>
+            ))}
           </div>
-
-
-          <div className="relative h-full w-full overflow-hidden rounded-3xl border border-black/10 bg-black/2.5 p-4 dark:border-white/10 dark:bg-white/[0.035]">
-            
-            <div className="pointer-events-none absolute inset-0 rounded-full bg-black/5 blur-[120px] dark:bg-white/5" />
-            
-            <FincoreDiagramHub />
-          </div>
-
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* ================= PERFORMANCE STATS ================= */}
+      <section className="border-y border-black/5 py-16 sm:py-20 dark:border-white/5">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid grid-cols-2 gap-8 text-center md:grid-cols-4">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <p className="text-4xl font-semibold tracking-tight text-black sm:text-5xl dark:text-white">
+                  {stat.value}
+                </p>
+                <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
+                  {stat.label}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================= RELIABILITY & FRAUD ================= */}
+      <section className="py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
+            {/* Reliability */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="text-sm font-semibold uppercase tracking-wider text-[#EFB338]">
+                Reliability
+              </span>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
+                Extreme uptime, by design.
+              </h2>
+              <p className="mt-4 text-lg leading-relaxed text-neutral-600 dark:text-neutral-400">
+                Redundant infrastructure, automatic failover, and zero-downtime releases keep customers transacting when it matters most.
+              </p>
+              <ul className="mt-8 space-y-4">
+                {["Multi-zone redundancy", "Automatic failover", "Zero-downtime releases"].map((item) => (
+                  <li key={item} className="flex items-center gap-3 text-sm font-medium">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#EFB338]/20 text-[#EFB338]">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Fraud Protection */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="rounded-3xl border border-black/10 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-[#111111]"
+            >
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[#EFB338]/10 text-[#EFB338]">
+                <ShieldIcon />
+              </div>
+              <h3 className="text-2xl font-semibold tracking-tight">Advanced fraud detection, powered by Safi.</h3>
+              <p className="mt-3 text-neutral-500 dark:text-neutral-400">
+                Every FinCore transaction is screened by Safi in real time, catching edge cases that rules-only systems miss.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {["Behavioural analysis", "Real-time decisions", "Edge-case scenarios", "Case management"].map((tag) => (
+                  <span key={tag} className="rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= CTA ================= */}
+      <section className="px-6 pb-20 sm:pb-28">
+        <div className="mx-auto max-w-5xl rounded-[2.5rem] bg-black px-6 py-20 text-center sm:px-16 dark:bg-[#151515]">
+          <h2 className="mx-auto max-w-2xl text-balance text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            Build your institution on a connected foundation.
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-neutral-400">
+            Talk with our team about FinCore and your operating requirements.
+          </p>
+          <div className="mt-10">
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center rounded-full bg-[#EFB338] px-8 py-3.5 text-sm font-semibold text-black transition-opacity hover:opacity-90"
+            >
+              Talk to our team
+            </Link>
+          </div>
+        </div>
+      </section>
+
+    </div>
   );
 }
-
-
-
-const AnimatedElectricalLines = () => {
-  const destinations = [16.5, 50, 83.5];
-
-  const pathVariants: Variants = {
-    hidden: { pathLength: 0, opacity: 0 },
-    visible: {
-      pathLength: 1,
-      opacity: [0, 0.85, 0.85, 0],
-      transition: {
-        pathLength: {
-          duration: 1.8,
-          ease: "easeInOut",
-          repeat: Infinity,
-          repeatDelay: 0.8,
-        },
-        opacity: {
-          duration: 2.6,
-          times: [0, 0.12, 0.78, 1],
-          repeat: Infinity,
-          repeatDelay: 0.8,
-        },
-      },
-    },
-  };
-
-  return (
-    <svg
-      viewBox="0 0 100 100"
-      preserveAspectRatio="none"
-      fill="none"
-      aria-hidden
-      className="h-full w-full text-black dark:text-white"
-    >
-      <defs>
-        <filter id="fincore-line-glow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="1.2" result="lineBlur" />
-          <feMerge>
-            <feMergeNode in="lineBlur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
-
-      {destinations.map((destination, index) => {
-        const path = `M 18 50 C 31 50, 32 ${destination}, 48 ${destination}`;
-
-        return (
-          <React.Fragment key={destination}>
-            <path
-              d={path}
-              stroke="currentColor"
-              strokeWidth="0.45"
-              strokeOpacity="0.18"
-              vectorEffect="non-scaling-stroke"
-            />
-            <motion.path
-              d={path}
-              stroke="currentColor"
-              strokeWidth="1.35"
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-              filter="url(#fincore-line-glow)"
-              variants={pathVariants}
-              initial="hidden"
-              animate="visible"
-              transition={{ delay: index * 0.22 }}
-            />
-          </React.Fragment>
-        );
-      })}
-    </svg>
-  );
-};

@@ -1,291 +1,246 @@
+
+
 "use client";
 
-import Link from "next/link";
-import { FormEvent, useState, type ReactNode } from "react";
+import { useState } from "react";
 
-const channels = [
-  {
-    title: "Email",
-    body: "Send us a note and we’ll reply as soon as we can.",
-    href: "mailto:sales@insolify.com",
-    action: "sales@insolify.com",
-    meta: "Response time: within 2 hours",
-  },
-  {
-    title: "Schedule a meeting",
-    body: "Book a call with the team at a time that works for you.",
-    href: "mailto:sales@insolify.com?subject=Schedule%20a%20meeting",
-    action: "Book a call",
-    meta: "Mon – Fri, 9 AM – 6 PM WAT",
-  },
-  {
-    title: "Office",
-    body: "Visit our headquarters in Abuja.",
-    href: "https://maps.google.com/?q=No+20+Aba+Close+Area+8+Garki+Abuja",
-    action: "No 20, Aba Close, Area 8, Garki",
-    meta: "Monday – Friday, 9 AM – 6 PM WAT",
-  },
-] as const;
 
-const subjects = [
-  "Sales Inquiry",
-  "Support Request",
-  "Partnership Opportunity",
-  "Request a Demo",
-  "Other",
-] as const;
+// --- Icons ---
+const CalendarIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+    <line x1="16" y1="2" x2="16" y2="6" />
+    <line x1="8" y1="2" x2="8" y2="6" />
+    <line x1="3" y1="10" x2="21" y2="10" />
+  </svg>
+);
+
+const ClockIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10" />
+    <polyline points="12 6 12 12 16 14" />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="20 6 9 17 4 12" />
+  </svg>
+);
+
+// --- Mock Data ---
+const timeSlots = ["09:00 AM", "10:30 AM", "01:00 PM", "02:30 PM", "04:00 PM"];
 
 const offices = [
-  {
-    country: "Nigeria",
-    city: "Abuja",
-    address: "No 20, Aba Close, Area 8, Garki",
-    zone: "WAT",
-  },
-  {
-    country: "Nigeria",
-    city: "Abuja",
-    address: "No 10, ChurchGate Tower, CBD",
-    zone: "WAT",
-  },
-  {
-    country: "Kenya",
-    city: "Nairobi",
-    address: "No 9 River Road, Central Business District",
-    zone: "EAT",
-  },
-  {
-    country: "United Arab Emirates",
-    city: "Dubai",
-    address: "B2, Complex A, Saha Towers, Downtown Dubai",
-    zone: "GST",
-  },
-] as const;
-
-const fieldClass =
-  "w-full rounded-full border border-[#e5e5ea] bg-white px-5 py-4 text-base leading-normal text-[#111] outline-none placeholder:text-[#b0b0b6] focus:border-[#7b61ff] sm:text-sm dark:border-white/12 dark:bg-[#1c1c22] dark:text-white dark:placeholder:text-[#7A7A82] dark:focus:border-[#7b61ff]";
+  { city: "Dubai, UAE", address: "B2 Saha Towers, DownTown Dubai" },
+  { city: "Abuja, Nigeria", address: "No 1 Adjacent Defense HQ, Area 11, Garki" },
+  { city: "Nairobi, Kenya", address: "No 9 River Road, Central Business District" },
+];
 
 export function ContactSection() {
-  const [submitted, setSubmitted] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<number | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubmitted(true);
-  }
+  // Simple calendar logic (just for UI demonstration)
+  const daysInMonth = 31;
+  const startDayOffset = 3; // Example: Month starts on a Thursday
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormStatus("submitting");
+    setTimeout(() => setFormStatus("success"), 1500);
+  };
 
   return (
-    <section id="contact" className="px-4 pb-8 sm:px-6 lg:px-10">
-      <div className="rounded-4xl bg-white px-5 py-14 shadow-[0_24px_80px_rgba(20,16,40,0.04)] sm:rounded-[2.75rem] sm:px-10 sm:py-16 lg:px-16 lg:py-20 dark:bg-[#141418] dark:shadow-none">
-        <div className="mx-auto max-w-3xl">
-          <p className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#8b8b93] dark:text-[#9A9AA3]">
-            <SparkIcon />
-            Contact
-          </p>
-          <h1 className="mt-4 text-[2.15rem] leading-[1.08] font-semibold tracking-tight text-[#111] sm:text-5xl lg:text-[3.4rem] dark:text-white">
-            Get in touch
+    <section className="bg-white py-20 sm:py-28 dark:bg-[#0a0a0a]">
+      <div className="mx-auto max-w-6xl px-6">
+        
+        {/* Header */}
+        <div className="mx-auto max-w-2xl text-center">
+          <h1 className="text-4xl font-semibold tracking-tight text-black sm:text-5xl lg:text-6xl dark:text-white">
+            Let&apos;s build the next <br className="hidden sm:block" />
+            thing in finance.
           </h1>
-          <p className="mt-4 max-w-xl text-sm leading-6 text-[#8a8a8a] sm:text-[15px] dark:text-[#9CA3AF]">
-            We&apos;re here to help — whether you need support, want a demo, or
-            are exploring a partnership.
+          <p className="mt-6 text-lg leading-relaxed text-neutral-600 dark:text-neutral-400">
+            Talk with us about financial platforms, AI, payments, cloud infrastructure or integrations.
           </p>
         </div>
 
-        <div className="mx-auto mt-10 grid max-w-5xl gap-3 md:grid-cols-3">
-          {channels.map((channel) => (
-            <Link
-              key={channel.title}
-              href={channel.href}
-              target={channel.href.startsWith("http") ? "_blank" : undefined}
-              rel={channel.href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="rounded-3xl border border-[#eeeef2] bg-[#fafafa] px-5 py-5 transition-colors hover:bg-[#f4f4f7] dark:border-white/8 dark:bg-[#18181d] dark:hover:bg-[#1c1c22]"
-            >
-              <p className="text-base font-semibold tracking-tight text-[#111] dark:text-white">
-                {channel.title}
-              </p>
-              <p className="mt-2 text-sm leading-6 text-[#8a8a8a] dark:text-[#9CA3AF]">
-                {channel.body}
-              </p>
-              <p className="mt-4 text-sm font-medium text-[#7b61ff]">{channel.action}</p>
-              <p className="mt-1 text-xs text-[#9CA3AF]">{channel.meta}</p>
-            </Link>
-          ))}
-        </div>
+        {/* Main Grid */}
+        <div className="mt-16 grid gap-10 lg:grid-cols-2 lg:gap-16">
+          
+          {/* Left Column: Booking Calendar */}
+          <div className="flex flex-col rounded-3xl border border-black/10 bg-neutral-50/50 p-6 sm:p-8 dark:border-white/10 dark:bg-[#111111]">
+            <div className="mb-6 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-black text-white dark:bg-white dark:text-black">
+                <CalendarIcon />
+              </div>
+              <div>
+                <h2 className="text-xl font-semibold tracking-tight text-black dark:text-white">
+                  Book a meeting
+                </h2>
+                <p className="text-sm text-neutral-500">Schedule a call with our team.</p>
+              </div>
+            </div>
 
-        <div className="mx-auto mt-12 grid max-w-5xl items-start gap-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-8">
-          <div className="rounded-[1.75rem] border border-[#eeeef2] bg-[#fafafa] px-5 py-6 sm:px-7 sm:py-8 dark:border-white/8 dark:bg-[#18181d]">
-            <h2 className="text-xl font-semibold tracking-tight text-[#111] dark:text-white">
-              Send us a message
-            </h2>
-            <p className="mt-2 text-sm leading-6 text-[#8a8a8a] dark:text-[#9CA3AF]">
-              Tell us a little about your institution and we&apos;ll get back to you.
-            </p>
-
-            {submitted ? (
-              <p className="mt-8 rounded-[1.4rem] bg-[#eef0ff] px-5 py-5 text-sm leading-6 text-[#111] dark:bg-[#1d1b2c] dark:text-white">
-                Thanks — your message is in. We typically reply within 2 hours
-                during business hours.
-              </p>
-            ) : (
-              <form onSubmit={handleSubmit} className="mt-7 grid gap-4">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Field label="Full name" htmlFor="contact-name">
-                    <input
-                      id="contact-name"
-                      name="name"
-                      required
-                      autoComplete="name"
-                      placeholder="Abdulshakur Dauda"
-                      className={fieldClass}
-                    />
-                  </Field>
-                  <Field label="Email" htmlFor="contact-email">
-                    <input
-                      id="contact-email"
-                      name="email"
-                      type="email"
-                      required
-                      autoComplete="email"
-                      placeholder="you@institution.com"
-                      className={fieldClass}
-                    />
-                  </Field>
+            {/* Calendar UI */}
+            <div className="rounded-2xl border border-black/5 bg-white p-5 shadow-sm dark:border-white/5 dark:bg-[#1a1a1a]">
+              <div className="mb-4 flex items-center justify-between">
+                <span className="text-sm font-semibold text-black dark:text-white">October 2024</span>
+                <div className="flex gap-2">
+                  <button className="flex h-8 w-8 items-center justify-center rounded-md border border-black/10 hover:bg-neutral-50 dark:border-white/10 dark:hover:bg-white/5">&larr;</button>
+                  <button className="flex h-8 w-8 items-center justify-center rounded-md border border-black/10 hover:bg-neutral-50 dark:border-white/10 dark:hover:bg-white/5">&rarr;</button>
                 </div>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Field label="Company" htmlFor="contact-company">
-                    <input
-                      id="contact-company"
-                      name="company"
-                      autoComplete="organization"
-                      placeholder="Your institution"
-                      className={fieldClass}
-                    />
-                  </Field>
-                  <Field label="Subject" htmlFor="contact-subject">
-                    <select
-                      id="contact-subject"
-                      name="subject"
-                      required
-                      defaultValue=""
-                      className={`${fieldClass} appearance-none bg-[url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%228%22 fill=%22none%22%3E%3Cpath d=%22M1 1.5 6 6.5 11 1.5%22 stroke=%22%238a8a8a%22 stroke-width=%221.5%22 stroke-linecap=%22round%22/%3E%3C/svg%3E')] bg-position-[right_1.25rem_center] bg-no-repeat pr-12`}
+              </div>
+              
+              <div className="grid grid-cols-7 gap-1 text-center text-xs font-medium text-neutral-400">
+                <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+              </div>
+              
+              <div className="mt-2 grid grid-cols-7 gap-1">
+                {/* Empty slots for offset */}
+                {Array.from({ length: startDayOffset }).map((_, i) => (
+                  <div key={`empty-${i}`} className="h-10" />
+                ))}
+                {/* Days */}
+                {Array.from({ length: daysInMonth }).map((_, i) => {
+                  const day = i + 1;
+                  const isSelected = selectedDate === day;
+                  const isPast = day < 10; // Mock: disable past days
+                  
+                  return (
+                    <button
+                      key={day}
+                      disabled={isPast}
+                      onClick={() => setSelectedDate(day)}
+                      className={`flex h-10 items-center justify-center rounded-lg text-sm transition-colors ${
+                        isSelected
+                          ? "bg-[#EFB338] font-semibold text-black shadow-sm"
+                          : isPast
+                          ? "cursor-not-allowed text-neutral-300 dark:text-neutral-600"
+                          : "text-black hover:bg-neutral-100 dark:text-white dark:hover:bg-white/10"
+                      }`}
                     >
-                      <option value="" disabled>
-                        Select a subject
-                      </option>
-                      {subjects.map((subject) => (
-                        <option key={subject} value={subject}>
-                          {subject}
-                        </option>
-                      ))}
-                    </select>
-                  </Field>
-                </div>
-                <Field label="Message" htmlFor="contact-message">
-                  <textarea
-                    id="contact-message"
-                    name="message"
-                    required
-                    rows={5}
-                    placeholder="How can we help?"
-                    className="w-full resize-y rounded-[1.4rem] border border-[#e5e5ea] bg-white px-5 py-4 text-base leading-6 text-[#111] outline-none placeholder:text-[#b0b0b6] focus:border-[#7b61ff] sm:text-sm dark:border-white/12 dark:bg-[#1c1c22] dark:text-white dark:placeholder:text-[#7A7A82] dark:focus:border-[#7b61ff]"
-                  />
-                </Field>
-                <button
-                  type="submit"
-                  className="inline-flex h-14 items-center justify-center rounded-full bg-[#111] px-7 text-sm font-semibold text-white transition-colors hover:bg-black dark:bg-white dark:text-[#111] dark:hover:bg-[#e8e8e8]"
-                >
-                  Send message
-                </button>
-                <p className="text-xs leading-5 text-[#9CA3AF]">
-                  We respect your privacy. Your information will never be shared
-                  with third parties.
-                </p>
-              </form>
-            )}
+                      {day}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Time Slots */}
+            <div className="mt-6">
+              <p className="mb-3 text-sm font-medium text-neutral-600 dark:text-neutral-400">Available times (WAT)</p>
+              <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+                {timeSlots.map((time) => (
+                  <button
+                    key={time}
+                    onClick={() => setSelectedTime(time)}
+                    className={`flex items-center justify-center gap-1.5 rounded-lg border px-2 py-2.5 text-xs font-medium transition-all ${
+                      selectedTime === time
+                        ? "border-[#EFB338] bg-[#EFB338]/10 text-black dark:text-white"
+                        : "border-black/10 bg-white text-neutral-600 hover:border-black/30 dark:border-white/10 dark:bg-transparent dark:text-neutral-300 dark:hover:border-white/30"
+                    }`}
+                  >
+                    <ClockIcon />
+                    {time}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Booking CTA */}
+            <div className="mt-8 pt-6 border-t border-black/5 dark:border-white/5">
+              <button
+                disabled={!selectedDate || !selectedTime}
+                className="flex w-full items-center justify-center rounded-full bg-black px-6 py-3.5 text-sm font-medium text-white transition-opacity hover:opacity-80 disabled:opacity-50 dark:bg-white dark:text-black dark:hover:bg-neutral-200"
+              >
+                {selectedDate && selectedTime ? `Confirm meeting for Oct ${selectedDate} at ${selectedTime}` : "Select a date and time"}
+              </button>
+            </div>
           </div>
 
-          <aside className="rounded-[1.75rem] bg-[#111] px-6 py-7 text-white dark:bg-[#1a1a20]">
-            <h3 className="text-lg font-semibold tracking-tight">Response times</h3>
-            <ul className="mt-5 flex flex-col gap-4 text-sm">
-              <li className="flex items-center justify-between gap-4">
-                <span className="text-white/70">Email</span>
-                <span>Within 2 hours</span>
-              </li>
-              <li className="flex items-center justify-between gap-4">
-                <span className="text-white/70">Chat</span>
-                <span>Within 15 minutes</span>
-              </li>
-            </ul>
-            <div className="mt-8 border-t border-white/10 pt-6">
-              <p className="text-sm font-medium">Need something sooner?</p>
-              <p className="mt-2 text-sm leading-6 text-white/60">
-                Support is available 24/7. Email the team and we&apos;ll pick it up.
+          {/* Right Column: Contact Form */}
+          <div className="flex flex-col justify-center">
+            <div className="mb-8">
+              <h2 className="text-2xl font-semibold tracking-tight text-black dark:text-white">
+                Send a message
+              </h2>
+              <p className="mt-2 text-[15px] text-neutral-500 dark:text-neutral-400">
+                Tell us what you need. Please do not send account numbers, payment details, credentials or sensitive personal information through this site.
               </p>
-              <Link
-                href="mailto:sales@insolify.com"
-                className="mt-5 inline-flex h-12 w-full items-center justify-center rounded-full bg-white text-sm font-semibold text-[#111] transition-colors hover:bg-[#f3f3f3]"
-              >
-                Email sales
-              </Link>
             </div>
-          </aside>
+
+            <form onSubmit={handleFormSubmit} className="space-y-5">
+              <div className="grid gap-5 sm:grid-cols-2">
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-black dark:text-white">First name</label>
+                  <input type="text" required className="w-full rounded-xl border border-black/10 bg-transparent px-4 py-3 text-sm text-black outline-none transition-colors placeholder:text-neutral-400 focus:border-[#EFB338] dark:border-white/10 dark:text-white dark:focus:border-[#EFB338]" placeholder="Jane" />
+                </div>
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-black dark:text-white">Last name</label>
+                  <input type="text" required className="w-full rounded-xl border border-black/10 bg-transparent px-4 py-3 text-sm text-black outline-none transition-colors placeholder:text-neutral-400 focus:border-[#EFB338] dark:border-white/10 dark:text-white dark:focus:border-[#EFB338]" placeholder="Doe" />
+                </div>
+              </div>
+
+              <div>
+                <label className="mb-1.5 block text-sm font-medium text-black dark:text-white">Work email</label>
+                <input type="email" required className="w-full rounded-xl border border-black/10 bg-transparent px-4 py-3 text-sm text-black outline-none transition-colors placeholder:text-neutral-400 focus:border-[#EFB338] dark:border-white/10 dark:text-white dark:focus:border-[#EFB338]" placeholder="jane@company.com" />
+              </div>
+
+              <div>
+                <label className="mb-1.5 block text-sm font-medium text-black dark:text-white">Company</label>
+                <input type="text" className="w-full rounded-xl border border-black/10 bg-transparent px-4 py-3 text-sm text-black outline-none transition-colors placeholder:text-neutral-400 focus:border-[#EFB338] dark:border-white/10 dark:text-white dark:focus:border-[#EFB338]" placeholder="Acme Inc." />
+              </div>
+
+              <div>
+                <label className="mb-1.5 block text-sm font-medium text-black dark:text-white">What can we help with?</label>
+                <textarea required rows={4} className="w-full resize-none rounded-xl border border-black/10 bg-transparent px-4 py-3 text-sm text-black outline-none transition-colors placeholder:text-neutral-400 focus:border-[#EFB338] dark:border-white/10 dark:text-white dark:focus:border-[#EFB338]" placeholder="Tell us about your project, platform, or integration needs..." />
+              </div>
+
+              <button
+                type="submit"
+                disabled={formStatus !== "idle"}
+                className="flex w-full items-center justify-center rounded-full bg-[#EFB338] px-6 py-3.5 text-sm font-semibold text-black transition-opacity hover:opacity-90 disabled:opacity-70"
+              >
+                {formStatus === "idle" && "Send message"}
+                {formStatus === "submitting" && "Sending..."}
+                {formStatus === "success" && (
+                  <>
+                    <CheckIcon /> Message sent
+                  </>
+                )}
+              </button>
+            </form>
+          </div>
+
         </div>
 
-        <div className="mx-auto mt-16 max-w-5xl">
-          <h2 className="text-[1.65rem] font-semibold tracking-tight text-[#111] sm:text-3xl dark:text-white">
-            Our global presence
-          </h2>
-          <p className="mt-2 text-sm text-[#8a8a8a] dark:text-[#9CA3AF]">
-            Teams across Africa and the Middle East.
-          </p>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Office Locations */}
+        <div className="mt-24 border-t border-black/5 pt-12 dark:border-white/5">
+          <h3 className="mb-8 text-center text-sm font-semibold uppercase tracking-widest text-neutral-400">
+            Our Offices
+          </h3>
+          <div className="grid gap-6 sm:grid-cols-3">
             {offices.map((office) => (
-              <article
-                key={`${office.city}-${office.address}`}
-                className="rounded-[1.4rem] border border-[#eeeef2] bg-[#fafafa] px-5 py-5 dark:border-white/8 dark:bg-[#18181d]"
-              >
-                <p className="text-[13px] font-medium text-[#7b61ff]">{office.country}</p>
-                <h3 className="mt-2 text-lg font-semibold tracking-tight text-[#111] dark:text-white">
-                  {office.city}
-                </h3>
-                <p className="mt-2 text-sm leading-6 text-[#8a8a8a] dark:text-[#9CA3AF]">
-                  {office.address}
-                </p>
-                <p className="mt-3 text-xs text-[#9CA3AF]">{office.zone}</p>
-              </article>
+              <div key={office.city} className="rounded-2xl border border-black/5 bg-neutral-50 p-6 text-center dark:border-white/5 dark:bg-[#111111]">
+                <p className="font-semibold text-black dark:text-white">{office.city}</p>
+                <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">{office.address}</p>
+              </div>
             ))}
           </div>
+          <div className="mt-8 text-center">
+            <p className="text-sm text-neutral-500">
+              Or email us directly at{" "}
+              <a href="mailto:sales@insolify.com" className="font-medium text-black underline decoration-black/30 underline-offset-4 hover:decoration-black dark:text-white dark:decoration-white/30 dark:hover:decoration-white">
+                sales@insolify.com
+              </a>
+            </p>
+          </div>
         </div>
+
       </div>
     </section>
-  );
-}
-
-function Field({
-  label,
-  htmlFor,
-  children,
-}: {
-  label: string;
-  htmlFor: string;
-  children: ReactNode;
-}) {
-  return (
-    <label htmlFor={htmlFor} className="block">
-      <span className="mb-2 block text-sm font-medium text-[#111] dark:text-white">
-        {label}
-      </span>
-      {children}
-    </label>
-  );
-}
-
-function SparkIcon() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
-      <path
-        d="M6 1.1 6.7 5.3 10.9 6 6.7 6.7 6 10.9 5.3 6.7 1.1 6 5.3 5.3 6 1.1Z"
-        fill="currentColor"
-      />
-    </svg>
   );
 }

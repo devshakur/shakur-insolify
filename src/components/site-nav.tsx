@@ -80,7 +80,7 @@ export function SiteNav() {
     <header
       ref={menuRef}
       onMouseLeave={() => setProductsOpen(false)}
-      className="sticky top-0 z-40 bg-white text-black dark:bg-black dark:text-white"
+      className="sticky top-0 z-50 border-b border-black/5 bg-white/80 backdrop-blur-xl"
     >
       <div className="flex h-16 w-full items-center justify-between gap-6 border-b border-black/10 px-5 sm:px-8 dark:border-white/10">
         <Link href="/" aria-label="Insolify home" className="shrink-0">
@@ -442,3 +442,48 @@ function CloseIcon() {
     </svg>
   );
 }
+
+// "use client";
+
+// import Link from "next/link";
+
+// export function Navbar() {
+//   return (
+//     <header className="sticky top-0 z-50 border-b border-black/5 bg-white/80 backdrop-blur-xl">
+//       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+//         <div className="flex items-center gap-10">
+//           {/* Logo */}
+//           <Link href="/" className="flex items-center gap-2">
+//             <div className="flex h-7 w-7 items-center justify-center rounded-full bg-black">
+//               <div className="h-3 w-3 rounded-full bg-white" />
+//             </div>
+//             <span className="text-[19px] font-semibold tracking-tight">Insolify</span>
+//           </Link>
+          
+//           {/* Desktop Nav Links */}
+//           <nav className="hidden items-center gap-8 lg:flex">
+//             <Link href="#" className="flex items-center gap-1.5 text-[14px] font-medium text-neutral-600 hover:text-black">
+//               AI Products <span className="text-[10px] opacity-50">▼</span>
+//             </Link>
+//             <Link href="#" className="text-[14px] font-medium text-neutral-600 hover:text-black">Features</Link>
+//             <Link href="#" className="text-[14px] font-medium text-neutral-600 hover:text-black">Pricing</Link>
+//             <Link href="#" className="text-[14px] font-medium text-neutral-600 hover:text-black">Company</Link>
+//           </nav>
+//         </div>
+
+//         {/* Right Side Actions */}
+//         <div className="flex items-center gap-4">
+//           <Link href="#" className="hidden text-[14px] font-medium text-neutral-600 hover:text-black sm:block">
+//             Sign In
+//           </Link>
+//           <Link
+//             href="#"
+//             className="rounded-full bg-black px-5 py-2.5 text-[14px] font-medium text-white transition-opacity hover:opacity-80"
+//           >
+//             Get Started Now
+//           </Link>
+//         </div>
+//       </div>
+//     </header>
+//   );
+// }

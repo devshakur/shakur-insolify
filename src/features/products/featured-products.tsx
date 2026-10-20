@@ -9,7 +9,7 @@ const benefits = [
     icon: Clock,
     title: "Launch in weeks, not months",
     description:
-      "Bring your financial products to market faster with Insolify’s ready to deploy cloud banking platform. Skip lengthy development cycles and focus on serving customers, growing your business, and capturing new opportunities.",
+      "Bring your financial products to market faster with Insolify’s.",
     href: "/benefits/go-live",
   },
   {
@@ -17,7 +17,7 @@ const benefits = [
     icon: DollarSign,
     title: "Reduce costs without slowing down",
     description:
-      "Avoid the high costs and complexity of building banking infrastructure from scratch. Insolify helps reduce development overhead, simplify maintenance, and make better use of your resources while accelerating your time to market.",
+      "Avoid the high costs and complexity of building banking infrastructure from scratch.",
     href: "/benefits/reduce-costs",
   },
   {
@@ -25,7 +25,7 @@ const benefits = [
     icon: Zap,
     title: "Build, adapt, and innovate faster",
     description:
-      "Respond to changing customer needs with a flexible, modular banking platform. Add capabilities as your business evolves, bring new financial products to market, and improve your services without rebuilding your entire technology stack.",
+      "Respond to changing customer needs with a flexible, modular banking platform.",
     href: "/benefits/innovate",
   },
   {
@@ -33,7 +33,7 @@ const benefits = [
     icon: BoxIcon,
     title: "Get the tools your business actually needs",
     description:
-      "Every financial institution has different goals. Choose the capabilities that fit your business, from essential banking operations to specialized financial services. Insolify gives banks, microfinance institutions, neobanks, and fintechs the flexibility to build around their unique needs.",
+      "Every financial institution has different goals.",
     href: "/benefits/choose",
   },
 ] as const;
