@@ -9,6 +9,10 @@ const products = [
   {
     name: "FinCore",
     category: "Financial infrastructure",
+    badge: "Most Popular",
+    startingPrice: "$2,400",
+    billingPeriod: "/mo",
+    priceNote: "Starting price · custom quote",
     description: "Scope can include core banking, financial operations, digital channels and integrations. Your quote is based on selected capabilities and deployment requirements.",
     href: "/fincore",
     features: [
@@ -20,17 +24,25 @@ const products = [
   {
     name: "Skynet",
     category: "Cloud infrastructure",
+    badge: null,
+    startingPrice: "$199",
+    billingPeriod: "/mo",
+    priceNote: "Starting price · scales with usage",
     description: "Skynet pricing is confirmed for the requested configuration and deployment. Discuss your workload with our infrastructure team for a tailored quote.",
     href: "/skynet",
     features: [
-      { name: "Cloud compute", scope: "Cloud servers and storage for applications", pricing: "Configuration-based quote" },
-      { name: "GPU compute", scope: "Accelerated infrastructure for AI workloads", pricing: "Configuration-based quote" },
-      { name: "Networking and developer services", scope: "Networking, domains and platform services", pricing: "Configuration-based quote" },
+      { name: "Cloud compute", scope: "Cloud servers and storage for applications", pricing: "Config-based quote" },
+      { name: "GPU compute", scope: "Accelerated infrastructure for AI workloads", pricing: "Config-based quote" },
+      { name: "Networking and developer services", scope: "Networking, domains and platform services", pricing: "Config-based quote" },
     ],
   },
   {
     name: "Settle Africa",
     category: "Payments across Africa",
+    badge: null,
+    startingPrice: "0.8%",
+    billingPeriod: " per transfer",
+    priceNote: "Market & provider dependent",
     description: "Fees and availability depend on supported markets, providers and the service being used. Contact us for current information in your market.",
     href: "/settle",
     features: [
@@ -41,6 +53,10 @@ const products = [
   {
     name: "Safi",
     category: "Financial intelligence",
+    badge: null,
+    startingPrice: "$499",
+    billingPeriod: "/mo",
+    priceNote: "Starting price · custom quote",
     description: "Safi pricing is tailored to the selected model and deployment. Get in touch to discuss your financial intelligence and workflow requirements.",
     href: "/safi",
     features: [
@@ -54,7 +70,7 @@ export function PricingSection() {
   return (
     <section className="bg-white py-20 sm:py-28 dark:bg-[#0a0a0a]">
       <div className="mx-auto max-w-6xl px-6">
-        
+
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="text-4xl font-semibold tracking-tight text-black sm:text-5xl lg:text-6xl dark:text-white">
@@ -75,13 +91,34 @@ export function PricingSection() {
             >
               {/* Product Header */}
               <div className="mb-6">
-                <span className="text-xs font-semibold uppercase tracking-wider text-[#EFB338]">
-                  {product.category}
-                </span>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+                    {product.category}
+                  </span>
+                  {product.badge && (
+                    <span className="rounded-full bg-black px-3 py-0.5 text-[11px] font-semibold text-white dark:bg-white dark:text-black">
+                      {product.badge}
+                    </span>
+                  )}
+                </div>
                 <h2 className="mt-2 text-2xl font-semibold tracking-tight text-black dark:text-white">
                   {product.name}
                 </h2>
-                <p className="mt-3 text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
+
+                {/* Price display */}
+                <div className="mt-5 flex items-end gap-1">
+                  <span className="text-4xl font-bold tracking-tight text-black dark:text-white">
+                    {product.startingPrice}
+                  </span>
+                  <span className="mb-1 text-sm font-medium text-neutral-500 dark:text-neutral-400">
+                    {product.billingPeriod}
+                  </span>
+                </div>
+                <p className="mt-1 text-xs text-neutral-400 dark:text-neutral-500">
+                  {product.priceNote}
+                </p>
+
+                <p className="mt-4 text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
                   {product.description}
                 </p>
               </div>
@@ -132,7 +169,7 @@ export function PricingSection() {
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/contact"
-              className="w-full rounded-full bg-[#EFB338] px-8 py-3.5 text-sm font-medium text-black transition-opacity hover:opacity-90 sm:w-auto"
+              className="w-full rounded-full bg-[#000000] px-8 py-3.5 text-sm font-medium text-white dark:text-black transition-opacity hover:opacity-90 sm:w-auto"
             >
               Talk to our team
             </Link>

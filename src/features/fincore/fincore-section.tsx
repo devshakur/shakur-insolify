@@ -79,7 +79,7 @@ export function FincoreSection() {
       {/* ================= HERO ================= */}
       <section className="relative overflow-hidden pt-20 pb-24 sm:pt-28 sm:pb-32">
         {/* Subtle background glow */}
-        <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-[#EFB338]/10 blur-[120px] dark:bg-[#EFB338]/5" />
+        <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-black/10 dark:bg-white/10 blur-[120px] dark:bg-black/5 dark:bg-white/5" />
         
         <div className="mx-auto max-w-4xl px-6 text-center">
           <motion.div
@@ -87,8 +87,8 @@ export function FincoreSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#EFB338]/30 bg-[#EFB338]/10 px-4 py-1.5 text-sm font-medium text-black dark:text-[#EFB338]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#EFB338]" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-black/20 dark:border-white/20 bg-black/10 dark:bg-white/10 px-4 py-1.5 text-sm font-medium text-black dark:text-white">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#000000]" />
               FinCore
             </span>
           </motion.div>
@@ -154,9 +154,9 @@ export function FincoreSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex flex-col rounded-2xl border border-black/5 bg-white p-6 shadow-sm transition-all hover:border-[#EFB338]/50 hover:shadow-md dark:border-white/5 dark:bg-[#111111] dark:hover:border-[#EFB338]/50"
+                className="flex flex-col rounded-2xl border border-black/5 bg-white p-6 shadow-sm transition-all hover:border-black/20 dark:border-white/20 hover:shadow-md dark:border-white/5 dark:bg-[#111111] dark:hover:border-black/20 dark:border-white/20"
               >
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#EFB338]/10 text-[#EFB338]">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-black/10 dark:bg-white/10 text-black dark:text-white">
                   {cap.icon}
                 </div>
                 <h3 className="text-lg font-semibold tracking-tight">{cap.title}</h3>
@@ -204,7 +204,7 @@ export function FincoreSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <span className="text-sm font-semibold uppercase tracking-wider text-[#EFB338]">
+              <span className="text-sm font-semibold uppercase tracking-wider text-black dark:text-white">
                 Reliability
               </span>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -216,7 +216,7 @@ export function FincoreSection() {
               <ul className="mt-8 space-y-4">
                 {["Multi-zone redundancy", "Automatic failover", "Zero-downtime releases"].map((item) => (
                   <li key={item} className="flex items-center gap-3 text-sm font-medium">
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#EFB338]/20 text-[#EFB338]">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black/10 dark:bg-white/10 text-black dark:text-white">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     </span>
                     {item}
@@ -233,7 +233,7 @@ export function FincoreSection() {
               transition={{ duration: 0.6 }}
               className="rounded-3xl border border-black/10 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-[#111111]"
             >
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[#EFB338]/10 text-[#EFB338]">
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-black/10 dark:bg-white/10 text-black dark:text-white">
                 <ShieldIcon />
               </div>
               <h3 className="text-2xl font-semibold tracking-tight">Advanced fraud detection, powered by Safi.</h3>
@@ -264,7 +264,7 @@ export function FincoreSection() {
           <div className="mt-10">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-full bg-[#EFB338] px-8 py-3.5 text-sm font-semibold text-black transition-opacity hover:opacity-90"
+              className="inline-flex items-center justify-center rounded-full bg-[#000000] px-8 py-3.5 text-sm font-semibold text-black transition-opacity hover:opacity-90"
             >
               Talk to our team
             </Link>

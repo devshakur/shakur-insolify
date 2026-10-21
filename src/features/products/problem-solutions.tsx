@@ -316,7 +316,7 @@ export function ProblemSolutions() {
               <span className="relative inline-block">
                 choose us
                 {/* Subtle highlight accent behind text */}
-                <span className="absolute bottom-1 left-0 -z-10 h-3 w-full bg-[#EFB338]/30 dark:bg-[#EFB338]/20" />
+                <span className="absolute bottom-1 left-0 -z-10 h-3 w-full bg-[#000000]/30 dark:bg-black/10 dark:bg-white/10" />
               </span>
             </h2>
             <p className="mt-6 max-w-md text-lg text-neutral-600 dark:text-neutral-400">
@@ -332,12 +332,12 @@ export function ProblemSolutions() {
                     onClick={() => setActiveTab(feature.id)}
                     className={`flex items-center gap-4 rounded-2xl border px-5 py-4 text-left transition-all duration-200 ${
                       isActive
-                        ? "border-[#EFB338]/50 bg-[#EFB338]/5 shadow-sm dark:border-[#EFB338]/50 dark:bg-[#EFB338]/10"
+                        ? "border-black/20 dark:border-white/20 bg-black/5 dark:bg-white/5 shadow-sm dark:border-black/20 dark:border-white/20 dark:bg-black/10 dark:bg-white/10"
                         : "border-transparent bg-neutral-50 hover:bg-neutral-100 dark:bg-neutral-900 dark:hover:bg-neutral-800"
                     }`}
                   >
                     <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-colors ${
-                      isActive ? "bg-[#EFB338] text-white" : "bg-white text-neutral-500 dark:bg-neutral-800 dark:text-neutral-400"
+                      isActive ? "bg-[#000000] text-white" : "bg-white text-neutral-500 dark:bg-neutral-800 dark:text-neutral-400"
                     }`}>
                       {feature.icon}
                     </div>
@@ -370,7 +370,7 @@ export function ProblemSolutions() {
                 
                 {/* Safi Header */}
                 <div className="flex items-center gap-3 border-b border-black/5 bg-white px-5 py-4 dark:border-white/5 dark:bg-[#151515]">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#EFB338] text-white">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#000000] text-white">
                     <SparkleIcon />
                   </div>
                   <span className="font-semibold text-black dark:text-white">Safi AI</span>
@@ -418,7 +418,7 @@ export function ProblemSolutions() {
                     <motion.span
                       animate={{ opacity: [1, 0] }}
                       transition={{ repeat: Infinity, duration: 0.8 }}
-                      className="ml-1 h-4 w-[2px] bg-[#EFB338]"
+                      className="ml-1 h-4 w-[2px] bg-[#000000]"
                     />
                   </div>
                 </div>
