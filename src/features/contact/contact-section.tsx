@@ -63,7 +63,7 @@ export function ContactSection() {
             thing in finance.
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-neutral-600 dark:text-neutral-400">
-            Talk with us about financial platforms, AI, payments, cloud infrastructure or integrations.
+            Talk with us about platforms, AI, payments, or infrastructure.
           </p>
         </div>
 
@@ -116,7 +116,7 @@ export function ContactSection() {
                       onClick={() => setSelectedDate(day)}
                       className={`flex h-10 items-center justify-center rounded-lg text-sm transition-colors ${
                         isSelected
-                          ? "bg-[#EFB338] font-semibold text-black shadow-sm"
+                          ? "bg-[#000000] font-semibold text-black shadow-sm"
                           : isPast
                           ? "cursor-not-allowed text-neutral-300 dark:text-neutral-600"
                           : "text-black hover:bg-neutral-100 dark:text-white dark:hover:bg-white/10"
@@ -139,7 +139,7 @@ export function ContactSection() {
                     onClick={() => setSelectedTime(time)}
                     className={`flex items-center justify-center gap-1.5 rounded-lg border px-2 py-2.5 text-xs font-medium transition-all ${
                       selectedTime === time
-                        ? "border-[#EFB338] bg-[#EFB338]/10 text-black dark:text-white"
+                        ? "border-[#000000] bg-black/10 dark:bg-white/10 text-black dark:text-white"
                         : "border-black/10 bg-white text-neutral-600 hover:border-black/30 dark:border-white/10 dark:bg-transparent dark:text-neutral-300 dark:hover:border-white/30"
                     }`}
                   >
@@ -168,7 +168,7 @@ export function ContactSection() {
                 Send a message
               </h2>
               <p className="mt-2 text-[15px] text-neutral-500 dark:text-neutral-400">
-                Tell us what you need. Please do not send account numbers, payment details, credentials or sensitive personal information through this site.
+                Don't include sensitive account details, credentials, or payment info.
               </p>
             </div>
 
@@ -176,33 +176,33 @@ export function ContactSection() {
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
                   <label className="mb-1.5 block text-sm font-medium text-black dark:text-white">First name</label>
-                  <input type="text" required className="w-full rounded-xl border border-black/10 bg-transparent px-4 py-3 text-sm text-black outline-none transition-colors placeholder:text-neutral-400 focus:border-[#EFB338] dark:border-white/10 dark:text-white dark:focus:border-[#EFB338]" placeholder="Jane" />
+                  <input type="text" required className="w-full rounded-xl border border-black/10 bg-transparent px-4 py-3 text-sm text-black outline-none transition-colors placeholder:text-neutral-400 focus:border-[#000000] dark:border-white/10 dark:text-white dark:focus:border-[#000000]" placeholder="Jane" />
                 </div>
                 <div>
                   <label className="mb-1.5 block text-sm font-medium text-black dark:text-white">Last name</label>
-                  <input type="text" required className="w-full rounded-xl border border-black/10 bg-transparent px-4 py-3 text-sm text-black outline-none transition-colors placeholder:text-neutral-400 focus:border-[#EFB338] dark:border-white/10 dark:text-white dark:focus:border-[#EFB338]" placeholder="Doe" />
+                  <input type="text" required className="w-full rounded-xl border border-black/10 bg-transparent px-4 py-3 text-sm text-black outline-none transition-colors placeholder:text-neutral-400 focus:border-[#000000] dark:border-white/10 dark:text-white dark:focus:border-[#000000]" placeholder="Doe" />
                 </div>
               </div>
 
               <div>
                 <label className="mb-1.5 block text-sm font-medium text-black dark:text-white">Work email</label>
-                <input type="email" required className="w-full rounded-xl border border-black/10 bg-transparent px-4 py-3 text-sm text-black outline-none transition-colors placeholder:text-neutral-400 focus:border-[#EFB338] dark:border-white/10 dark:text-white dark:focus:border-[#EFB338]" placeholder="jane@company.com" />
+                <input type="email" required className="w-full rounded-xl border border-black/10 bg-transparent px-4 py-3 text-sm text-black outline-none transition-colors placeholder:text-neutral-400 focus:border-[#000000] dark:border-white/10 dark:text-white dark:focus:border-[#000000]" placeholder="jane@company.com" />
               </div>
 
               <div>
                 <label className="mb-1.5 block text-sm font-medium text-black dark:text-white">Company</label>
-                <input type="text" className="w-full rounded-xl border border-black/10 bg-transparent px-4 py-3 text-sm text-black outline-none transition-colors placeholder:text-neutral-400 focus:border-[#EFB338] dark:border-white/10 dark:text-white dark:focus:border-[#EFB338]" placeholder="Acme Inc." />
+                <input type="text" className="w-full rounded-xl border border-black/10 bg-transparent px-4 py-3 text-sm text-black outline-none transition-colors placeholder:text-neutral-400 focus:border-[#000000] dark:border-white/10 dark:text-white dark:focus:border-[#000000]" placeholder="Acme Inc." />
               </div>
 
               <div>
                 <label className="mb-1.5 block text-sm font-medium text-black dark:text-white">What can we help with?</label>
-                <textarea required rows={4} className="w-full resize-none rounded-xl border border-black/10 bg-transparent px-4 py-3 text-sm text-black outline-none transition-colors placeholder:text-neutral-400 focus:border-[#EFB338] dark:border-white/10 dark:text-white dark:focus:border-[#EFB338]" placeholder="Tell us about your project, platform, or integration needs..." />
+                <textarea required rows={4} className="w-full resize-none rounded-xl border border-black/10 bg-transparent px-4 py-3 text-sm text-black outline-none transition-colors placeholder:text-neutral-400 focus:border-[#000000] dark:border-white/10 dark:text-white dark:focus:border-[#000000]" placeholder="Tell us about your needs..." />
               </div>
 
               <button
                 type="submit"
                 disabled={formStatus !== "idle"}
-                className="flex w-full items-center justify-center rounded-full bg-[#EFB338] px-6 py-3.5 text-sm font-semibold text-black transition-opacity hover:opacity-90 disabled:opacity-70"
+                className="flex w-full items-center justify-center rounded-full bg-black px-6 py-3.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-70 dark:bg-white dark:text-black"
               >
                 {formStatus === "idle" && "Send message"}
                 {formStatus === "submitting" && "Sending..."}

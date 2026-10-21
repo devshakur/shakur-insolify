@@ -165,7 +165,7 @@ export function SafiSection() {
       
       {/* ================= HERO ================= */}
       <section className="relative overflow-hidden pt-20 pb-24 sm:pt-28 sm:pb-32">
-        <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-[#EFB338]/10 blur-[120px] dark:bg-[#EFB338]/5" />
+        <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-[]/10 blur-[120px] dark:bg-black/5" />
         
         <div className="mx-auto max-w-4xl px-6 text-center">
           <motion.div
@@ -173,8 +173,8 @@ export function SafiSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#EFB338]/30 bg-[#EFB338]/10 px-4 py-1.5 text-sm font-medium text-black dark:text-[#EFB338]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#EFB338]" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-black/30 bg-[]/10 px-4 py-1.5 text-sm font-medium text-black dark:text-black">
+              <span className="h-1.5 w-1.5 rounded-full bg-[]" />
               Safi AI
             </span>
           </motion.div>
@@ -240,9 +240,9 @@ export function SafiSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex flex-col rounded-2xl border border-black/5 bg-white p-6 shadow-sm transition-all hover:border-[#EFB338]/50 hover:shadow-md dark:border-white/5 dark:bg-[#111111] dark:hover:border-[#EFB338]/50"
+                className="flex flex-col rounded-2xl border border-black/5 bg-white p-6 shadow-sm transition-all hover:border-[]/50 hover:shadow-md dark:border-white/5 dark:bg-[#111111] dark:hover:border-[]/50"
               >
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#EFB338]/10 text-[#EFB338]">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[]/10 text-[]">
                   {cap.icon}
                 </div>
                 <h3 className="text-lg font-semibold tracking-tight">{cap.title}</h3>
@@ -265,7 +265,7 @@ export function SafiSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <span className="text-sm font-semibold uppercase tracking-wider text-[#EFB338]">
+              <span className="text-sm font-semibold uppercase tracking-wider text-[]">
                 Real-time Voice
               </span>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -290,21 +290,21 @@ export function SafiSection() {
               transition={{ duration: 0.6 }}
               className="rounded-3xl border border-black/10 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-[#111111]"
             >
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[#EFB338]/10 text-[#EFB338]">
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[]/10 text-[]">
                 <MicIcon />
               </div>
               <h3 className="text-2xl font-semibold tracking-tight">Live listening & understanding.</h3>
               <ul className="mt-4 space-y-3 text-sm text-neutral-500 dark:text-neutral-400">
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#EFB338] shrink-0" />
+                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[] shrink-0" />
                   Transcribes and understands speech as it happens, with no recording upload step.
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#EFB338] shrink-0" />
+                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[] shrink-0" />
                   Handles customers who mix languages, such as English with Yorùbá or Hausa.
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#EFB338] shrink-0" />
+                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[] shrink-0" />
                   Answers in the customer&apos;s language across app, USSD-assisted, and call channels.
                 </li>
               </ul>
@@ -328,7 +328,7 @@ export function SafiSection() {
             >
               {/* Chat Header */}
               <div className="flex items-center gap-3 border-b border-black/5 bg-white/80 px-5 py-4 backdrop-blur-md dark:border-white/5 dark:bg-[#151515]">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EFB338]/10 text-[#EFB338]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[]/10 text-[]">
                   <SparkleIcon className="h-5 w-5" />
                 </div>
                 <div>
@@ -348,7 +348,7 @@ export function SafiSection() {
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.2, duration: 0.4 }}
-                  className="self-end rounded-2xl rounded-tr-sm bg-black px-4 py-3 text-sm text-white shadow-sm dark:bg-[#EFB338] dark:text-black max-w-[85%]"
+                  className="self-end rounded-2xl rounded-tr-sm bg-black px-4 py-3 text-sm text-white shadow-sm dark:bg-[] dark:text-black max-w-[85%]"
                 >
                   &ldquo;Tura naira dubu hamsini wa Amina GT.&rdquo;
                 </motion.div>
@@ -361,7 +361,7 @@ export function SafiSection() {
                   transition={{ delay: 1.2, duration: 0.4 }}
                   className="self-start flex gap-3 max-w-[90%]"
                 >
-                  <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#EFB338] text-white">
+                  <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[] text-white">
                     <SparkleIcon className="h-4 w-4" />
                   </div>
                   <div className="rounded-2xl rounded-tl-sm bg-white border border-black/5 px-4 py-3 text-sm text-neutral-800 shadow-sm dark:border-white/10 dark:bg-[#1a1a1a] dark:text-neutral-200">
@@ -370,7 +370,7 @@ export function SafiSection() {
                     
                     {/* Action Buttons inside chat */}
                     <div className="mt-3 flex gap-2">
-                      <button className="rounded-md bg-[#EFB338] px-3 py-1.5 text-xs font-semibold text-black">Confirm</button>
+                      <button className="rounded-md bg-[] px-3 py-1.5 text-xs font-semibold text-black">Confirm</button>
                       <button className="rounded-md bg-neutral-100 px-3 py-1.5 text-xs font-medium text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300">Cancel</button>
                     </div>
                   </div>
@@ -382,7 +382,7 @@ export function SafiSection() {
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 2.2, duration: 0.4 }}
-                  className="self-end rounded-2xl rounded-tr-sm bg-black px-4 py-3 text-sm text-white shadow-sm dark:bg-[#EFB338] dark:text-black"
+                  className="self-end rounded-2xl rounded-tr-sm bg-black px-4 py-3 text-sm text-white shadow-sm dark:bg-[] dark:text-black"
                 >
                   &ldquo;Ee, tura.&rdquo;
                 </motion.div>
@@ -395,7 +395,7 @@ export function SafiSection() {
                   transition={{ delay: 3, duration: 0.4 }}
                   className="self-start flex gap-3"
                 >
-                  <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#EFB338] text-white">
+                  <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[] text-white">
                     <SparkleIcon className="h-4 w-4" />
                   </div>
                   <div className="flex items-center gap-1 rounded-2xl rounded-tl-sm bg-white border border-black/5 px-4 py-4 shadow-sm dark:border-white/10 dark:bg-[#1a1a1a]">
@@ -410,7 +410,7 @@ export function SafiSection() {
               <div className="border-t border-black/5 bg-white p-3 dark:border-white/5 dark:bg-[#151515]">
                 <div className="flex items-center gap-2 rounded-full border border-black/10 bg-neutral-50 px-4 py-2 dark:border-white/10 dark:bg-[#0a0a0a]">
                   <span className="text-sm text-neutral-400 flex-1">Type a message...</span>
-                  <button className="flex h-8 w-8 items-center justify-center rounded-full bg-[#EFB338] text-black">
+                  <button className="flex h-8 w-8 items-center justify-center rounded-full bg-[] text-black">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="m22 2-7 20-4-9-9-4Z" />
                       <path d="M22 2 11 13" />
@@ -428,7 +428,7 @@ export function SafiSection() {
               transition={{ duration: 0.6 }}
               className="order-1 lg:order-2"
             >
-              <span className="text-sm font-semibold uppercase tracking-wider text-[#EFB338]">
+              <span className="text-sm font-semibold uppercase tracking-wider text-[]">
                 Conversational Transactions
               </span>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -444,7 +444,7 @@ export function SafiSection() {
                   "Balances, statements, and loan status in plain language.",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-3 text-sm font-medium">
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#EFB338]/20 text-[#EFB338]">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[]/20 text-[]">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     </span>
                     {item}
@@ -467,7 +467,7 @@ export function SafiSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <span className="text-sm font-semibold uppercase tracking-wider text-[#EFB338]">
+              <span className="text-sm font-semibold uppercase tracking-wider text-[]">
                 Vibe Financing
               </span>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -483,7 +483,7 @@ export function SafiSection() {
                   "Suggestions are reviewed and approved before posting.",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-3 text-sm font-medium">
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#EFB338]/20 text-[#EFB338]">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[]/20 text-[]">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     </span>
                     {item}
@@ -499,7 +499,7 @@ export function SafiSection() {
               transition={{ duration: 0.6 }}
               className="rounded-3xl border border-black/10 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-[#111111]"
             >
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[#EFB338]/10 text-[#EFB338]">
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[]/10 text-[]">
                 <BookIcon />
               </div>
               <h3 className="text-2xl font-semibold tracking-tight">Plain-language bookkeeping.</h3>
@@ -548,7 +548,7 @@ export function SafiSection() {
               transition={{ duration: 0.6 }}
               className="order-2 lg:order-1 rounded-3xl border border-black/10 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-[#111111]"
             >
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[#EFB338]/10 text-[#EFB338]">
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[]/10 text-[]">
                 <ChartIcon />
               </div>
               <h3 className="text-2xl font-semibold tracking-tight">See what&apos;s coming. Know what to do.</h3>
@@ -571,7 +571,7 @@ export function SafiSection() {
               transition={{ duration: 0.6 }}
               className="order-1 lg:order-2"
             >
-              <span className="text-sm font-semibold uppercase tracking-wider text-[#EFB338]">
+              <span className="text-sm font-semibold uppercase tracking-wider text-[]">
                 Forecasting & Advisory
               </span>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -587,7 +587,7 @@ export function SafiSection() {
                   "Get an answer with the figures behind it when you ask your numbers.",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-3 text-sm font-medium">
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#EFB338]/20 text-[#EFB338]">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[]/20 text-[]">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     </span>
                     {item}
@@ -609,7 +609,7 @@ export function SafiSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <span className="text-sm font-semibold uppercase tracking-wider text-[#EFB338]">
+              <span className="text-sm font-semibold uppercase tracking-wider text-[]">
                 Fraud Detection
               </span>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -624,7 +624,7 @@ export function SafiSection() {
                   <span className="text-xs font-medium">Low risk: Approve</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-[#EFB338]" />
+                  <span className="h-2 w-2 rounded-full bg-[]" />
                   <span className="text-xs font-medium">Medium risk: Verify</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -641,7 +641,7 @@ export function SafiSection() {
               transition={{ duration: 0.6 }}
               className="rounded-3xl border border-black/10 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-[#111111]"
             >
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[#EFB338]/10 text-[#EFB338]">
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[]/10 text-[]">
                 <ShieldIcon />
               </div>
               <h3 className="text-2xl font-semibold tracking-tight">Advanced threat detection.</h3>
@@ -673,7 +673,7 @@ export function SafiSection() {
           <div className="mt-10">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-full bg-[#EFB338] px-8 py-3.5 text-sm font-semibold text-black transition-opacity hover:opacity-90"
+              className="inline-flex items-center justify-center rounded-full bg-[] px-8 py-3.5 text-sm font-semibold text-black transition-opacity hover:opacity-90"
             >
               Talk to our team
             </Link>

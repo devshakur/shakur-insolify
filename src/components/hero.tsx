@@ -17,7 +17,7 @@ const customers = [
 ] as const;
 
 // Duplicate for seamless marquee loop
-const marqueeCustomers = [...customers, ...customers];
+const marqueeCustomers = [...customers, ...customers, ...customers, ...customers];
 
 export function Hero() {
   const dashboardRef = useRef(null);
@@ -55,7 +55,7 @@ export function Hero() {
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M7 17L17 7M17 7H7M17 7V17"/>
               </svg>
-              <span>Introducing Insolify Next-Gen Core Banking</span>
+              <span>Next-Gen Core Banking</span>
             </div>
           </motion.div>
 
@@ -65,7 +65,7 @@ export function Hero() {
             animate="visible"
             className="mx-auto max-w-3xl text-balance text-4xl font-semibold tracking-tight text-[#0b0c2b] sm:text-5xl  lg:leading-[1.1] dark:text-white"
           >
-            Manage Your Financial Operations with Clarity and Control
+            Financial Operations, Simplified.
           </motion.h1>
 
           <motion.p 
@@ -75,7 +75,7 @@ export function Hero() {
             transition={{ delay: 0.2, duration: 1 }}
             className="mx-auto mt-6 max-w-2xl text-pretty text-base text-neutral-500 sm:text-lg dark:text-neutral-400"
           >
-            Deliver scalable, intelligent technology that simplifies financial operations, modernizes legacy systems, and empowers your team.
+            Scalable, intelligent technology for modern financial institutions.
           </motion.p>
 
           <motion.div 
@@ -110,11 +110,11 @@ export function Hero() {
   
   {/* Scaled down striped background */}
   <div className="absolute inset-x-0 top-8 bottom-0 -z-10 mx-auto w-full max-w-3xl overflow-hidden rounded-[3rem]">
-    <div className="absolute inset-0 bg-[#EFB338]/15 dark:bg-[#EFB338]/5" />
+    <div className="absolute inset-0 bg-black/10 dark:bg-white/10 dark:bg-black/5 dark:bg-white/5" />
     <div 
       className="absolute inset-0 opacity-40 dark:opacity-20"
       style={{
-        backgroundImage: "repeating-linear-gradient(90deg, transparent, transparent 24px, #EFB338 24px, #EFB338 48px)",
+        backgroundImage: "repeating-linear-gradient(90deg, transparent, transparent 24px, #000000 24px, #000000 48px)",
       }}
     />
     <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white dark:from-black dark:via-transparent dark:to-black" />
@@ -184,7 +184,7 @@ export function Hero() {
           </div>
           
           <div className="mb-2 flex h-2 w-full overflow-hidden rounded-full bg-neutral-100 dark:bg-neutral-800">
-            <div className="h-full bg-[#EFB338]" style={{ width: '25%' }}></div>
+            <div className="h-full bg-[#000000]" style={{ width: '25%' }}></div>
             <div className="h-full bg-blue-500" style={{ width: '35%' }}></div>
           </div>
           <div className="mb-6 flex justify-between text-[10px] text-neutral-400 dark:text-neutral-500">
@@ -203,7 +203,7 @@ export function Hero() {
                     <div className="mt-1.5 h-1.5 w-16 rounded bg-neutral-100 dark:bg-neutral-800" />
                   </div>
                 </div>
-                <div className="h-2 w-2 rounded-full bg-[#EFB338]" />
+                <div className="h-2 w-2 rounded-full bg-[#000000]" />
               </div>
             ))}
           </div>
@@ -232,7 +232,7 @@ export function Hero() {
               <span className="text-[10px] text-neutral-400 dark:text-neutral-500">Wed</span>
             </div>
             <div className="flex w-full flex-col items-center gap-2">
-              <div className="w-full rounded-t bg-[#EFB338]" style={{ height: '120px' }}></div>
+              <div className="w-full rounded-t bg-[#000000]" style={{ height: '120px' }}></div>
               <div className="w-full rounded-t bg-black dark:bg-white" style={{ height: '80px' }}></div>
               <span className="text-[10px] font-medium text-black dark:text-white">Thu</span>
             </div>
@@ -264,7 +264,7 @@ export function Hero() {
             </div>
             <div>
               <div className="flex items-center gap-1.5 text-[10px] text-neutral-500 dark:text-neutral-400">
-                <div className="h-2 w-2 rounded-full bg-[#EFB338]" /> Break
+                <div className="h-2 w-2 rounded-full bg-[#000000]" /> Break
               </div>
               <div className="mt-1 text-sm font-semibold">9.30</div>
             </div>
@@ -290,46 +290,31 @@ export function Hero() {
       <section className=" bg-white py-4 overflow-hidden dark:border-white/5 dark:bg-black">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <p className="mb-10 text-sm font-medium uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
-            Join the banks and microfinance banks across Africa that run better with Insolify
+            Trusted by banks and microfinance institutions across Africa
           </p>
           
-          <div className="relative flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] dark:[mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
-            <div className="flex animate-marquee whitespace-nowrap items-center">
-              
+          <div className="relative flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] dark:[mask-image:linear-gradient(to_right,transparent,white_8%,white_92%,transparent)]">
+            <div className="flex animate-marquee items-center gap-6 sm:gap-8 py-2">
               {marqueeCustomers.map((customer, index) => (
                 <div 
                   key={`${customer.name}-${index}`} 
-                  className="mx-8 sm:mx-12 flex h-14 shrink-0 items-center justify-center transition-opacity hover:opacity-100 opacity-60 dark:opacity-50 dark:hover:opacity-100 dark:invert dark:mix-blend-screen"
+                  className="flex h-16 shrink-0 items-center justify-center rounded-2xl border border-black/5 bg-neutral-50/90 px-6 py-2.5 shadow-2xs transition-all duration-300 hover:border-black/20 hover:bg-white dark:border-white/10 dark:bg-neutral-900/90 dark:hover:border-white/20"
                 >
                   <Image
                     src={customer.src}
                     alt={customer.name}
-                    width={160}
-                    height={48}
-                    className="h-8 w-auto max-w-32 object-contain sm:h-10 sm:max-w-40"
+                    width={220}
+                    height={56}
+                    unoptimized
+                    priority={index < 6}
+                    className="h-8 sm:h-9 w-auto max-w-[130px] sm:max-w-[160px] object-contain transition-all duration-300"
                   />
                 </div>
               ))}
-
             </div>
           </div>
         </div>
       </section>
-
-      {/* Add this style block to your globals.css or keep it here for the marquee animation */}
-      <style jsx>{`
-        @keyframes marquee {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-          animation: marquee 30s linear infinite;
-        }
-        /* Pause animation on hover */
-        .animate-marquee:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
     </div>
   );
 }

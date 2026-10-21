@@ -11,11 +11,11 @@ export function DropletIcon() {
     <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden>
       <path
         d="M9 1.6c2.2 2.8 4.2 5.2 4.2 8.1a4.2 4.2 0 1 1-8.4 0c0-2.9 2-5.3 4.2-8.1Z"
-        fill="#E2B857"
+        fill="#000000"
       />
       <path
         d="M9 8.2c1.2 1.1 2 2.1 2 3.3a2 2 0 1 1-4 0c0-1.2.8-2.2 2-3.3Z"
-        fill="#F6E3A4"
+        fill="#000000"
       />
     </svg>
   );
@@ -30,7 +30,7 @@ export function LoopIcon() {
         strokeWidth="1.6"
         strokeLinecap="round"
       />
-      <path d="M12.2 4.2h2.2V6.4" stroke="#E2B857" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M12.2 4.2h2.2V6.4" stroke="#000000" strokeWidth="1.6" strokeLinecap="round" />
       <path
         d="M11.8 13.8A5 5 0 0 1 4.4 11"
         stroke="currentColor"
@@ -45,11 +45,11 @@ export function LoopIcon() {
 export function NodesIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
-      <path d="M5 9h8M9 5v8" stroke="#E2B857" strokeWidth="1.4" />
-      <circle cx="5" cy="9" r="1.7" fill="#E2B857" />
-      <circle cx="13" cy="9" r="1.7" fill="#E2B857" />
-      <circle cx="9" cy="4.5" r="1.5" stroke="#E2B857" />
-      <circle cx="9" cy="13.5" r="1.5" stroke="#E2B857" />
+      <path d="M5 9h8M9 5v8" stroke="#000000" strokeWidth="1.4" />
+      <circle cx="5" cy="9" r="1.7" fill="#FFFFFF" />
+      <circle cx="13" cy="9" r="1.7" fill="#FFFFFF" />
+      <circle cx="9" cy="4.5" r="1.5" stroke="#000000" />
+      <circle cx="9" cy="13.5" r="1.5" stroke="#000000" />
     </svg>
   );
 }

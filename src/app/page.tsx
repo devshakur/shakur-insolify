@@ -6,6 +6,7 @@ import { PowerfulFeatures } from "@/features/products/powerful-features";
 import { SiteFooter } from "@/components/site-footer";
 import { TrustedBrands } from "@/features/products/trusted-brands";
 import { InsolifyProductShowcase } from "@/features/products/insolify-product-showcase";
+import { ProductSpotlights } from "@/features/products/product-spotlights";
 import { Audience } from "@/features/fincore/Audience";
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
       <main>
         <Hero />
         <InsolifyProductShowcase />
+        <ProductSpotlights />
         <Audience />
         <TrustedBrands />
         <ProblemSolutions />

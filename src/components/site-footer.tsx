@@ -138,14 +138,13 @@ function CtaBanner() {
     >
       <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
         <h2 className="text-2xl font-medium leading-snug tracking-tight sm:text-3xl">
-          Upgrade Your Institution&apos;s Banking Operations with a Modern
-          Platform Built for Speed, Security, and Scale Across Africa
+          Modern banking infrastructure built for speed, security, and scale.
         </h2>
         <Link
           href="/contact"
           className="mt-8 inline-flex h-10 items-center rounded-full bg-black px-6 text-sm font-medium text-white transition-colors hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
         >
-          Book a 30-min demo with the Insolify team
+          Book a demo with the Insolify team
         </Link>
       </div>
     </section>

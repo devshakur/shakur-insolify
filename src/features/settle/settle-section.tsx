@@ -1,82 +1,106 @@
+"use client";
+
 import Link from "next/link";
-import { LoopIcon } from "@/features/products/icons";
-import { getProduct } from "@/features/products/products";
+import { motion } from "framer-motion";
 import { SettlePreview } from "@/features/settle/settle-preview";
 
-const stats = [
-  { value: "Pan-African", label: "Coverage" },
-  { value: "4", label: "Payout rails" },
-  { value: "Lower fees", label: "Vs. banks" },
+const heroMetrics = [
+  { value: "54+", label: "African markets reachable" },
+  { value: "< 60s", label: "Average settlement time" },
+  { value: "0.25%", label: "Starting transfer fee" },
+  { value: "99.99%", label: "Uptime on payout rails" },
 ] as const;
 
 export function SettleSection() {
-  const product = getProduct("settle");
-
   return (
-    <section id="settle" className="px-4 pb-8 sm:px-6 lg:px-10">
-      <div className="rounded-4xl bg-white px-5 py-12 shadow-[0_24px_80px_rgba(20,16,40,0.04)] sm:rounded-[2.75rem] sm:px-10 sm:py-16 lg:px-14 lg:py-16 dark:bg-[#141418] dark:shadow-none">
-        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-16">
-          <div>
-            <p className="inline-flex items-center gap-2 text-[15px] font-semibold tracking-tight text-[#111] dark:text-white">
-              <span className="inline-flex size-8 items-center justify-center rounded-full bg-[#111] text-white dark:bg-white dark:text-[#111]">
-                <LoopIcon />
-              </span>
-              Settle Africa
-            </p>
-            <h1 className="mt-6 max-w-xl text-[2.15rem] leading-[1.08] font-semibold tracking-tight text-[#111] sm:text-5xl dark:text-white">
-              Fast, flexible, and secure money transfers
-            </h1>
-            <p className="mt-5 max-w-md text-sm leading-7 text-[#6B7280] sm:text-[15px] dark:text-[#9CA3AF]">
-              {product.description} Send across Africa and beyond with fees shown
-              upfront, and track every payout in TVerify.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-2.5">
-              <Link
-                href="https://dash.insolify.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-11 items-center gap-2 rounded-full bg-[#111] px-5 text-sm font-medium text-white transition-colors hover:bg-black dark:bg-white dark:text-[#111] dark:hover:bg-[#e8e8e8]"
-              >
-                Start a transfer
-                <ArrowIcon />
-              </Link>
-              <Link
-                href="#settle-methods"
-                className="inline-flex h-11 items-center gap-2 rounded-full bg-[#f2f2f4] px-5 text-sm font-medium text-[#111] transition-colors hover:bg-[#e8e8ec] dark:bg-[#2a2a30] dark:text-white dark:hover:bg-[#33333a]"
-              >
-                Learn more
-                <ArrowIcon />
-              </Link>
-            </div>
-            <dl className="mt-12 grid max-w-md grid-cols-3 gap-4 border-t border-[#eeeef2] pt-8 dark:border-white/10">
-              {stats.map((stat) => (
-                <div key={stat.label}>
-                  <dt className="text-[11px] text-[#8a8a8a] dark:text-[#9CA3AF]">{stat.label}</dt>
-                  <dd className="mt-1 text-xl font-semibold tracking-tight text-[#111] sm:text-2xl dark:text-white">
-                    {stat.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+    <section id="settle" className="relative px-4 pt-6 pb-12 sm:px-6 sm:pt-10 sm:pb-16 lg:px-10">
+      {/* Background ambient glow */}
+      <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-black/10 dark:bg-white/10 blur-[120px] dark:bg-black/5 dark:bg-white/5" />
+
+      <div className="mx-auto max-w-6xl">
+        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
+          {/* Left Column: Narrative & CTAs */}
+          <div className="lg:col-span-6">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="inline-flex items-center gap-2 rounded-full border border-black/20 dark:border-white/20 bg-black/10 dark:bg-white/10 px-4 py-1.5 text-xs font-medium text-black dark:text-white">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#000000]" />
+                <span className="font-semibold">Settle Africa</span>
+                <span className="text-black/30 dark:text-white/30">|</span>
+                <span>By Insolify</span>
+              </div>
+
+              <h1 className="mt-5 text-4xl font-semibold tracking-tight text-black sm:text-5xl lg:text-6xl dark:text-white">
+                Transactions across Africa,{" "}
+                <span className="italic font-light text-black dark:text-white">
+                  made simple.
+                </span>
+              </h1>
+
+              <p className="mt-5 text-base leading-relaxed text-neutral-600 sm:text-lg dark:text-neutral-400">
+                A modern financial application and infrastructure designed for seamless cross-border settlement, transparent FX rates, and a connected view of your finances.
+              </p>
+
+              {/* Action Buttons */}
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <Link
+                  href="/contact"
+                  className="inline-flex h-12 items-center gap-2 rounded-full bg-black px-7 text-sm font-semibold text-white transition-opacity hover:opacity-90 dark:bg-white dark:text-black"
+                >
+                  Learn About Settle
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </Link>
+                <Link
+                  href="#corridors"
+                  className="inline-flex h-12 items-center gap-2 rounded-full border border-black/10 bg-white px-6 text-sm font-medium text-black transition-colors hover:border-black/20 dark:border-white/20 dark:border-white/15 dark:bg-transparent dark:text-white dark:hover:border-black/20 dark:border-white/20"
+                >
+                  Explore Corridors
+                </Link>
+                <Link
+                  href="/tverify"
+                  className="inline-flex h-12 items-center gap-2 rounded-full bg-neutral-100 px-5 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
+                >
+                  Track with TVerify
+                </Link>
+              </div>
+
+              <p className="mt-4 text-xs text-neutral-500 dark:text-neutral-500">
+                Availability and supported corridors may vary by regulatory jurisdiction.
+              </p>
+
+              {/* Key metrics grid */}
+              <dl className="mt-10 grid grid-cols-2 gap-4 border-t border-black/5 pt-6 sm:grid-cols-4 dark:border-white/10">
+                {heroMetrics.map((stat) => (
+                  <div key={stat.label}>
+                    <dd className="text-2xl font-bold tracking-tight text-black dark:text-white">
+                      {stat.value}
+                    </dd>
+                    <dt className="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
+                      {stat.label}
+                    </dt>
+                  </div>
+                ))}
+              </dl>
+            </motion.div>
           </div>
 
-          <SettlePreview />
+          {/* Right Column: Live Interactive Settle Preview */}
+          <div className="lg:col-span-6">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+            >
+              <SettlePreview />
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function ArrowIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-      <path
-        d="M3 7h8M8 4l3 3-3 3"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
   );
 }
