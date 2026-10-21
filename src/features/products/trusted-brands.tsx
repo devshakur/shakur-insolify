@@ -1,4 +1,4 @@
-import Image from "next/image";
+
 
 const brands = [
   { name: "MicroBiz Bank LTD", src: "/image/brands/microbiz.png" },
@@ -9,8 +9,7 @@ const brands = [
   { name: "Pillar", src: "/image/brands/pillar.png" },
 ] as const;
 
-// 4x loop for seamless continuous infinite marquee
-const marqueeBrands = [...brands, ...brands, ...brands, ...brands];
+
 
 export function TrustedBrands() {
   return (

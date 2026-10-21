@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Shield, Radio, CreditCard, MousePointerBanIcon, PlantPotIcon, Plane } from "lucide-react";
+import { ArrowRight, CheckCircle2, Radio, CreditCard, MousePointerBanIcon, Plane } from "lucide-react";
 
 export function ProductSpotlights() {
   return (

@@ -55,7 +55,7 @@ export function ContactSection() {
   return (
     <section className="bg-white py-20 sm:py-28 dark:bg-[#0a0a0a]">
       <div className="mx-auto max-w-6xl px-6">
-        
+
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">
           <h1 className="text-4xl font-semibold tracking-tight text-black sm:text-5xl lg:text-6xl dark:text-white">
@@ -69,7 +69,7 @@ export function ContactSection() {
 
         {/* Main Grid */}
         <div className="mt-16 grid gap-10 lg:grid-cols-2 lg:gap-16">
-          
+
           {/* Left Column: Booking Calendar */}
           <div className="flex flex-col rounded-3xl border border-black/10 bg-neutral-50/50 p-6 sm:p-8 dark:border-white/10 dark:bg-[#111111]">
             <div className="mb-6 flex items-center gap-3">
@@ -93,11 +93,11 @@ export function ContactSection() {
                   <button className="flex h-8 w-8 items-center justify-center rounded-md border border-black/10 hover:bg-neutral-50 dark:border-white/10 dark:hover:bg-white/5">&rarr;</button>
                 </div>
               </div>
-              
+
               <div className="grid grid-cols-7 gap-1 text-center text-xs font-medium text-neutral-400">
                 <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
               </div>
-              
+
               <div className="mt-2 grid grid-cols-7 gap-1">
                 {/* Empty slots for offset */}
                 {Array.from({ length: startDayOffset }).map((_, i) => (
@@ -108,19 +108,18 @@ export function ContactSection() {
                   const day = i + 1;
                   const isSelected = selectedDate === day;
                   const isPast = day < 10; // Mock: disable past days
-                  
+
                   return (
                     <button
                       key={day}
                       disabled={isPast}
                       onClick={() => setSelectedDate(day)}
-                      className={`flex h-10 items-center justify-center rounded-lg text-sm transition-colors ${
-                        isSelected
+                      className={`flex h-10 items-center justify-center rounded-lg text-sm transition-colors ${isSelected
                           ? "bg-[#000000] font-semibold text-black shadow-sm"
                           : isPast
-                          ? "cursor-not-allowed text-neutral-300 dark:text-neutral-600"
-                          : "text-black hover:bg-neutral-100 dark:text-white dark:hover:bg-white/10"
-                      }`}
+                            ? "cursor-not-allowed text-neutral-300 dark:text-neutral-600"
+                            : "text-black hover:bg-neutral-100 dark:text-white dark:hover:bg-white/10"
+                        }`}
                     >
                       {day}
                     </button>
@@ -137,11 +136,10 @@ export function ContactSection() {
                   <button
                     key={time}
                     onClick={() => setSelectedTime(time)}
-                    className={`flex items-center justify-center gap-1.5 rounded-lg border px-2 py-2.5 text-xs font-medium transition-all ${
-                      selectedTime === time
+                    className={`flex items-center justify-center gap-1.5 rounded-lg border px-2 py-2.5 text-xs font-medium transition-all ${selectedTime === time
                         ? "border-[#000000] bg-black/10 dark:bg-white/10 text-black dark:text-white"
                         : "border-black/10 bg-white text-neutral-600 hover:border-black/30 dark:border-white/10 dark:bg-transparent dark:text-neutral-300 dark:hover:border-white/30"
-                    }`}
+                      }`}
                   >
                     <ClockIcon />
                     {time}
@@ -168,7 +166,7 @@ export function ContactSection() {
                 Send a message
               </h2>
               <p className="mt-2 text-[15px] text-neutral-500 dark:text-neutral-400">
-                Don't include sensitive account details, credentials, or payment info.
+                Don &apos;t include sensitive account details, credentials, or payment info.
               </p>
             </div>
 
